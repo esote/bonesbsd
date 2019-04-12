@@ -166,10 +166,6 @@ extern struct cfdriver drm_cd;
 #define DRM_READMEMORYBARRIER()		DRM_MEMORYBARRIER() 
 #define DRM_WRITEMEMORYBARRIER()	DRM_MEMORYBARRIER()
 #define DRM_MEMORYBARRIER()		mips_sync()
-#elif defined(__powerpc__)
-#define DRM_READMEMORYBARRIER()		DRM_MEMORYBARRIER() 
-#define DRM_WRITEMEMORYBARRIER()	DRM_MEMORYBARRIER()
-#define DRM_MEMORYBARRIER()		__asm __volatile("sync" : : : "memory");
 #elif defined(__sparc64__)
 #define DRM_READMEMORYBARRIER()		DRM_MEMORYBARRIER() 
 #define DRM_WRITEMEMORYBARRIER()	DRM_MEMORYBARRIER()

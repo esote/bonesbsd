@@ -5,8 +5,7 @@ NOMAN=
 CC=${HOSTCC}
 
 # USB capable systems only
-.if (${MACHINE_ARCH} == "powerpc" || \
-    ${MACHINE} == "alpha" || ${MACHINE} == "amd64" || \
+.if (${MACHINE} == "alpha" || ${MACHINE} == "amd64" || \
     ${MACHINE} == "arm64" || ${MACHINE} == "armv7" || \
     ${MACHINE} == "hppa" || ${MACHINE} == "i386" || \
     ${MACHINE} == "landisk" || ${MACHINE} == "loongson" || \

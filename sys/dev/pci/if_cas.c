@@ -331,12 +331,6 @@ cas_attach(struct device *parent, struct device *self, void *aux)
 		gotenaddr = 1;
 	}
 #endif
-#ifdef __powerpc__
-	if (!gotenaddr) {
-		pci_ether_hw_addr(pa->pa_pc, sc->sc_arpcom.ac_enaddr);
-		gotenaddr = 1;
-	}
-#endif
 
 	sc->sc_burst = 16;	/* XXX */
 

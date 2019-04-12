@@ -7,7 +7,7 @@ CC=${HOSTCC}
 # PCI capable systems only
 .if (${MACHINE} == "i386") || (${MACHINE} == "amd64") || \
     (${MACHINE} == "alpha") || (${MACHINE} == "sparc64") || \
-    (${MACHINE_ARCH} == "powerpc") || (${MACHINE} == "hppa") || \
+    (${MACHINE} == "hppa") || \
     (${MACHINE} == "sgi")
 
 FIRM=	3c990

@@ -9,7 +9,6 @@ CC=${HOSTCC}
      ${MACHINE} == "hppa" || \
      ${MACHINE} == "i386" || \
      ${MACHINE} == "loongson" || ${MACHINE} == "octeon" || \
-     ${MACHINE_ARCH} == "powerpc" || \
      ${MACHINE} == "sgi" || ${MACHINE} == "sparc64")
 
 FIRM=	ral-rt2561 ral-rt2561s ral-rt2661 ral-rt2860 ral-rt3290

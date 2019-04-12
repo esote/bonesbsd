@@ -119,8 +119,6 @@ struct isabus_attach_args;
 #include <alpha/isa/isa_machdep.h>
 #elif defined(__i386__)
 #include <i386/isa/isa_machdep.h>
-#elif defined(__powerpc__)
-#include <powerpc/isa/isa_machdep.h>
 #else
 #include <machine/isa_machdep.h>
 #endif

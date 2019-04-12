@@ -220,7 +220,7 @@ static struct ttm_pool_manager *_manager;
 static int set_pages_array_wb(struct vm_page **pages, int addrinarray)
 {
 #ifdef TTM_HAS_AGP
-#if defined(__amd64__) || defined(__i386__) || defined(__powerpc__)
+#if defined(__amd64__) || defined(__i386__)
 	int i;
 
 	for (i = 0; i < addrinarray; i++)
@@ -235,7 +235,7 @@ static int set_pages_array_wb(struct vm_page **pages, int addrinarray)
 static int set_pages_array_wc(struct vm_page **pages, int addrinarray)
 {
 #ifdef TTM_HAS_AGP
-#if defined(__amd64__) || defined(__i386__) || defined(__powerpc__)
+#if defined(__amd64__) || defined(__i386__)
 	int i;
 
 	for (i = 0; i < addrinarray; i++)
