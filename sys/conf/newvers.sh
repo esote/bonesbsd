@@ -52,8 +52,6 @@ id=`basename "${d}"`
 #		OSMINOR
 #	etc/root/root.mail
 #		VERSION and other bits
-#	sys/arch/macppc/stand/tbxidata/bsd.tbxi
-#		change	/X.X/macppc/bsd.rd
 #	usr.bin/signify/signify.1
 #		change the version in the EXAMPLES section
 #

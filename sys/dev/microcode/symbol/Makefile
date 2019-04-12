@@ -6,7 +6,6 @@ CC=${HOSTCC}
 
 # pcmcia capable systems only
 .if (${MACHINE} == "i386") || (${MACHINE} == "amd64") || \
-    (${MACHINE} == "macppc") || \
     (${MACHINE} == "sparc64") || (${MACHINE} == "hppa") || \
     (${MACHINE} == "sgi")
 

@@ -2342,15 +2342,6 @@ isprint(int c)
 	return (0);
 }
 
-#ifdef __macppc__
-static __inline int
-of_machine_is_compatible(const char *model)
-{
-	extern char *hw_prod;
-	return (strcmp(model, hw_prod) == 0);
-}
-#endif
-
 typedef unsigned int gfp_t;
 
 struct vm_page *alloc_pages(unsigned int, unsigned int);

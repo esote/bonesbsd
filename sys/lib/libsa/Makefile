@@ -12,7 +12,7 @@ DIR=${SAREL}${SADIR}
 AFLAGS+=${XAFLAGS}
 CFLAGS+=${XCFLAGS} -D_STANDALONE -DCOMPAT_UFS $(DEBUGFLAGS) -I${DIR} -I${DIR}/../..
 #
-# Needed for alpha and macppc
+# Needed for alpha
 CFLAGS+=$(EXTRACFLAGS)
 
 .if defined(USE_LOADFILE)

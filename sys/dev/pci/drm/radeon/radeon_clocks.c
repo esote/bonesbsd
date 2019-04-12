@@ -31,7 +31,7 @@
 #include "radeon.h"
 #include "atom.h"
 
-#if defined(__macppc__) || defined(__sparc64__)
+#if defined(__sparc64__)
 #include <dev/ofw/openfirm.h>
 #endif
 
@@ -180,7 +180,7 @@ static bool radeon_read_clocks_OF(struct drm_device *dev)
 
 #else
 
-#if defined(__macppc__) || defined(__sparc64__)
+#if defined(__sparc64__)
 /*
  * Read XTAL (ref clock), SCLK and MCLK from Open Firmware device
  * tree. Hopefully, ATI OF driver is kind enough to fill these

@@ -441,7 +441,7 @@ radeondrm_attach_kms(struct device *parent, struct device *self, void *aux)
 	int			 s;
 #endif
 
-#if defined(__sparc64__) || defined(__macppc__)
+#if defined(__sparc64__)
 	extern int fbnode;
 #endif
 
@@ -455,7 +455,7 @@ radeondrm_attach_kms(struct device *parent, struct device *self, void *aux)
 	rdev->memt = pa->pa_memt;
 	rdev->dmat = pa->pa_dmat;
 
-#if defined(__sparc64__) || defined(__macppc__)
+#if defined(__sparc64__)
 	if (fbnode == PCITAG_NODE(rdev->pa_tag))
 		rdev->console = 1;
 #else

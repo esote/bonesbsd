@@ -43,7 +43,7 @@
 
 #if defined(__amd64__) || defined(__arm64__) || \
     defined(__i386__) || defined(__loongson__) || \
-    defined(__macppc__) || defined(__sparc64__)
+    defined(__sparc64__)
 #include "drm.h"
 #endif
 

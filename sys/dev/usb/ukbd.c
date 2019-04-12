@@ -556,15 +556,9 @@ ukbd_apple_munge(void *vsc, uint8_t *ibuf, u_int ilen)
 		{ 65, 0 },	/* F8 -> audio pause/play */
 		{ 66, 0 },	/* F9 -> audio next */
 #endif
-#ifdef __macppc__
-		{ 60, 127 },	/* F3 -> audio mute */
-		{ 61, 129 },	/* F4 -> audio lower */
-		{ 62, 128 },	/* F5 -> audio raise */
-#else
 		{ 67, 127 },	/* F10 -> audio mute */
 		{ 68, 129 },	/* F11 -> audio lower */
 		{ 69, 128 },	/* F12 -> audio raise */
-#endif
 		{ 79, 77 },	/* right -> end */
 		{ 80, 74 },	/* left -> home */
 		{ 81, 78 },	/* down -> page down */

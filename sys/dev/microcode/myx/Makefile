@@ -7,7 +7,7 @@ LDADD=-lz
 DPADD=${LIBZ}
 
 # full-size PCI capable systems only
-.if (${MACHINE} == "macppc") || (${MACHINE} == "alpha") || \
+.if ((${MACHINE} == "alpha") || \
     (${MACHINE} == "amd64") || (${MACHINE} == "hppa") || \
     (${MACHINE} == "i386") || \
     (${MACHINE} == "sgi") || (${MACHINE} == "sparc64")

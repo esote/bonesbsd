@@ -4,7 +4,7 @@
 
 ARCH=	alpha amd64 armv7 arm64 \
 	hppa i386 landisk loongson \
-	luna88k macppc octeon sgi socppc \
+	luna88k octeon sgi \
 	sparc64
 
 all:
