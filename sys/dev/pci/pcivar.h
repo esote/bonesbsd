@@ -69,9 +69,7 @@ struct pci_softc;
 /*
  * Machine-dependent definitions.
  */
-#if defined(__alpha__)
-#include <alpha/pci/pci_machdep.h>
-#elif defined(__i386__)
+#if defined(__i386__)
 #include <i386/pci/pci_machdep.h>
 #elif defined(__sgi__)
 #include <sgi/pci/pci_machdep.h>

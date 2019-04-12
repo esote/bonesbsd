@@ -91,7 +91,7 @@
 #define	FONT_SPLEEN8x16
 #if defined(__sparc64__)
 #define	FONT_GALLANT12x22
-#elif defined(__alpha__) || defined(__luna88k__) || \
+#elif defined(__luna88k__) || \
     defined(__sgi__) || !defined(SMALL_KERNEL)
 #define FONT_SPLEEN12x24
 #endif
@@ -165,7 +165,7 @@ static struct font builtin_fonts[] = {
 #undef BUILTIN_FONT
 };
 
-#if !defined(SMALL_KERNEL) || defined(__alpha__)
+#if !defined(SMALL_KERNEL)
 #define INCLUDE_FONT_BIT_ENDIANNESS_SWAP_CODE
 #endif
 

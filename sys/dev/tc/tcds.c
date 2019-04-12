@@ -64,10 +64,6 @@
 #include <sys/device.h>
 #include <sys/malloc.h>
 
-#ifdef __alpha__
-#include <machine/rpb.h>
-#endif /* __alpha__ */
-
 #include <scsi/scsi_all.h>
 #include <scsi/scsiconf.h>
 
@@ -114,10 +110,6 @@ struct tcds_device {
 	const char *td_name;
 	int td_flags;
 } tcds_devices[] = {
-#ifdef __alpha__
-	{ "PMAZ-DS ",	TCDSF_BASEBOARD },
-	{ "PMAZ-FS ",	TCDSF_BASEBOARD|TCDSF_FASTSCSI },
-#endif /* __alpha__ */
 	{ "PMAZB-AA",	0 },
 	{ "PMAZC-AA",	TCDSF_FASTSCSI },
 	{ NULL,		0 },
@@ -290,15 +282,6 @@ tcdsattach(parent, self, aux)
 		tcds_scsi_reset(tcdsdev.tcdsda_sc);
 
 		config_found_sm(self, &tcdsdev, tcdsprint, tcdssubmatch);
-#ifdef __alpha__
-		/*
-		 * The second SCSI chip isn't present on the baseboard TCDS
-		 * on the DEC Alpha 3000/300 series.
-		 */
-		if (sc->sc_flags & TCDSF_BASEBOARD &&
-		    cputype == ST_DEC_3000_300)
-			break;
-#endif /* __alpha__ */
 	}
 }
 
@@ -537,14 +520,6 @@ tcds_params(sc, chip, idp, fastp)
 	int id, fast;
 	u_int32_t ids;
 
-#ifdef __alpha__
-	if (sc->sc_flags & TCDSF_BASEBOARD) {
-		extern u_int8_t dec_3000_scsiid[], dec_3000_scsifast[];
-
-		id = dec_3000_scsiid[chip];
-		fast = dec_3000_scsifast[chip];
-	} else
-#endif /* __alpha__ */
 	{
 		/*
 		 * SCSI IDs are stored in the EEPROM, along with whether or

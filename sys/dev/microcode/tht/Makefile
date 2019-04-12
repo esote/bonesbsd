@@ -5,8 +5,7 @@ NOMAN=
 CC=${HOSTCC}
 
 # PCI capable systems only
-.if ((${MACHINE} == "alpha") || \
-    (${MACHINE} == "amd64") || \
+.if ((${MACHINE} == "amd64") || \
     (${MACHINE} == "i386") || \
     (${MACHINE} == "sgi") || (${MACHINE} == "sparc64")
 

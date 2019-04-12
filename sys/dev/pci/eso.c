@@ -1500,14 +1500,7 @@ eso_allocm(void *hdl, int direction, size_t size, int type, int flags)
 	 * XXX implements the 24 low address bits only, with
 	 * XXX machine-specific DMA tag use.
 	 */
-#if defined(__alpha__)
-	/*
-	 * XXX Force allocation through the (ISA) SGMAP.
-	 */
-	if (direction == AUMODE_RECORD)
-		ed->ed_dmat = alphabus_dma_get_tag(sc->sc_dmat, ALPHA_BUS_ISA);
-	else
-#elif defined(__amd64__) || defined(__i386__)
+#if defined(__amd64__) || defined(__i386__)
 	/*
 	 * XXX Force allocation through the ISA DMA tag.
 	 */

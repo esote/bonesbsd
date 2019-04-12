@@ -54,9 +54,7 @@ struct eisabus_attach_args;
 /*
  * Machine-dependent definitions.
  */
-#if defined(__alpha__)
-#include <alpha/eisa/eisa_machdep.h>
-#elif defined(__i386__)
+#if defined(__i386__)
 #include <i386/eisa/eisa_machdep.h>
 #else
 #include <machine/eisa_machdep.h>

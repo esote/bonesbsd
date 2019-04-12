@@ -39,14 +39,8 @@
 struct lereg1 {
 	volatile u_int16_t	ler1_rdp;	/* data port */
 	int16_t	pad0;
-#if defined(__alpha__)
-	int32_t	pad1;
-#endif
 	volatile u_int16_t	ler1_rap;	/* register select port */
 	int16_t	pad2;
-#if defined(__alpha__)
-	int32_t	pad3;
-#endif
 };
 
 /*

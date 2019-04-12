@@ -38,10 +38,6 @@
  * 21143 and clone common register definitions.
  */
 
-#ifdef __alpha__
-#define SRM_MEDIA
-#endif
-
 #define DC_BUSCTL		0x00	/* bus control */
 #define DC_TXSTART		0x08	/* tx start demand */
 #define DC_RXSTART		0x10	/* rx start demand */

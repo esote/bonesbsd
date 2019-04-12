@@ -836,17 +836,6 @@ TULIP_PERFREAD(
     return x;
 }
 #define	TULIP_PERFDIFF(s, f)	((f) - (s))
-#elif defined(__alpha__)
-typedef unsigned long tulip_cycle_t;
-static __inline__ tulip_cycle_t
-TULIP_PERFREAD(
-    void)
-{
-    tulip_cycle_t x;
-    __asm__ volatile ("rpcc %0" : "=r" (x));
-    return x;
-}
-#define	TULIP_PERFDIFF(s, f)	((unsigned int) ((f) - (s)))
 #endif
 #else
 #define	TULIP_PERFSTART(name)	

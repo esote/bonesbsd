@@ -70,10 +70,6 @@
 
 #include <dev/tc/zs_ioasicvar.h>
 
-#if defined(__alpha__)
-#include <machine/rpb.h>
-#endif
-
 /*
  * Helpers for console support.
  */
@@ -106,9 +102,6 @@ static void	zs_putc(struct zs_chanstate *, int);
  * Some warts needed by z8530tty.c
  */
 int zs_def_cflag = (TTYDEF_CFLAG & ~(CSIZE | PARENB)) | CS8;
-#if defined(__alpha__)
-int zs_major = 15;
-#endif
 
 /*
  * ZS chips are feeded a 7.372 MHz clock.
@@ -117,12 +110,6 @@ int zs_major = 15;
 
 /* The layout of this is hardware-dependent (padding, order). */
 struct zshan {
-#if defined(__alpha__) || defined(alpha)
-	volatile u_int	zc_csr;		/* ctrl,status, and indirect access */
-	u_int		zc_pad0;
-	volatile u_int	zc_data;	/* data */
-	u_int		sc_pad1;
-#endif
 };
 
 struct zsdevice {
@@ -155,10 +142,6 @@ zs_ioasic_get_chan_addr(tc_addr_t zsaddr, int channel)
 {
 	struct zsdevice *addr;
 	struct zshan *zc;
-
-#if defined(__alpha__)
-	addr = (struct zsdevice *)TC_DENSE_TO_SPARSE(zsaddr);
-#endif
 
 	if (channel == 0)
 		zc = &addr->zs_chan_a;
@@ -308,9 +291,6 @@ zs_ioasic_attach(struct device *parent, struct device *self, void *aux)
 			if (channel == 0)
 				zs_args.type = "lkkbd";
 			else {
-#if defined(__alpha__)
-				if (cputype != ST_DEC_3000_300)
-#endif
 					zs_args.type = "zstty";
 			}
 		}
@@ -354,12 +334,6 @@ zs_ioasic_attach(struct device *parent, struct device *self, void *aux)
 	/* master interrupt control (enable) */
 	zs_write_reg(zs->zsc_cs[0], 9, zs_ioasic_init_reg[9]);
 	zs_write_reg(zs->zsc_cs[1], 9, zs_ioasic_init_reg[9]);
-#if defined(__alpha__)
-	/* ioasic interrupt enable */
-	*(volatile u_int *)(ioasic_base + IOASIC_IMSK) |=
-	    IOASIC_INTR_SCC_1 | IOASIC_INTR_SCC_0;
-	tc_mb();
-#endif
 	splx(s);
 }
 
@@ -705,9 +679,6 @@ zs_ioasic_cninit(tc_addr_t ioasic_addr, tc_offset_t zs_offset, int channel)
 	 * Compute the physical address of the chip, "map" it via
 	 * K0SEG, and then get the address of the actual channel.
 	 */
-#if defined(__alpha__)
-	zs_addr = ALPHA_PHYS_TO_K0SEG(ioasic_addr + zs_offset);
-#endif
 	zc = zs_ioasic_get_chan_addr(zs_addr, channel);
 
 	/* Setup temporary chanstate. */

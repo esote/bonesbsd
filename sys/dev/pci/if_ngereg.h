@@ -697,8 +697,3 @@ struct nge_softc {
 
 #define NGE_PME_EN		0x0010
 #define NGE_PME_STATUS		0x8000
-
-#ifdef __alpha__
-#undef vtophys
-#define vtophys(va)		alpha_XXX_dmamap((vaddr_t)va)
-#endif

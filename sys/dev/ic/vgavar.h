@@ -75,13 +75,6 @@ struct vga_config {
 	paddr_t (*vc_mmap)(void *, off_t, int);
 
 	struct timeout vc_switch_timeout;
-
-#ifdef __alpha__
-	/* placeholder for a custom wsscreen_descr for odd resolutions */
-	struct wsscreen_descr custom_scr;
-	struct wsscreen_descr *custom_scrlist[1];
-	struct wsscreen_list custom_list;
-#endif
 };
 
 static inline u_int8_t _vga_attr_read(struct vga_handle *, int);

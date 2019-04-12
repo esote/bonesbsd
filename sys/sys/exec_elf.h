@@ -49,13 +49,8 @@ typedef __uint64_t	Elf64_Addr;
 typedef __uint64_t	Elf64_Off;
 typedef __int32_t	Elf64_Shalf;
 
-#ifdef __alpha__
-typedef __int64_t	Elf64_Sword;
-typedef __uint64_t	Elf64_Word;
-#else
 typedef __int32_t	Elf64_Sword;
 typedef __uint32_t	Elf64_Word;
-#endif
 
 typedef __int64_t	Elf64_Sxword;
 typedef __uint64_t	Elf64_Xword;

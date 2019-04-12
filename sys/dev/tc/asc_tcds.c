@@ -427,9 +427,7 @@ tcds_dma_intr(sc)
 			NCR_DMA(("dud1 at 0x%lx dudmask 0x%x\n",
 			    pa, dudmask));
 			/* XXX Fix TC_PHYS_TO_UNCACHED() */
-#if defined(__alpha__)
-			addr = (u_int32_t *)ALPHA_PHYS_TO_K0SEG(pa);
-#elif defined(__mips__)
+#if defined(__mips__)
 			addr = (u_int32_t *)MIPS_PHYS_TO_KSEG1(pa);
 #else
 #error TURBOchannel only exists on DECs, folks...

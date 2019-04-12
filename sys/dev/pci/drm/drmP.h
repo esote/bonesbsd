@@ -148,10 +148,6 @@ extern struct cfdriver drm_cd;
 #define DRM_WRITEMEMORYBARRIER()	__asm __volatile("" : : : "memory");
 #define DRM_MEMORYBARRIER()		__asm __volatile( \
 					"lock; addl $0,0(%%esp)" : : : "memory");
-#elif defined(__alpha__)
-#define DRM_READMEMORYBARRIER()		alpha_mb();
-#define DRM_WRITEMEMORYBARRIER()	alpha_wmb();
-#define DRM_MEMORYBARRIER()		alpha_mb();
 #elif defined(__amd64__)
 #define DRM_READMEMORYBARRIER()		__asm __volatile( \
 					"lock; addl $0,0(%%rsp)" : : : "memory");

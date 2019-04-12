@@ -236,9 +236,6 @@ atomic_sub_long_nv(volatile unsigned long *p, unsigned long v)
 static inline void
 membar_datadep_consumer(void)
 {
-#ifdef __alpha__
-	membar_consumer();
-#endif
 }
 
 #define READ_ONCE(x) ({							\

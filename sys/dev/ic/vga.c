@@ -133,39 +133,19 @@ static const struct wsdisplay_emulops vga_emulops = {
  * translate WS(=ANSI) color codes to standard pc ones
  */
 static const unsigned char fgansitopc[] = {
-#ifdef __alpha__
-	/*
-	 * XXX DEC HAS SWITCHED THE CODES FOR BLUE AND RED!!!
-	 * XXX We should probably not bother with this
-	 * XXX (reinitialize the palette registers).
-	 */
-	FG_BLACK, FG_BLUE, FG_GREEN, FG_CYAN, FG_RED,
-	FG_MAGENTA, FG_BROWN, FG_LIGHTGREY
-#else
 	FG_BLACK, FG_RED, FG_GREEN, FG_BROWN, FG_BLUE,
 	FG_MAGENTA, FG_CYAN, FG_LIGHTGREY
-#endif
 }, bgansitopc[] = {
-#ifdef __alpha__
-	BG_BLACK, BG_BLUE, BG_GREEN, BG_CYAN, BG_RED,
-	BG_MAGENTA, BG_BROWN, BG_LIGHTGREY
-#else
 	BG_BLACK, BG_RED, BG_GREEN, BG_BROWN, BG_BLUE,
 	BG_MAGENTA, BG_CYAN, BG_LIGHTGREY
-#endif
 };
 
 /*
  * translate standard pc color codes to WS(=ANSI) ones
  */
 static const u_int8_t pctoansi[] = {
-#ifdef __alpha__
-	WSCOL_BLACK, WSCOL_RED, WSCOL_GREEN, WSCOL_BROWN,
-	WSCOL_BLUE, WSCOL_MAGENTA, WSCOL_CYAN, WSCOL_WHITE
-#else
 	WSCOL_BLACK, WSCOL_BLUE, WSCOL_GREEN, WSCOL_CYAN,
 	WSCOL_RED, WSCOL_MAGENTA, WSCOL_BROWN, WSCOL_WHITE
-#endif
 };
 
 
@@ -434,15 +414,6 @@ vga_init_screen(struct vga_config *vc, struct vgascreen *scr,
 	scr->pcs.vc_ccol = cpos % type->ncols;
 	pcdisplay_cursor_init(&scr->pcs, existing);
 
-#ifdef __alpha__
-	if (!vc->hdl.vh_mono)
-		/*
-		 * DEC firmware uses a blue background.
-		 */
-		res = vga_alloc_attr(scr, WSCOL_WHITE, WSCOL_BLUE,
-				     WSATTR_WSCOLORS, attrp);
-	else
-#endif
 	res = vga_alloc_attr(scr, 0, 0, 0, attrp);
 #ifdef DIAGNOSTIC
 	if (res)
@@ -492,18 +463,9 @@ vga_init(struct vga_config *vc, bus_space_tag_t iot, bus_space_tag_t memt)
 				&vh->vh_memh))
                 panic("vga_common_setup: mem subrange failed");
 
-#ifdef __alpha__
-	vga_pick_monitor_type(vc);
-#endif
-
 	vc->nscreens = 0;
 	LIST_INIT(&vc->screens);
 	vc->active = NULL;
-#ifdef __alpha__
-	if (vc->custom_list.screens != NULL)
-		vc->currenttype = vc->custom_list.screens[0];
-	else
-#endif
 		vc->currenttype =
 		    vh->vh_mono ? &vga_stdscreen_mono : &vga_stdscreen;
 
@@ -552,11 +514,6 @@ vga_extended_attach(struct device *self, bus_space_tag_t iot,
 	vc->vc_mmap = map;
 
 	aa.console = console;
-#ifdef __alpha__
-	if (vc->custom_list.screens != NULL)
-		aa.scrdata = &vc->custom_list;
-	else
-#endif
 		aa.scrdata =
 		    vc->hdl.vh_mono ? &vga_screenlist_mono : &vga_screenlist;
 
@@ -1251,51 +1208,6 @@ vga_restore_fonts(struct vga_config *vc)
 		vga_loadchars(&vc->hdl, slot, 0, 256, f->height, f->fontdata);
 	}
 }
-
-#ifdef __alpha__
-void
-vga_pick_monitor_type(struct vga_config *vc)
-{
-	struct vga_handle *vh = &vc->hdl;
-
-	/*
-	 * The Tadpole Alphabook1 uses a 800x600 flat panel in text mode,
-	 * causing the display console to really be 100x37 instead of the
-	 * usual 80x25.
-	 * We attempt to detect this here by checking the CRTC registers.
-	 */
-	unsigned int hend, oflow, vend;
-	unsigned int width, height;
-
-	hend = vga_6845_read(vh, hdisple);
-	oflow = vga_6845_read(vh, overfll);
-	vend = vga_6845_read(vh, vde);
-	if (oflow & 0x02)
-		vend |= 0x100;
-	if (oflow & 0x40)
-		vend |= 0x200;
-
-	width = hend + 1;
-	height = (vend + 1) / 16;
-
-	/* check that the values sound plausible */
-	if ((width > 80 && width <= 128) && (height > 25 && height <= 50)) {
-		snprintf(vc->custom_scr.name, sizeof(vc->custom_scr.name),
-		    "%ux%u", width, height);
-		vc->custom_scr.ncols = width;
-		vc->custom_scr.nrows = height;
-		vc->custom_scr.textops = &vga_emulops;
-		vc->custom_scr.fontwidth = 8;
-		vc->custom_scr.fontheight = 16;
-		vc->custom_scr.capabilities =
-		    WSSCREEN_WSCOLORS | WSSCREEN_HILIT | WSSCREEN_BLINK;
-		vc->custom_scrlist[0] = &vc->custom_scr;
-		vc->custom_list.nscreens = 1;
-		vc->custom_list.screens =
-		    (const struct wsscreen_descr **)vc->custom_scrlist;
-	}
-}
-#endif
 
 struct cfdriver vga_cd = {
 	NULL, "vga", DV_DULL

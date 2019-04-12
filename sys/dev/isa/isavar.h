@@ -115,9 +115,7 @@
  */
 struct isabus_attach_args;
 
-#if defined(__alpha__)
-#include <alpha/isa/isa_machdep.h>
-#elif defined(__i386__)
+#if defined(__i386__)
 #include <i386/isa/isa_machdep.h>
 #else
 #include <machine/isa_machdep.h>
@@ -131,9 +129,7 @@ struct isabus_attach_args;
  */
 struct isapnp_softc;
 
-#if defined(__alpha__)
-#include <alpha/isa/isapnp_machdep.h>
-#elif defined(__i386__)
+#if defined(__i386__)
 #include <i386/isa/isapnp_machdep.h>
 #else
 #error COMPILING ISAPNP FOR UNSUPPORTED MACHINE.

@@ -649,11 +649,7 @@ bba_codec_dwrite(struct am7930_softc *asc, int reg, uint8_t val)
 {
 	struct bba_softc *sc = (struct bba_softc *)asc;
 
-#if defined(__alpha__)
-	bus_space_write_4(sc->sc_bst, sc->sc_codec_bsh, reg << 2, val << 8);
-#else
 	bus_space_write_4(sc->sc_bst, sc->sc_codec_bsh, reg << 6, val);
-#endif
 }
 
 /* direct read */
@@ -662,10 +658,5 @@ bba_codec_dread(struct am7930_softc *asc, int reg)
 {
 	struct bba_softc *sc = (struct bba_softc *)asc;
 
-#if defined(__alpha__)
-	return (bus_space_read_4(sc->sc_bst, sc->sc_codec_bsh, reg << 2) >> 8) &
-	    0xff;
-#else
 	return bus_space_read_4(sc->sc_bst, sc->sc_codec_bsh, reg << 6) & 0xff;
-#endif
 }

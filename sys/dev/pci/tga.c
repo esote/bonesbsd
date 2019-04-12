@@ -55,13 +55,10 @@
 #include <dev/rasops/rasops.h>
 #include <dev/wsfont/wsfont.h>
 
-#if defined(__alpha__) || defined(__mips__)
+#if defined(__mips__)
 #include <uvm/uvm_extern.h>
 #endif
 
-#ifdef __alpha__
-#include <machine/pte.h>
-#endif
 #ifdef __mips__
 #include <mips/pte.h>
 #endif
@@ -232,9 +229,6 @@ tga_getdevconfig(memt, pc, tag, dc)
 #endif
 	DPRINTF("tga_getdevconfig: mapped\n");
 
-#ifdef __alpha__
-	dc->dc_paddr = ALPHA_K0SEG_TO_PHYS(dc->dc_vaddr);	/* XXX */
-#endif
 	DPRINTF("tga_getdevconfig: allocating subregion\n");
 	bus_space_subregion(dc->dc_memt, dc->dc_memh, 
 			    TGA_MEM_CREGS, TGA_CREGS_SIZE,
@@ -417,11 +411,7 @@ tgaattach(parent, self, aux)
 	u_int8_t rev;
 	int console;
 
-#if defined(__alpha__)
-	console = (pa->pa_tag == tga_console_dc.dc_pcitag);
-#else
 	console = 0;
-#endif
 	if (console) {
 		sc->sc_dc = &tga_console_dc;
 		sc->nscreens = 1;
@@ -718,7 +708,7 @@ tga_mmap(v, offset, prot)
 		 */
 		offset += dc->dc_tgaconf->tgac_cspace_size / 2;
 	}
-#if defined(__alpha__) || defined(__mips__)
+#if defined(__mips__)
 	return (sc->sc_dc->dc_paddr + offset);
 #else
 	return (-1);
