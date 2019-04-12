@@ -7,7 +7,7 @@ CC=${HOSTCC}
 # PCI & SBus capable systems only
 .if (${MACHINE} == "i386") || (${MACHINE} == "amd64") || \
     (${MACHINE} == "alpha") || (${MACHINE} == "sparc64") || \
-    (${MACHINE} == "hppa") || (${MACHINE} == "sgi")
+    (${MACHINE} == "sgi")
 
 FIRM= 	tigon1 tigon2
 

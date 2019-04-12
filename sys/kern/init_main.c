@@ -544,11 +544,9 @@ main(void *framep)
 	if (kthread_create(uvm_aiodone_daemon, NULL, NULL, "aiodoned"))
 		panic("fork aiodoned");
 
-#if !defined(__hppa__)
 	/* Create the page zeroing kernel thread. */
 	if (kthread_create(uvm_pagezero_thread, NULL, NULL, "zerothread"))
 		panic("fork zerothread");
-#endif
 
 #if defined(MULTIPROCESSOR)
 	/* Boot the secondary processors. */

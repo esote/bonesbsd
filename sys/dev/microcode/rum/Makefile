@@ -7,7 +7,7 @@ CC=${HOSTCC}
 # USB capable systems only
 .if (${MACHINE} == "alpha" || ${MACHINE} == "amd64" || \
     ${MACHINE} == "arm64" || ${MACHINE} == "armv7" || \
-    ${MACHINE} == "hppa" || ${MACHINE} == "i386" || \
+    ${MACHINE} == "i386" || \
     ${MACHINE} == "landisk" || ${MACHINE} == "loongson" || \
     ${MACHINE} == "octeon" || ${MACHINE} == "sgi" || \
     ${MACHINE} == "sparc64")

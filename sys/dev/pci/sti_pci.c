@@ -213,12 +213,6 @@ sti_check_rom(struct sti_pci_softc *spc, struct pci_attach_args *pa)
 #endif
 
 		switch (tmp) {
-#ifdef __hppa__
-		case 0x10:
-			if (selected == (bus_addr_t)-1)
-				selected = offs;
-			break;
-#endif
 #ifdef __i386__
 		case 0x00:
 			if (selected == (bus_addr_t)-1)

@@ -69,10 +69,6 @@
 #include <dev/ofw/openfirm.h>
 #endif
 
-#ifndef __hppa__
-#define DC_USEIOSPACE
-#endif
-
 #include <dev/ic/dcreg.h>
 
 /*

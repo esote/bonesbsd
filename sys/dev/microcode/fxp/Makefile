@@ -7,7 +7,6 @@ CC=${HOSTCC}
 # PCI capable systems only
 .if (${MACHINE} == "i386") || (${MACHINE} == "amd64") || \
     (${MACHINE} == "alpha") || (${MACHINE} == "sparc64") || \
-    (${MACHINE} == "hppa") || \
     (${MACHINE} == "sgi")
 
 FIRM=  fxp-d101a fxp-d101b0 fxp-d101ma fxp-d101s fxp-d102 fxp-d102c fxp-d102e

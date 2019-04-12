@@ -3,7 +3,7 @@
 # Makefile for kernel tags files, init_sysent, etc.
 
 ARCH=	alpha amd64 armv7 arm64 \
-	hppa i386 landisk loongson \
+	i386 landisk loongson \
 	luna88k octeon sgi \
 	sparc64
 
