@@ -35,10 +35,6 @@
 #include <dev/isa/isavar.h>
 #endif
 
-#if defined (__loongson__)
-#include <machine/autoconf.h>
-#endif
-
 #ifdef __HAVE_ACPI
 #include "acpi.h"
 #endif
@@ -223,7 +219,7 @@ static bool radeon_read_platform_bios(struct radeon_device *rdev)
 #else
 static bool radeon_read_platform_bios(struct radeon_device *rdev)
 {
-#if defined(__amd64__) || defined(__i386__) || defined(__loongson__)
+#if defined(__amd64__) || defined(__i386__)
 	uint8_t __iomem *bios;
 	bus_size_t size = 256 * 1024; /* ??? */
 	uint8_t *found = NULL;
@@ -235,13 +231,7 @@ static bool radeon_read_platform_bios(struct radeon_device *rdev)
 
 	rdev->bios = NULL;
 
-#if defined(__loongson__)
-	if (loongson_videobios == NULL)
-		return false;
-	bios = loongson_videobios;
-#else
 	bios = (u8 *)ISA_HOLE_VADDR(0xc0000);
-#endif
 
 	for (i = 0; i + 2 < size; i++) {
 		if (bios[i] == 0x55 && bios[i + 1] == 0xaa) {

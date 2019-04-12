@@ -183,9 +183,6 @@ struct ukbd_translation {
 	uint8_t translation;
 };
 
-#ifdef __loongson__
-void	ukbd_gdium_munge(void *, uint8_t *, u_int);
-#endif
 void	ukbd_apple_munge(void *, uint8_t *, u_int);
 void	ukbd_apple_mba_munge(void *, uint8_t *, u_int);
 void	ukbd_apple_iso_munge(void *, uint8_t *, u_int);
@@ -305,12 +302,6 @@ ukbd_attach(struct device *parent, struct device *self, void *aux)
 	}
 
 	printf("\n");
-
-#ifdef __loongson__
-	if (uha->uaa->vendor == USB_VENDOR_CYPRESS &&
-	    uha->uaa->product == USB_PRODUCT_CYPRESS_LPRDK)
-		sc->sc_munge = ukbd_gdium_munge;
-#endif
 
 	if (kbd->sc_console_keyboard) {
 		extern struct wskbd_mapdata ukbd_keymapdata;
@@ -634,70 +625,3 @@ ukbd_apple_iso_mba_munge(void *vsc, uint8_t *ibuf, u_int ilen)
 	    nitems(apple_iso_trans));
 	ukbd_apple_mba_munge(vsc, ibuf, ilen);
 }
-
-#ifdef __loongson__
-/*
- * Software Fn- translation for Gdium Liberty keyboard.
- */
-#define	GDIUM_FN_CODE	0x82
-void
-ukbd_gdium_munge(void *vsc, uint8_t *ibuf, u_int ilen)
-{
-	struct ukbd_softc *sc = vsc;
-	struct hidkbd *kbd = &sc->sc_kbd;
-	uint8_t *pos, *spos, *epos, xlat;
-	int fn;
-
-	static const struct ukbd_translation gdium_fn_trans[] = {
-#ifdef notyet
-		{ 58, 0 },	/* F1 -> toggle camera */
-		{ 59, 0 },	/* F2 -> toggle wireless */
-#endif
-		{ 60, 127 },	/* F3 -> audio mute */
-		{ 61, 128 },	/* F4 -> audio raise */
-		{ 62, 129 },	/* F5 -> audio lower */
-#ifdef notyet
-		{ 63, 0 },	/* F6 -> toggle ext. video */
-		{ 64, 0 },	/* F7 -> toggle mouse */
-		{ 65, 0 },	/* F8 -> brightness up */
-		{ 66, 0 },	/* F9 -> brightness down */
-		{ 67, 0 },	/* F10 -> suspend */
-		{ 68, 0 },	/* F11 -> user1 */
-		{ 69, 0 },	/* F12 -> user2 */
-		{ 70, 0 },	/* print screen -> sysrq */
-#endif
-		{ 76, 71 },	/* delete -> scroll lock */
-		{ 81, 78 },	/* down -> page down */
-		{ 82, 75 }	/* up -> page up */
-	};
-
-	spos = ibuf + kbd->sc_keycodeloc.pos / 8;
-	epos = spos + kbd->sc_nkeycode;
-
-	/*
-	 * Check for Fn key being down and remove it from the report.
-	 */
-
-	fn = 0;
-	for (pos = spos; pos != epos; pos++)
-		if (*pos == GDIUM_FN_CODE) {
-			fn = 1;
-			*pos = 0;
-			break;
-		}
-
-	/*
-	 * Rewrite keycodes on the fly to perform Fn-key translation.
-	 * Keycodes without a translation are passed unaffected.
-	 */
-
-	if (fn != 0)
-		for (pos = spos; pos != epos; pos++) {
-			xlat = ukbd_translate(gdium_fn_trans,
-			    nitems(gdium_fn_trans), *pos);
-			if (xlat != 0)
-				*pos = xlat;
-		}
-
-}
-#endif

@@ -24,15 +24,6 @@
  * Base addresses of the MSR groups.
  */
 
-#ifdef __loongson__
-#define	SB_MSR_BASE			0x00000000
-#define	GLIU_MSR_BASE			0x10000000
-#define	USB_MSR_BASE			0x40000000
-#define	IDE_MSR_BASE			0x60000000
-#define	DIVIL_MSR_BASE			0x80000000
-#define	ACC_MSR_BASE			0xa0000000
-#define	GLCP_MSR_BASE			0xe0000000
-#else
 #define	SB_MSR_BASE			0x51000000
 #define	GLIU_MSR_BASE			0x51010000
 #define	USB_MSR_BASE			0x51200000
@@ -40,7 +31,6 @@
 #define	DIVIL_MSR_BASE			0x51400000
 #define	ACC_MSR_BASE			0x51500000
 #define	GLCP_MSR_BASE			0x51700000
-#endif
 
 /*
  * GeodeLink Interface Unit (GLIU)

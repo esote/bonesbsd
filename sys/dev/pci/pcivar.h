@@ -71,8 +71,6 @@ struct pci_softc;
  */
 #if defined(__i386__)
 #include <i386/pci/pci_machdep.h>
-#elif defined(__sgi__)
-#include <sgi/pci/pci_machdep.h>
 #else
 #include <machine/pci_machdep.h>
 #endif

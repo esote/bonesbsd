@@ -416,20 +416,6 @@ typedef struct {
 #define	ELF64_R_TYPE(info)	((info) & 0xFFFFFFFF)
 #define ELF64_R_INFO(s,t) 	(((s) << 32) + (__uint32_t)(t))
 
-#if defined(__mips64__) && defined(__MIPSEL__)
-/*
- * The 64-bit MIPS ELF ABI uses a slightly different relocation format
- * than the regular ELF ABI: the r_info field is split into several
- * pieces (see gnu/usr.bin/binutils-2.17/include/elf/mips.h for details).
- */
-#undef	ELF64_R_SYM
-#undef	ELF64_R_TYPE
-#undef	ELF64_R_INFO
-#define	ELF64_R_TYPE(info)	((__uint64_t)swap32((info) >> 32))
-#define	ELF64_R_SYM(info)	((info) & 0xFFFFFFFF)
-#define	ELF64_R_INFO(s,t)	(((__uint64_t)swap32(t) << 32) + (__uint32_t)(s))
-#endif	/* __mips64__ && __MIPSEL__ */
-
 /* Program Header */
 typedef struct {
 	Elf32_Word	p_type;		/* segment type */
