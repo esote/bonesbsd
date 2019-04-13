@@ -493,13 +493,6 @@ axppmic_attach_common(struct axppmic_softc *sc, const char *name, int node)
 	if (sc->sc_sensdata)
 		axppmic_attach_sensors(sc);
 
-#ifdef __armv7__
-	if (strcmp(name, "x-powers,axp152") == 0 ||
-	    strcmp(name, "x-powers,axp209") == 0) {
-		axppmic_sc = sc;
-		powerdownfn = axp209_powerdown;
-	}
-#endif
 }
 
 /* Regulators */

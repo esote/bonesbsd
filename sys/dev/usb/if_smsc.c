@@ -176,47 +176,7 @@ const struct cfattach smsc_ca = {
 	sizeof(struct smsc_softc), smsc_match, smsc_attach, smsc_detach,
 };
 
-#if defined(__arm__) || defined(__arm64__)
-
-#include <dev/ofw/openfirm.h>
-
-void
-smsc_enaddr_OF(struct smsc_softc *sc)
-{
-	char *device = "/axi/usb/hub/ethernet";
-	char prop[64];
-	int node;
-
-	if (sc->sc_dev.dv_unit != 0)
-		return;
-
-	/*
-	 * Get the Raspberry Pi MAC address from FDT.  This is all
-	 * much more complicated than strictly needed since the
-	 * firmware device tree keeps changing as drivers get
-	 * upstreamed.  Sigh.
-	 * 
-	 * Ultimately this should just use the "ethernet0" alias and
-	 * the "local-mac-address" property.
-	 */
-
-	if ((node = OF_finddevice("/aliases")) == -1)
-		return;
-	if (OF_getprop(node, "ethernet0", prop, sizeof(prop)) > 0 ||
-	    OF_getprop(node, "ethernet", prop, sizeof(prop)) > 0)
-		device = prop;
-
-	if ((node = OF_finddevice(device)) == -1)
-		return;
-	if (OF_getprop(node, "local-mac-address", sc->sc_ac.ac_enaddr,
-	    sizeof(sc->sc_ac.ac_enaddr)) != sizeof(sc->sc_ac.ac_enaddr)) {
-		OF_getprop(node, "mac-address", sc->sc_ac.ac_enaddr,
-		    sizeof(sc->sc_ac.ac_enaddr));
-	}
-}
-#else
 #define smsc_enaddr_OF(x) do {} while(0)
-#endif
 
 int
 smsc_read_reg(struct smsc_softc *sc, uint32_t off, uint32_t *data)

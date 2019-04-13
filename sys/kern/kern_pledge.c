@@ -80,8 +80,7 @@
 #endif
 #endif
 
-#if defined(__amd64__) || defined(__arm64__) || \
-    defined(__i386__)
+#if defined(__amd64__) || defined(__i386__)
 #include "drm.h"
 #endif
 

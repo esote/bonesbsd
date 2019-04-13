@@ -93,8 +93,7 @@
 #define FONT_SPLEEN12x24
 #endif
 
-#if !defined(SMALL_KERNEL) && (defined(__amd64__) || defined(__i386__) || \
-    defined(__arm64__))
+#if !defined(SMALL_KERNEL) && (defined(__amd64__) || defined(__i386__))
 #define FONT_SPLEEN16x32
 #define FONT_SPLEEN32x64
 #endif

@@ -34,7 +34,7 @@
 #define	ElfW_Dyn	Elf64_Dyn
 #define	ELFW_R_TYPE	ELF64_R_TYPE
 #define	ELF_RELA
-#elif defined(__arm__) || defined(__i386__)
+#elif defined(__i386__)
 #define	ELFSIZE		32
 #define	ElfW_Rel	Elf32_Rel
 #define	ElfW_Dyn	Elf32_Dyn
@@ -51,9 +51,6 @@
 #elif defined(__amd64__)
 #define	RELOC_TYPE_NONE		R_X86_64_NONE
 #define	RELOC_TYPE_RELATIVE	R_X86_64_RELATIVE
-#elif defined(__arm__)
-#define	RELOC_TYPE_NONE		R_ARM_NONE
-#define	RELOC_TYPE_RELATIVE	R_ARM_RELATIVE
 #elif defined(__i386__)
 #define	RELOC_TYPE_NONE		R_386_NONE
 #define	RELOC_TYPE_RELATIVE	R_386_RELATIVE

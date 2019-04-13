@@ -29,11 +29,7 @@
 #include <dev/ofw/ofw_pinctrl.h>
 #include <dev/ofw/fdt.h>
 
-#ifdef __armv7__
-#include <arm/simplebus/simplebusvar.h>
-#else
 #include <arm64/dev/simplebusvar.h>
-#endif
 
 /* RK3288 registers */
 #define RK3288_GRF_GPIO1A_IOMUX		0x0000

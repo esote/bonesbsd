@@ -51,10 +51,6 @@
 #include <dev/fdt/if_mvnetareg.h>
 #include <dev/fdt/mvmdiovar.h>
 
-#ifdef __armv7__
-#include <armv7/marvell/mvmbusvar.h>
-#endif
-
 #include <net/if.h>
 #include <net/if_media.h>
 #include <net/if_types.h>
@@ -301,38 +297,6 @@ mvneta_enaddr_write(struct mvneta_softc *sc)
 void
 mvneta_wininit(struct mvneta_softc *sc)
 {
-#ifdef __armv7__
-	uint32_t en;
-	int i;
-
-	if (mvmbus_dram_info == NULL)
-		panic("%s: mbus dram information not set up",
-		    sc->sc_dev.dv_xname);
-
-	for (i = 0; i < MVNETA_NWINDOW; i++) {
-		MVNETA_WRITE(sc, MVNETA_BASEADDR(i), 0);
-		MVNETA_WRITE(sc, MVNETA_S(i), 0);
-
-		if (i < MVNETA_NREMAP)
-			MVNETA_WRITE(sc, MVNETA_HA(i), 0);
-	}
-
-	en = MVNETA_BARE_EN_MASK;
-
-	for (i = 0; i < mvmbus_dram_info->numcs; i++) {
-		struct mbus_dram_window *win = &mvmbus_dram_info->cs[i];
-
-		MVNETA_WRITE(sc, MVNETA_BASEADDR(i),
-		    MVNETA_BASEADDR_TARGET(mvmbus_dram_info->targetid) |
-		    MVNETA_BASEADDR_ATTR(win->attr)	|
-		    MVNETA_BASEADDR_BASE(win->base));
-		MVNETA_WRITE(sc, MVNETA_S(i), MVNETA_S_SIZE(win->size));
-
-		en &= ~(1 << i);
-	}
-
-	MVNETA_WRITE(sc, MVNETA_BARE, en);
-#endif
 }
 
 int

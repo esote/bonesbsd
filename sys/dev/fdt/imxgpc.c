@@ -20,9 +20,6 @@
 #include <sys/device.h>
 #include <sys/malloc.h>
 
-#if defined(__arm64__)
-#include <machine/cpufunc.h>
-#endif
 #include <machine/fdt.h>
 
 #include <dev/ofw/openfirm.h>
@@ -99,14 +96,4 @@ imxgpc_attach(struct device *parent, struct device *self, void *aux)
 void
 imxgpc_enable(void *cookie, uint32_t *cells, int on)
 {
-#if defined(__arm64__)
-	struct power_domain_device *pd = cookie;
-	int domain;
-
-	domain = OF_getpropint(pd->pd_node, "reg", 0);
-
-	/* Set up power domain */
-	smc_call(FSL_SIP_GPC, FSL_SIP_CONFIG_GPC_PM_DOMAIN,
-	    domain, on);
-#endif
 }

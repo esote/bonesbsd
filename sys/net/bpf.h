@@ -157,7 +157,7 @@ struct bpf_hdr {
  * XXX fail-safe: on new machines, we just use the 'safe' sizeof.
  */
 #ifdef _KERNEL
-#if defined(__arm__) || defined(__i386__) || defined(__mips__)
+#if defined(__i386__) || defined(__mips__)
 #define SIZEOF_BPF_HDR 18
 #else
 #define SIZEOF_BPF_HDR sizeof(struct bpf_hdr)

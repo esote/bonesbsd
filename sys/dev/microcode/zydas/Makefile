@@ -5,9 +5,7 @@ NOMAN=
 CC=${HOSTCC}
 
 # USB capable systems only
-.if (${MACHINE} == "amd64" || \
-    ${MACHINE} == "arm64" || ${MACHINE} == "armv7" || \
-    ${MACHINE} == "i386"
+.if (${MACHINE} == "amd64" || ${MACHINE} == "i386"
 
 FIRM=	zd1211 zd1211b
 

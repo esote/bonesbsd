@@ -139,38 +139,7 @@ void		mue_tick_task(void *);
 #define MUE_CLRBIT(sc, reg, x)	\
 	mue_csr_write(sc, reg, mue_csr_read(sc, reg) & ~(x))
 
-#if defined(__arm__) || defined(__arm64__)
-
-#include <dev/ofw/openfirm.h>
-
-void
-mue_enaddr_OF(struct mue_softc *sc)
-{
-	char *device = "/axi/usb/hub/ethernet";
-	char prop[64];
-	int node;
-
-	if (sc->mue_dev.dv_unit != 0)
-		return;
-
-	/* Get the Raspberry Pi MAC address from FDT. */
-	if ((node = OF_finddevice("/aliases")) == -1)
-		return;
-	if (OF_getprop(node, "ethernet0", prop, sizeof(prop)) > 0 ||
-	    OF_getprop(node, "ethernet", prop, sizeof(prop)) > 0)
-		device = prop;
-
-	if ((node = OF_finddevice(device)) == -1)
-		return;
-	if (OF_getprop(node, "local-mac-address", sc->arpcom.ac_enaddr,
-	    sizeof(sc->arpcom.ac_enaddr)) != sizeof(sc->arpcom.ac_enaddr)) {
-		OF_getprop(node, "mac-address", sc->arpcom.ac_enaddr,
-		    sizeof(sc->arpcom.ac_enaddr));
-	}
-}
-#else
 #define mue_enaddr_OF(x) do {} while(0)
-#endif
 
 uint32_t
 mue_csr_read(struct mue_softc *sc, uint32_t reg)

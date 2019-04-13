@@ -26,11 +26,7 @@
 #include <dev/ofw/ofw_misc.h>
 #include <dev/ofw/fdt.h>
 
-#ifdef __armv7__
-#include <arm/simplebus/simplebusvar.h>
-#else
 #include <arm64/dev/simplebusvar.h>
-#endif
 
 extern void (*cpuresetfn)(void);
 extern void (*powerdownfn)(void);
