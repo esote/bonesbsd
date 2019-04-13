@@ -7,8 +7,7 @@ CC=${HOSTCC}
 # USB capable systems only
 .if (${MACHINE} == "amd64" || \
     ${MACHINE} == "arm64" || ${MACHINE} == "armv7" || \
-    ${MACHINE} == "i386" || \
-    ${MACHINE} == "landisk"
+    ${MACHINE} == "i386"
 
 FIRM= 	kue
 

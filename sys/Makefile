@@ -3,8 +3,7 @@
 
 SUBDIR=	dev/microcode \
 	arch/amd64 arch/arm64 arch/armv7 \
-	arch/i386 \
-	arch/landisk
+	arch/i386
 
 tags:
 	cd ${.CURDIR}/kern; make tags
