@@ -3,8 +3,7 @@
 # Makefile for kernel tags files, init_sysent, etc.
 
 ARCH=	alpha amd64 armv7 arm64 \
-	i386 landisk \
-	luna88k
+	i386 landisk
 
 all:
 	@echo "Doing nothing.  Did you want make syscalls?"

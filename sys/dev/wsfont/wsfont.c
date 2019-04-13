@@ -89,7 +89,7 @@
 #define HAVE_FONT 1
 
 #define	FONT_SPLEEN8x16
-#elif defined(__luna88k__) || !defined(SMALL_KERNEL)
+#elif !defined(SMALL_KERNEL)
 #define FONT_SPLEEN12x24
 #endif
 

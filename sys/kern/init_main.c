@@ -564,9 +564,7 @@ main(void *framep)
 	/*
 	 * Start the idle pool page garbage collector
 	 */
-#if !(defined(__m88k__) && defined(MULTIPROCESSOR))	/* XXX */
 	pool_gc_pages(NULL);
-#endif
 
 	start_periodic_resettodr();
 
