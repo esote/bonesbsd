@@ -4052,16 +4052,6 @@ cmd0643_9_setup_channel(struct channel_softc *chp)
 		    idedma_ctl);
 	}
 	pciide_print_modes(cp);
-#ifdef __sparc64__
-	/*
-	 * The Ultra 5 has a tendency to hang during reboot.  This is due
-	 * to the PCI0646U asserting a PCI interrupt line when the chip
-	 * registers claim that it is not.  Performing a reset at this
-	 * point appears to eliminate the symptoms.  It is likely the
-	 * real cause is still lurking somewhere in the code.
-	 */
-	wdcreset(chp, SILENT);
-#endif /* __sparc64__ */
 }
 
 void

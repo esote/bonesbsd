@@ -6,8 +6,7 @@ CC=${HOSTCC}
 
 # PCI capable systems only
 .if (${MACHINE} == "amd64" || \
-     ${MACHINE} == "i386" || \
-     ${MACHINE} == "sparc64")
+     ${MACHINE} == "i386"
 
 FIRM=	ral-rt2561 ral-rt2561s ral-rt2661 ral-rt2860 ral-rt3290
 

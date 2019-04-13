@@ -5,9 +5,7 @@ NOMAN=
 CC=${HOSTCC}
 
 # PCI capable systems only
-.if (${MACHINE} == "i386") || (${MACHINE} == "amd64") || \
-    (${MACHINE} == "sparc64") || \
-    (${MACHINE} == "sgi")
+.if (${MACHINE} == "i386") || (${MACHINE} == "amd64")
 
 FIRM=	3c990
 

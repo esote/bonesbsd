@@ -5,9 +5,7 @@ NOMAN=
 CC=${HOSTCC}
 
 # pcmcia capable systems only
-.if (${MACHINE} == "i386") || (${MACHINE} == "amd64") || \
-    (${MACHINE} == "sparc64") || \
-    (${MACHINE} == "sgi")
+.if (${MACHINE} == "i386") || (${MACHINE} == "amd64")
 
 afterinstall:
 	${INSTALL} -c -o ${BINOWN} -g ${BINGRP} -m 644 \

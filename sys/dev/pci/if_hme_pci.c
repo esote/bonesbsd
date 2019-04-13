@@ -48,10 +48,6 @@
 
 #include <dev/mii/miivar.h>
 
-#ifdef __sparc64__
-#include <machine/autoconf.h>
-#include <dev/ofw/openfirm.h>
-#endif
 #include <machine/cpu.h>
 
 #include <dev/pci/pcivar.h>
@@ -265,15 +261,6 @@ hmeattach_pci(parent, self, aux)
 
 	if (hme_pci_enaddr(sc, pa) == 0)
 		gotenaddr = 1;
-
-#ifdef __sparc64__
-	if (!gotenaddr) {
-		if (OF_getprop(PCITAG_NODE(pa->pa_tag), "local-mac-address",
-		    sc->sc_arpcom.ac_enaddr, ETHER_ADDR_LEN) <= 0)
-			myetheraddr(sc->sc_arpcom.ac_enaddr);
-		gotenaddr = 1;
-	}
-#endif
 
 	sc->sc_burst = 16;	/* XXX */
 

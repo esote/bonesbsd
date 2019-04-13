@@ -8,8 +8,7 @@ CC=${HOSTCC}
 .if (${MACHINE} == "amd64" || \
     ${MACHINE} == "arm64" || ${MACHINE} == "armv7" || \
     ${MACHINE} == "i386" || \
-    ${MACHINE} == "landisk" || \
-    ${MACHINE} == "sparc64")
+    ${MACHINE} == "landisk"
 
 FIRM=	rum-rt2573 run-rt2870 run-rt3071
 

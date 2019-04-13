@@ -33,10 +33,6 @@
 #include <dev/pci/pcivar.h>
 #include <dev/pci/pcidevs.h>
 
-#ifdef __sparc64__
-#include <dev/ofw/openfirm.h>
-#endif
-
 #include <scsi/scsi_all.h>
 #include <scsi/scsiconf.h>
 
@@ -93,10 +89,6 @@ qla_pci_attach(struct device *parent, struct device *self, void *aux)
 	pci_intr_handle_t ih;
 	const char *intrstr;
 	u_int32_t pcictl;
-#ifdef __sparc64__
-	u_int64_t wwn;
-	int node;
-#endif
 
 	pcireg_t bars[] = { QLA_PCI_MEM_BAR, QLA_PCI_IO_BAR };
 	pcireg_t memtype;
@@ -189,14 +181,6 @@ qla_pci_attach(struct device *parent, struct device *self, void *aux)
 		printf("unknown pci id %x", pa->pa_id);
 		return;
 	}
-
-#ifdef __sparc64__
-	node = PCITAG_NODE(pa->pa_tag);
-	if (OF_getprop(node, "port-wwn", &wwn, sizeof(wwn)) == sizeof(wwn))
-		sc->sc_port_name = wwn;
-	if (OF_getprop(node, "node-wwn", &wwn, sizeof(wwn)) == sizeof(wwn))
-		sc->sc_node_name = wwn;
-#endif
 
 	sc->sc_port = pa->pa_function;
 

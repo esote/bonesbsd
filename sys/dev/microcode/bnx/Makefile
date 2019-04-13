@@ -6,8 +6,7 @@ CC=${HOSTCC}
 
 # PCI capable systems only
 .if ((${MACHINE} == "amd64") || \
-    (${MACHINE} == "i386") || \
-    (${MACHINE} == "sgi") || (${MACHINE} == "sparc64")
+    (${MACHINE} == "i386")
 
 FIRM=	bnx-b06 bnx-b09 bnx-rv2p bnx-xi-rv2p bnx-xi90-rv2p
 

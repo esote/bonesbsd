@@ -315,12 +315,6 @@ zstty_attach(struct device *parent, struct device *self, void *aux)
 		printf(": console%s", i ? (o ? "" : i) : o);
 	}
 
-#if defined(__sparc64__)
-	if (strcmp(args->type, "keyboard") == 0 ||
-	    strcmp(args->type, "mouse") == 0)
-		printf(": %s", args->type);
-#endif
-
 	printf("\n");
 
 	tp = ttymalloc(0);

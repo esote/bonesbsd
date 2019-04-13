@@ -8,8 +8,7 @@ DPADD=${LIBZ}
 
 # full-size PCI capable systems only
 .if ((${MACHINE} == "amd64") || \
-    (${MACHINE} == "i386") || \
-    (${MACHINE} == "sgi") || (${MACHINE} == "sparc64")
+    (${MACHINE} == "i386")
 
 FIRM=	myx-ethp_z8e myx-eth_z8e
 

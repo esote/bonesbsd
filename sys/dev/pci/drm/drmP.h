@@ -158,10 +158,6 @@ extern struct cfdriver drm_cd;
 #define DRM_READMEMORYBARRIER()		__membar("dsb ld")
 #define DRM_WRITEMEMORYBARRIER()	__membar("dsb st")
 #define DRM_MEMORYBARRIER()		__membar("dsb sy")
-#elif defined(__sparc64__)
-#define DRM_READMEMORYBARRIER()		DRM_MEMORYBARRIER() 
-#define DRM_WRITEMEMORYBARRIER()	DRM_MEMORYBARRIER()
-#define DRM_MEMORYBARRIER()		membar_sync()
 #endif
 
 #define smp_mb__before_atomic()		DRM_MEMORYBARRIER()

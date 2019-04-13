@@ -36,18 +36,10 @@
  * to black on white to match the firmware console.
  */
 #ifndef WS_DEFAULT_FG
-#if defined(__sparc64__)
-#define WS_DEFAULT_FG WSCOL_BLACK
-#else
 #define WS_DEFAULT_FG WSCOL_WHITE
 #endif
-#endif
 #ifndef WS_DEFAULT_BG
-#if defined(__sparc64__)
-#define WS_DEFAULT_BG WSCOL_WHITE
-#else
 #define WS_DEFAULT_BG WSCOL_BLACK
-#endif
 #endif
 
 struct device;

@@ -43,10 +43,6 @@
 #include <dev/pci/pcivar.h>
 #include <dev/pci/pcidevs.h>
 
-#ifdef __sparc64__
-#include <dev/ofw/openfirm.h>
-#endif
-
 /*
  * The virtualization features make this a really complex device.  For
  * now we try to keep things simple and use one logical device per
@@ -589,10 +585,6 @@ nep_attach(struct device *parent, struct device *self, void *aux)
 		nep_write(sc, ZCP_INT_MASK, 0);
 	}
 
-#ifdef __sparc64__
-	if (OF_getprop(PCITAG_NODE(pa->pa_tag), "local-mac-address",
-	    sc->sc_lladdr, ETHER_ADDR_LEN) <= 0)
-#endif
 		nep_pci_enaddr(sc, pa);
 
 	printf(", address %s\n", ether_sprintf(sc->sc_lladdr));

@@ -65,10 +65,6 @@
 #include <dev/pci/pcivar.h>
 #include <dev/pci/pcidevs.h>
 
-#ifdef __sparc64__
-#include <dev/ofw/openfirm.h>
-#endif
-
 #include <dev/ic/dcreg.h>
 
 /*
@@ -451,21 +447,6 @@ dc_pci_attach(struct device *parent, struct device *self, void *aux)
 			sc->dc_pmode = DC_PMODE_SYM;
 	} else if (!sc->dc_pmode)
 		sc->dc_pmode = DC_PMODE_MII;
-
-#ifdef __sparc64__
-	{
-		extern void myetheraddr(u_char *);
-
-		if (OF_getprop(PCITAG_NODE(pa->pa_tag), "local-mac-address",
-		    sc->sc_arpcom.ac_enaddr, ETHER_ADDR_LEN) <= 0)
-			myetheraddr(sc->sc_arpcom.ac_enaddr);
-		if (sc->sc_arpcom.ac_enaddr[0] == 0x00 &&
-		    sc->sc_arpcom.ac_enaddr[1] == 0x03 &&
-		    sc->sc_arpcom.ac_enaddr[2] == 0xcc)
-			sc->dc_flags |= DC_MOMENCO_BOTCH;
-		sc->sc_hasmac = 1;
-	}
-#endif
 
 #ifdef SRM_MEDIA
 	sc->dc_srm_media = 0;

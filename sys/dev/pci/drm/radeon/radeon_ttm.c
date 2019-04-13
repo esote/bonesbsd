@@ -953,15 +953,9 @@ int radeon_ttm_init(struct radeon_device *rdev)
 	/* Change the size here instead of the init above so only lpfn is affected */
 	radeon_ttm_set_active_vram_size(rdev, rdev->mc.visible_vram_size);
 
-#ifdef __sparc64__
-	r = radeon_bo_create(rdev, rdev->fb_offset, PAGE_SIZE, true,
-			     RADEON_GEM_DOMAIN_VRAM, 0, NULL,
-			     NULL, &rdev->stollen_vga_memory);
-#else
 	r = radeon_bo_create(rdev, stolen_size, PAGE_SIZE, true,
 			     RADEON_GEM_DOMAIN_VRAM, 0, NULL,
 			     NULL, &rdev->stollen_vga_memory);
-#endif
 	if (r) {
 		return r;
 	}

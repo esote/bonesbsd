@@ -96,11 +96,6 @@
 #include <net/bpf.h>
 #endif
 
-#ifdef __sparc64__
-#include <sparc64/autoconf.h>
-#include <dev/ofw/openfirm.h>
-#endif
-
 #include <dev/pci/pcireg.h>
 #include <dev/pci/pcivar.h>
 #include <dev/pci/pcidevs.h>
@@ -2544,9 +2539,6 @@ bge_attach(struct device *parent, struct device *self, void *aux)
 	u_int32_t		misccfg;
 	struct ifnet		*ifp;
 	caddr_t			kva;
-#ifdef __sparc64__
-	char			name[32];
-#endif
 
 	sc->bge_pa = *pa;
 
@@ -2659,19 +2651,6 @@ bge_attach(struct device *parent, struct device *self, void *aux)
 	/*
 	 * SEEPROM check.
 	 */
-#ifdef __sparc64__
-	/*
-	 * Onboard interfaces on UltraSPARC systems generally don't
-	 * have a SEEPROM fitted.  These interfaces, and cards that
-	 * have FCode, are named "network" by the PROM, whereas cards
-	 * without FCode show up as "ethernet".  Since we don't really
-	 * need the information from the SEEPROM on cards that have
-	 * FCode it's fine to pretend they don't have one.
-	 */
-	if (OF_getprop(PCITAG_NODE(pa->pa_tag), "name", name,
-	    sizeof(name)) > 0 && strcmp(name, "network") == 0)
-		sc->bge_flags |= BGE_NO_EEPROM;
-#endif
 
 	/* Save chipset family. */
 	switch (BGE_ASICREV(sc->bge_chipid)) {
@@ -2887,14 +2866,6 @@ bge_attach(struct device *parent, struct device *self, void *aux)
 
 	bge_chipinit(sc);
 
-#ifdef __sparc64__
-	if (!gotenaddr) {
-		if (OF_getprop(PCITAG_NODE(pa->pa_tag), "local-mac-address",
-		    sc->arpcom.ac_enaddr, ETHER_ADDR_LEN) == ETHER_ADDR_LEN)
-			gotenaddr = 1;
-	}
-#endif
-
 	/*
 	 * Get station address from the EEPROM.
 	 */
@@ -2926,15 +2897,6 @@ bge_attach(struct device *parent, struct device *self, void *aux)
 		    BGE_EE_MAC_OFFSET + 2, ETHER_ADDR_LEN) == 0)
 			gotenaddr = 1;
 	}
-
-#ifdef __sparc64__
-	if (!gotenaddr) {
-		extern void myetheraddr(u_char *);
-
-		myetheraddr(sc->arpcom.ac_enaddr);
-		gotenaddr = 1;
-	}
-#endif
 
 	if (!gotenaddr) {
 		printf(": failed to read station address\n");

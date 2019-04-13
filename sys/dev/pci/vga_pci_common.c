@@ -66,8 +66,7 @@ static const struct pci_matchid aperture_blacklist[] = {
 int
 vga_aperture_needed(struct pci_attach_args *pa)
 {
-#if defined(__i386__) || defined(__amd64__) || \
-    defined(__sparc64__)
+#if defined(__i386__) || defined(__amd64__) \
 	if (pci_matchbyid(pa, i915_devices, nitems(i915_devices)) ||
 	    pci_matchbyid(pa, radeon_devices, nitems(radeon_devices)) ||
 	    pci_matchbyid(pa, aperture_blacklist, nitems(aperture_blacklist)))

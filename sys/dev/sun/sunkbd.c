@@ -46,11 +46,7 @@
 #include <dev/sun/sunkbdreg.h>
 #include <dev/sun/sunkbdvar.h>
 
-#ifdef __sparc64__
-#define	NTCTRL 0
-#else
 #include "tctrl.h"
-#endif
 
 #if NTCTRL > 0
 #include <sparc/dev/tctrlvar.h>		/* XXX for tadpole_bell() */

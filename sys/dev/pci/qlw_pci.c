@@ -34,10 +34,6 @@
 #include <dev/pci/pcivar.h>
 #include <dev/pci/pcidevs.h>
 
-#ifdef __sparc64__
-#include <dev/ofw/openfirm.h>
-#endif
-
 #include <scsi/scsi_all.h>
 #include <scsi/scsiconf.h>
 
@@ -107,9 +103,6 @@ qlw_pci_attach(struct device *parent, struct device *self, void *aux)
 	pci_intr_handle_t ih;
 	const char *intrstr;
 	u_int32_t pcictl;
-#ifdef __sparc64__
-	int node, initiator;
-#endif
 
 	pcireg_t bars[] = { QLW_PCI_MEM_BAR, QLW_PCI_IO_BAR };
 	pcireg_t memtype;
@@ -261,27 +254,6 @@ qlw_pci_attach(struct device *parent, struct device *self, void *aux)
 	 * these defaults.
 	 */
 	sc->sc_initiator[0] = sc->sc_initiator[1] = 7;
-
-#ifdef __sparc64__
-	/*
-	 * Walk up the Open Firmware device tree until we find a
-	 * "scsi-initiator-id" property.
-	 */
-	node = PCITAG_NODE(pa->pa_tag);
-	while (node) {
-		if (OF_getprop(node, "scsi-initiator-id",
-		    &initiator, sizeof(initiator)) == sizeof(initiator)) {
-			/*
-			 * Override the SCSI initiator ID provided by
-			 * the nvram.
-			 */
-			sc->sc_flags |= QLW_FLAG_INITIATOR;
-			sc->sc_initiator[0] = sc->sc_initiator[1] = initiator;
-			break;
-		}
-		node = OF_parent(node);
-	}
-#endif
 
 	sc->sc_host_cmd_ctrl = QLW_HOST_CMD_CTRL_PCI;
 	sc->sc_mbox_base = QLW_MBOX_BASE_PCI;

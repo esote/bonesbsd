@@ -4,8 +4,7 @@
 
 ARCH=	alpha amd64 armv7 arm64 \
 	i386 landisk \
-	luna88k \
-	sparc64
+	luna88k
 
 all:
 	@echo "Doing nothing.  Did you want make syscalls?"

@@ -8,8 +8,7 @@ CC=${HOSTCC}
 .if (${MACHINE} == "amd64" || \
     ${MACHINE} == "arm64" || ${MACHINE} == "armv7" || \
     ${MACHINE} == "i386" || \
-    ${MACHINE} == "landisk" || \
-    ${MACHINE} == "sparc64")
+    ${MACHINE} == "landisk"
 
 FIRM=	zd1211 zd1211b
 

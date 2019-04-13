@@ -89,8 +89,6 @@
 #define HAVE_FONT 1
 
 #define	FONT_SPLEEN8x16
-#if defined(__sparc64__)
-#define	FONT_GALLANT12x22
 #elif defined(__luna88k__) || !defined(SMALL_KERNEL)
 #define FONT_SPLEEN12x24
 #endif
@@ -100,8 +98,6 @@
 #define FONT_SPLEEN16x32
 #define FONT_SPLEEN32x64
 #endif
-
-#endif	/* HAVE_FONT */
 
 #ifdef FONT_GALLANT12x22
 #include <dev/wsfont/gallant12x22.h>

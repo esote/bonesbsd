@@ -33,10 +33,6 @@
 #include <dev/pci/pcivar.h>
 #include <dev/pci/pcidevs.h>
 
-#ifdef __sparc64__
-#include <dev/ofw/openfirm.h>
-#endif
-
 #include <scsi/scsi_all.h>
 #include <scsi/scsiconf.h>
 
@@ -105,9 +101,6 @@ mpi_pci_attach(struct device *parent, struct device *self, void *aux)
 	int				r;
 	pci_intr_handle_t		ih;
 	const char			*intrstr;
-#ifdef __sparc64__
-	int node;
-#endif
 
 	psc->psc_pc = pa->pa_pc;
 	psc->psc_tag = pa->pa_tag;
@@ -155,20 +148,6 @@ mpi_pci_attach(struct device *parent, struct device *self, void *aux)
 	if (pci_conf_read(pa->pa_pc, pa->pa_tag, PCI_ID_REG) ==
 	    PCI_ID_CODE(PCI_VENDOR_SYMBIOS, PCI_PRODUCT_SYMBIOS_1030)) {
 		sc->sc_flags |= MPI_F_SPI;
-#ifdef __sparc64__
-		/*
-		 * Walk up the Open Firmware device tree until we find a
-		 * "scsi-initiator-id" property.
-		 */
-		node = PCITAG_NODE(pa->pa_tag);
-		while (node) {
-			if (OF_getprop(node, "scsi-initiator-id",
-			    &sc->sc_target, sizeof(sc->sc_target)) ==
-			    sizeof(sc->sc_target))
-				break;
-			node = OF_parent(node);
-		}
-#endif
 	}
 
 	if (mpi_attach(sc) != 0) {

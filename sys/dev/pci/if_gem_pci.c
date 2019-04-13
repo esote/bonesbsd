@@ -52,10 +52,6 @@
 #include <machine/bus.h>
 #include <machine/intr.h>
 
-#ifdef __sparc64__
-#include <dev/ofw/openfirm.h>
-#endif
-
 #include <dev/mii/miivar.h>
 #include <dev/mii/mii_bitbang.h>
 
@@ -196,10 +192,6 @@ gem_attach_pci(struct device *parent, struct device *self, void *aux)
 	struct gem_pci_softc *gsc = (void *)self;
 	struct gem_softc *sc = &gsc->gsc_gem;
 	pci_intr_handle_t ih;
-#ifdef __sparc64__
-	/* XXX the following declarations should be elsewhere */
-	extern void myetheraddr(u_char *);
-#endif
 	const char *intrstr = NULL;
 	int type, gotenaddr = 0;
 
@@ -250,15 +242,6 @@ gem_attach_pci(struct device *parent, struct device *self, void *aux)
 
 	if (gem_pci_enaddr(sc, pa) == 0)
 		gotenaddr = 1;
-
-#ifdef __sparc64__
-	if (!gotenaddr) {
-		if (OF_getprop(PCITAG_NODE(pa->pa_tag), "local-mac-address",
-		    sc->sc_arpcom.ac_enaddr, ETHER_ADDR_LEN) <= 0)
-			myetheraddr(sc->sc_arpcom.ac_enaddr);
-		gotenaddr = 1;
-	}
-#endif
 
 	sc->sc_burst = 16;	/* XXX */
 

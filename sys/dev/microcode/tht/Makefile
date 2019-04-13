@@ -6,8 +6,7 @@ CC=${HOSTCC}
 
 # PCI capable systems only
 .if ((${MACHINE} == "amd64") || \
-    (${MACHINE} == "i386") || \
-    (${MACHINE} == "sgi") || (${MACHINE} == "sparc64")
+    (${MACHINE} == "i386")
 
 FIRM=	tht
 

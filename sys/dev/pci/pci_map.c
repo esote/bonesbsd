@@ -330,7 +330,6 @@ pci_mapreg_map(struct pci_attach_args *pa, int reg, pcireg_t type, int flags,
 	if ((rv = pci_mapreg_info(pa->pa_pc, pa->pa_tag, reg, type,
 	    &base, &size, NULL)) != 0)
 		return (rv);
-#if !defined(__sparc64__)
 	if (base == 0) {
 		struct extent *ex;
 		bus_addr_t start, end;
@@ -358,7 +357,6 @@ pci_mapreg_map(struct pci_attach_args *pa, int reg, pcireg_t type, int flags,
 			pci_conf_write(pa->pa_pc, pa->pa_tag, reg + 4,
 			    (u_int64_t)base >> 32);
 	}
-#endif
 
 	csr = pci_conf_read(pa->pa_pc, pa->pa_tag, PCI_COMMAND_STATUS_REG);
 	if (PCI_MAPREG_TYPE(type) == PCI_MAPREG_TYPE_IO)

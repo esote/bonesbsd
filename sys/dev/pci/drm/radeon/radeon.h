@@ -74,10 +74,6 @@
 #include <dev/wscons/wsdisplayvar.h>
 #include <dev/rasops/rasops.h>
 
-#ifdef __sparc64__
-#include <machine/fbvar.h>
-#endif
-
 #include "radeon_family.h"
 #include "radeon_mode.h"
 #include "radeon_reg.h"
@@ -2338,12 +2334,6 @@ struct radeon_device {
 
 	struct task			burner_task;
 	int				burner_fblank;
-
-#ifdef __sparc64__
-	struct sunfb			sf;
-	bus_size_t			fb_offset;
-	bus_space_handle_t		memh;
-#endif
 
 	unsigned long			fb_aper_offset;
 	unsigned long			fb_aper_size;

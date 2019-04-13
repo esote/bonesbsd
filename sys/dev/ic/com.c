@@ -1200,10 +1200,8 @@ comcnattach(bus_space_tag_t iot, bus_addr_t iobase, int rate,
 		NODEV, CN_LOWPRI
 	};
 
-#ifndef __sparc64__
 	if (bus_space_map(iot, iobase, COM_NPORTS, 0, &comconsioh))
 		return ENOMEM;
-#endif
 
 	cominit(iot, comconsioh, rate, frequency);
 

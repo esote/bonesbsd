@@ -171,9 +171,6 @@ int radeondrm_show_screen(void *, void *, int,
     void (*)(void *, int, int), void *);
 void radeondrm_doswitch(void *);
 void radeondrm_enter_ddb(void *, void *);
-#ifdef __sparc64__
-void radeondrm_setcolor(void *, u_int, u_int8_t, u_int8_t, u_int8_t);
-#endif
 
 struct wsscreen_descr radeondrm_stdscreen = {
 	"std",
@@ -287,9 +284,6 @@ radeondrm_doswitch(void *v)
 			radeon_crtc->lut_b[i] = rasops_cmap[(3 * i) + 2] << 2;
 		}
 	}
-#ifdef __sparc64__
-	fbwscons_setcolormap(&rdev->sf, radeondrm_setcolor);
-#endif
 	drm_fb_helper_restore_fbdev_mode_unlocked((void *)rdev->mode_info.rfbdev);
 
 	if (rdev->switchcb)
@@ -309,28 +303,6 @@ radeondrm_enter_ddb(void *v, void *cookie)
 	rasops_show_screen(ri, cookie, 0, NULL, NULL);
 	drm_fb_helper_debug_enter(fb_helper->fbdev);
 }
-
-#ifdef __sparc64__
-void
-radeondrm_setcolor(void *v, u_int index, u_int8_t r, u_int8_t g, u_int8_t b)
-{
-	struct sunfb *sf = v;
-	struct radeon_device *rdev = sf->sf_ro.ri_hw;
-	struct drm_fb_helper *fb_helper = (void *)rdev->mode_info.rfbdev;
-	u_int16_t red, green, blue;
-	struct drm_crtc *crtc;
-	int i;
-
-	for (i = 0; i < fb_helper->crtc_count; i++) {
-		crtc = fb_helper->crtc_info[i].mode_set.crtc;
-
-		red = (r << 8) | r;
-		green = (g << 8) | g;
-		blue = (b << 8) | b;
-		fb_helper->funcs->gamma_set(crtc, red, green, blue, index);
-	}
-}
-#endif
 
 #ifdef __linux__
 /**
@@ -436,14 +408,8 @@ radeondrm_attach_kms(struct device *parent, struct device *self, void *aux)
 	int			 i;
 	uint8_t			 rmmio_bar;
 	paddr_t			 fb_aper;
-#if !defined(__sparc64__)
 	pcireg_t		 addr, mask;
 	int			 s;
-#endif
-
-#if defined(__sparc64__)
-	extern int fbnode;
-#endif
 
 	id_entry = drm_find_description(PCI_VENDOR(pa->pa_id),
 	    PCI_PRODUCT(pa->pa_id), radeondrm_pciidlist);
@@ -455,10 +421,6 @@ radeondrm_attach_kms(struct device *parent, struct device *self, void *aux)
 	rdev->memt = pa->pa_memt;
 	rdev->dmat = pa->pa_dmat;
 
-#if defined(__sparc64__)
-	if (fbnode == PCITAG_NODE(rdev->pa_tag))
-		rdev->console = 1;
-#else
 	if (PCI_CLASS(pa->pa_class) == PCI_CLASS_DISPLAY &&
 	    PCI_SUBCLASS(pa->pa_class) == PCI_SUBCLASS_DISPLAY_VGA &&
 	    (pci_conf_read(pa->pa_pc, pa->pa_tag, PCI_COMMAND_STATUS_REG)
@@ -475,7 +437,6 @@ radeondrm_attach_kms(struct device *parent, struct device *self, void *aux)
 		efifb_cndetach();
 	}
 #endif
-#endif
 
 #define RADEON_PCI_MEM		0x10
 
@@ -486,7 +447,6 @@ radeondrm_attach_kms(struct device *parent, struct device *self, void *aux)
 		printf(": can't get frambuffer info\n");
 		return;
 	}
-#if !defined(__sparc64__)
 	if (rdev->fb_aper_offset == 0) {
 		bus_size_t start, end;
 		bus_addr_t base;
@@ -505,7 +465,6 @@ radeondrm_attach_kms(struct device *parent, struct device *self, void *aux)
 			    RADEON_PCI_MEM + 4, (uint64_t)base >> 32);
 		rdev->fb_aper_offset = base;
 	}
-#endif
 
 	for (i = PCI_MAPREG_START; i < PCI_MAPREG_END ; i+= 4) {
 		type = pci_mapreg_type(pa->pa_pc, pa->pa_tag, i);
@@ -545,7 +504,6 @@ radeondrm_attach_kms(struct device *parent, struct device *self, void *aux)
 		return;
 	}
 
-#if !defined(__sparc64__)
 	/*
 	 * Make sure we have a base address for the ROM such that we
 	 * can map it later.
@@ -568,7 +526,6 @@ radeondrm_attach_kms(struct device *parent, struct device *self, void *aux)
 		    size, 0, 0, 0, &base) == 0)
 			pci_conf_write(pa->pa_pc, pa->pa_tag, PCI_ROM_REG, base);
 	}
-#endif
 
 #ifdef notyet
 	mtx_init(&rdev->swi_lock, IPL_TTY);
@@ -627,39 +584,6 @@ radeondrm_attach_kms(struct device *parent, struct device *self, void *aux)
 		return;
 	}
 	rdev->pdev->irq = -1;
-
-#ifdef __sparc64__
-{
-	struct rasops_info *ri;
-	int node, console;
-
-	node = PCITAG_NODE(pa->pa_tag);
-	console = (fbnode == node);
-
-	fb_setsize(&rdev->sf, 8, 1152, 900, node, 0);
-
-	/*
-	 * The firmware sets up the framebuffer such that at starts at
-	 * an offset from the start of video memory.
-	 */
-	rdev->fb_offset =
-	    bus_space_read_4(rdev->memt, rdev->rmmio_bsh, RADEON_CRTC_OFFSET);
-	if (bus_space_map(rdev->memt, rdev->fb_aper_offset + rdev->fb_offset,
-	    rdev->sf.sf_fbsize, BUS_SPACE_MAP_LINEAR, &rdev->memh)) {
-		printf("%s: can't map video memory\n", rdev->self.dv_xname);
-		return;
-	}
-
-	ri = &rdev->sf.sf_ro;
-	ri->ri_bits = bus_space_vaddr(rdev->memt, rdev->memh);
-	ri->ri_hw = rdev;
-	ri->ri_updatecursor = NULL;
-
-	fbwscons_init(&rdev->sf, RI_VCONS | RI_WRONLY | RI_BSWAP, console);
-	if (console)
-		fbwscons_console_init(&rdev->sf, -1);
-}
-#endif
 
 	fb_aper = bus_space_mmap(rdev->memt, rdev->fb_aper_offset, 0, 0, 0);
 	if (fb_aper != -1)
@@ -758,19 +682,12 @@ radeondrm_attachhook(struct device *self)
 	if (ri->ri_bits == NULL)
 		return;
 
-#ifdef __sparc64__
-	fbwscons_setcolormap(&rdev->sf, radeondrm_setcolor);
-#endif
 	drm_fb_helper_restore_fbdev_mode_unlocked(fb_helper);
 
-#ifndef __sparc64__
 	ri->ri_flg = RI_CENTER | RI_VCONS | RI_WRONLY;
 	rasops_init(ri, 160, 160);
 
 	ri->ri_hw = rdev;
-#else
-	ri = &rdev->sf.sf_ro;
-#endif
 
 	radeondrm_stdscreen.capabilities = ri->ri_caps;
 	radeondrm_stdscreen.nrows = ri->ri_rows;
@@ -1280,9 +1197,6 @@ void radeon_driver_lastclose_kms(struct drm_device *dev)
 {
 	struct radeon_device *rdev = dev->dev_private;
 
-#ifdef __sparc64__
-	fbwscons_setcolormap(&rdev->sf, radeondrm_setcolor);
-#endif
 	if (rdev->mode_info.mode_config_initialized)
 		radeon_fbdev_restore_mode(rdev);
 	vga_switcheroo_process_delayed_switch();

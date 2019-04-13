@@ -34,10 +34,6 @@
 #include <dev/pci/pcivar.h>
 #include <dev/pci/pcidevs.h>
 
-#ifdef __sparc64__
-#include <dev/ofw/openfirm.h>
-#endif
-
 #include <scsi/scsi_all.h>
 #include <scsi/scsiconf.h>
 

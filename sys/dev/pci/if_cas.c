@@ -81,10 +81,6 @@
 #include <dev/pci/pcireg.h>
 #include <dev/pci/pcidevs.h>
 
-#ifdef __sparc64__
-#include <dev/ofw/openfirm.h>
-#endif
-
 #define TRIES	10000
 
 struct cfdriver cas_cd = {
@@ -302,10 +298,6 @@ cas_attach(struct device *parent, struct device *self, void *aux)
 	struct pci_attach_args *pa = aux;
 	struct cas_softc *sc = (void *)self;
 	pci_intr_handle_t ih;
-#ifdef __sparc64__
-	/* XXX the following declarations should be elsewhere */
-	extern void myetheraddr(u_char *);
-#endif
 	const char *intrstr = NULL;
 	bus_size_t size;
 	int gotenaddr = 0;
@@ -322,15 +314,6 @@ cas_attach(struct device *parent, struct device *self, void *aux)
 
 	if (cas_pci_enaddr(sc, pa) == 0)
 		gotenaddr = 1;
-
-#ifdef __sparc64__
-	if (!gotenaddr) {
-		if (OF_getprop(PCITAG_NODE(pa->pa_tag), "local-mac-address",
-		    sc->sc_arpcom.ac_enaddr, ETHER_ADDR_LEN) <= 0)
-			myetheraddr(sc->sc_arpcom.ac_enaddr);
-		gotenaddr = 1;
-	}
-#endif
 
 	sc->sc_burst = 16;	/* XXX */
 
