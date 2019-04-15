@@ -2707,10 +2707,6 @@ aac_print_aif(struct aac_softc *sc, struct aac_aif_command *aif)
 			/* File System Extend operation */
 			printf("\t(FsExtend)\n");
 			break;
-		case AifJobApiFormatNTFS:
-			/* Format a drive to NTFS */
-			printf("\t(FormatNTFS)\n");
-			break;
 		case AifJobApiFormatFAT:
 			/* Format a drive to FAT */
 			printf("\t(FormatFAT)\n");

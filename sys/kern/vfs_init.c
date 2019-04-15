@@ -74,10 +74,6 @@ extern	const struct vfsops cd9660_vfsops;
 extern	const struct vfsops ext2fs_vfsops;
 #endif
 
-#ifdef NTFS
-extern  const struct vfsops ntfs_vfsops;
-#endif
-
 #ifdef UDF
 extern  const struct vfsops udf_vfsops;
 #endif
@@ -120,11 +116,6 @@ static struct vfsconf vfsconflist[] = {
 #ifdef NFSCLIENT
         { &nfs_vfsops, MOUNT_NFS, 2, 0, MNT_SWAPPABLE,
 	    sizeof(struct nfs_args) },
-#endif
-
-#ifdef NTFS
-	{ &ntfs_vfsops, MOUNT_NTFS, 6, 0, MNT_LOCAL,
-	    sizeof(struct ntfs_args) },
 #endif
 
 #ifdef UDF

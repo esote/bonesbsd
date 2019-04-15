@@ -684,7 +684,6 @@ typedef enum {
 	AifJobFsVerify,			/* File System Verify operation */
 	AifJobFsExtend,			/* File System Extend operation */
 	AifJobFsMax = 299,		/* Max Fs type operation */
-	AifJobApiFormatNTFS,		/* Format a drive to NTFS */
 	AifJobApiFormatFAT,		/* Format a drive to FAT */
 	AifJobApiUpdateSnapshot,	/* update the read/write half of a
 					 * snapshot */

@@ -198,24 +198,6 @@ struct msdosfs_args {
 #define	MSDOSFSMNT_LONGNAME	0x02	/* Force Win'95 long names */
 #define	MSDOSFSMNT_NOWIN95	0x04	/* Completely ignore Win95 entries */
 
-/*
- * Arguments to mount ntfs filesystems
- */
-struct ntfs_args {
-	char	*fspec;			/* block special device to mount */
-	struct	export_args export_info;/* network export information */
-	uid_t	uid;			/* uid that owns ntfs files */
-	gid_t	gid;			/* gid that owns ntfs files */
-	mode_t	mode;			/* mask to be applied for ntfs perms */
-	u_long	flag;			/* additional flags */
-};
-
-/*
- * ntfs mount options:
- */
-#define	NTFS_MFLAG_CASEINS      0x00000001
-#define	NTFS_MFLAG_ALLNAMES     0x00000002
-
 /* Arguments to mount UDF file systems */
 struct udf_args {
 	char *fspec; /* Block special device to mount */
@@ -271,7 +253,6 @@ union mount_info {
 	struct nfs_args nfs_args;
 	struct iso_args iso_args;
 	struct msdosfs_args msdosfs_args;
-	struct ntfs_args ntfs_args;
 	struct tmpfs_args tmpfs_args;
 	char __align[160];	/* 64-bit alignment and room to grow */
 };
@@ -321,7 +302,6 @@ struct statfs {
 #define	MOUNT_CD9660	"cd9660"	/* ISO9660 (aka CDROM) Filesystem */
 #define	MOUNT_EXT2FS	"ext2fs"	/* Second Extended Filesystem */
 #define	MOUNT_NCPFS	"ncpfs"		/* NetWare Network File System */
-#define	MOUNT_NTFS	"ntfs"		/* NTFS */
 #define	MOUNT_UDF	"udf"		/* UDF */
 #define	MOUNT_TMPFS	"tmpfs"		/* tmpfs */
 #define	MOUNT_FUSEFS	"fuse"		/* FUSE */

@@ -156,16 +156,6 @@
 /* 125-126 - free */
 #define	M_TEMP		127	/* misc temporary data buffers */
 
-#define	M_NTFSMNT	128	/* NTFS mount structure */
-#define	M_NTFSNTNODE	129	/* NTFS ntnode information */
-#define	M_NTFSFNODE	130	/* NTFS fnode information */
-#define	M_NTFSDIR	131	/* NTFS dir buffer */
-#define	M_NTFSNTHASH	132	/* NTFS ntnode hash tables */
-#define	M_NTFSNTVATTR	133	/* NTFS file attribute information */
-#define	M_NTFSRDATA	134	/* NTFS resident data */
-#define	M_NTFSDECOMP	135	/* NTFS decompression temporary */
-#define	M_NTFSRUN	136	/* NTFS vrun storage */
-
 #define	M_KEVENT	137	/* kqueue related */
 
 	/*		138	   free */
@@ -296,15 +286,6 @@
 	NULL, \
 	NULL, \
 	"temp",		/* 127 M_TEMP */ \
-	"NTFS mount",	/* 128 M_NTFSMNT */ \
-	"NTFS node",	/* 129 M_NTFSNTNODE */ \
-	"NTFS fnode",	/* 130 M_NTFSFNODE */ \
-	"NTFS dir",	/* 131 M_NTFSDIR */ \
-	"NTFS hash",	/* 132 M_NTFSNTHASH */ \
-	"NTFS attr",	/* 133 M_NTFSNTVATTR */ \
-	"NTFS data",	/* 134 M_NTFSRDATA */ \
-	"NTFS decomp",	/* 135 M_NTFSDECOMP */ \
-	"NTFS vrun",	/* 136 M_NTFSRUN */ \
 	"kqueue",	/* 137 M_KEVENT */ \
 	NULL,	/* 138 free */ \
 	"SYN cache",	/* 139 M_SYNCACHE */ \

@@ -466,10 +466,6 @@ donot:
 				fstype = FS_EXT2FS;
 				break;
 
-			case DOSPTYP_NTFS:
-				fstype = FS_NTFS;
-				break;
-
 			case DOSPTYP_EFISYS:
 			case DOSPTYP_FAT12:
 			case DOSPTYP_FAT16S:

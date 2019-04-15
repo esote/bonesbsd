@@ -19,7 +19,6 @@ option		USER_PCICONF	# user-space PCI configuration
 option		APERTURE	# in-kernel aperture driver for XFree86
 option		MTRR		# CPU memory range attributes control
 
-option		NTFS		# NTFS support
 option		HIBERNATE	# Hibernate support
 
 config		bsd	swap generic

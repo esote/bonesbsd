@@ -258,7 +258,6 @@ static char *dktypenames[] = {
 #define FS_EXT2FS	17		/* ext2fs */
 #define FS_CCD		18		/* ccd component */
 #define FS_RAID		19		/* RAIDframe or softraid */
-#define FS_NTFS		20		/* Windows/NT file system */
 #define FS_UDF		21		/* UDF (DVD) filesystem */
 
 #ifdef DKTYPENAMES
@@ -283,7 +282,6 @@ static char *fstypenames[] = {
 	"ext2fs",
 	"ccd",
 	"RAID",
-	"NTFS",
 	"UDF",
 	NULL
 };
@@ -310,7 +308,6 @@ static char *fstypesnames[] = {
 	"ext2fs",	/* 17 */
 	"",		/* 18 */
 	"",		/* 19 */
-	"ntfs",		/* 20 */
 	"udf",		/* 21 */
 	NULL
 };
@@ -479,7 +476,6 @@ struct dos_partition {
 #define	DOSPTYP_FAT16S	0x04		/* 16-bit FAT, less than 32M */
 #define	DOSPTYP_EXTEND	0x05		/* Extended; contains sub-partitions */
 #define	DOSPTYP_FAT16B	0x06		/* 16-bit FAT, more than 32M */
-#define	DOSPTYP_NTFS	0x07		/* NTFS */
 #define	DOSPTYP_FAT32	0x0b		/* 32-bit FAT */
 #define	DOSPTYP_FAT32L	0x0c		/* 32-bit FAT, LBA-mapped */
 #define	DOSPTYP_FAT16L	0x0e		/* 16-bit FAT, LBA-mapped */
