@@ -1,2 +1,6 @@
-BadBSD is a fork of the OpenBSD kernel from OpenBSD -current. BadBSD was forked
-on April 11, 2019 12:30 AM UTC.
+BonesBSD is a fork of the OpenBSD kernel from OpenBSD -current. BonesBSD was
+forked on April 11, 2019 12:30 AM UTC.
+
+	"Any change?"
+	"Yes, for the worse."
+		-- Kirk and McCoy, "Metamorphosis", stardate unknown
