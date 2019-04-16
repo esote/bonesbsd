@@ -1355,10 +1355,6 @@ getdisk(char *str, int len, int defpart, dev_t *devp)
 		TAILQ_FOREACH(dv, &alldevs, dv_list) {
 			if (dv->dv_class == DV_DISK)
 				printf(" %s[a-p]", dv->dv_xname);
-#if defined(NFSCLIENT)
-			if (dv->dv_class == DV_IFNET)
-				printf(" %s", dv->dv_xname);
-#endif
 		}
 		printf("\n");
 	}
@@ -1390,14 +1386,6 @@ parsedisk(char *str, int len, int defpart, dev_t *devp)
 			*devp = MAKEDISKDEV(majdev, dv->dv_unit, part);
 			break;
 		}
-#if defined(NFSCLIENT)
-		if (dv->dv_class == DV_IFNET &&
-		    strncmp(str, dv->dv_xname, len) == 0 &&
-		    dv->dv_xname[len] == '\0') {
-			*devp = NODEV;
-			break;
-		}
-#endif
 	}
 
 	return (dv);
@@ -1413,9 +1401,6 @@ setroot(struct device *bootdv, int part, int exitflags)
 	struct ifnet *ifp = NULL;
 	struct disk *dk;
 	char buf[128];
-#if defined(NFSCLIENT)
-	extern char *nfsbootdevname;
-#endif
 
 	/* Ensure that all disk attach callbacks have completed. */
 	do {
@@ -1550,11 +1535,6 @@ gotswap:
 		dumpdev = nswapdev;
 		swdevt[0].sw_dev = nswapdev;
 		swdevt[1].sw_dev = NODEV;
-#if defined(NFSCLIENT)
-	} else if (mountroot == nfs_mountroot) {
-		rootdv = bootdv;
-		rootdev = dumpdev = swapdev = NODEV;
-#endif
 	} else if (mountroot == NULL && rootdev == NODEV) {
 		/*
 		 * `swap generic'
@@ -1615,12 +1595,6 @@ gotswap:
 		if_addgroup(ifp, "netboot");
 
 	switch (rootdv->dv_class) {
-#if defined(NFSCLIENT)
-	case DV_IFNET:
-		mountroot = nfs_mountroot;
-		nfsbootdevname = rootdv->dv_xname;
-		return;
-#endif
 	case DV_DISK:
 		mountroot = dk_mountroot;
 		part = DISKPART(rootdev);

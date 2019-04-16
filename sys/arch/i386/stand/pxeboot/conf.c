@@ -35,7 +35,6 @@
 #include <lib/libsa/cd9660.h>
 #include <lib/libsa/fat.h>
 #endif
-#include <lib/libsa/nfs.h>
 #include <lib/libsa/tftp.h>
 #include <lib/libsa/netif.h>
 #include <biosdev.h>
@@ -71,7 +70,7 @@ int nibprobes = nitems(probe_list);
 
 /* This next list must match file_system[]. */
 char *fs_name[] = {
-	NULL, "tftp", "nfs"
+	NULL, "tftp"
 };
 int nfsname = nitems(fs_name);
 
@@ -80,8 +79,6 @@ struct fs_ops file_system[] = {
 	  ufs_stat,    ufs_readdir    },
 	{ tftp_open,   tftp_close,   tftp_read,   tftp_write,   tftp_seek,
 	  tftp_stat,   tftp_readdir   },
-	{ nfs_open,    nfs_close,    nfs_read,    nfs_write,    nfs_seek,
-	  nfs_stat,    nfs_readdir    },
 #ifdef notdef
 	{ fat_open,    fat_close,    fat_read,    fat_write,    fat_seek,
 	  fat_stat,    fat_readdir    },

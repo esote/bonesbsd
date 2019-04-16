@@ -98,13 +98,6 @@ int	arp_maxtries = 5;
 int	arpinit_done;
 int	la_hold_total;
 
-#ifdef NFSCLIENT
-/* revarp state */
-struct in_addr revarp_myip, revarp_srvip;
-int revarp_finished;
-unsigned int revarp_ifidx;
-#endif /* NFSCLIENT */
-
 /*
  * Timeout routine.  Age arp_tab entries periodically.
  */
@@ -836,21 +829,6 @@ in_revarpinput(struct ifnet *ifp, struct mbuf *m)
 	default:
 		goto out;
 	}
-#ifdef NFSCLIENT
-	if (revarp_ifidx == 0)
-		goto out;
-	if (revarp_ifidx != m->m_pkthdr.ph_ifidx) /* !same interface */
-		goto out;
-	if (revarp_finished)
-		goto wake;
-	if (memcmp(ar->arp_tha, LLADDR(ifp->if_sadl), sizeof(ar->arp_tha)))
-		goto out;
-	memcpy(&revarp_srvip, ar->arp_spa, sizeof(revarp_srvip));
-	memcpy(&revarp_myip, ar->arp_tpa, sizeof(revarp_myip));
-	revarp_finished = 1;
-wake:	/* Do wakeup every time in case it was missed. */
-	wakeup((caddr_t)&revarp_myip);
-#endif /* NFSCLIENT */
 
 out:
 	m_freem(m);
@@ -894,43 +872,3 @@ revarprequest(struct ifnet *ifp)
 	m->m_flags |= M_BCAST;
 	ifp->if_output(ifp, m, &sa, NULL);
 }
-
-#ifdef NFSCLIENT
-/*
- * RARP for the ip address of the specified interface, but also
- * save the ip address of the server that sent the answer.
- * Timeout if no response is received.
- */
-int
-revarpwhoarewe(struct ifnet *ifp, struct in_addr *serv_in,
-    struct in_addr *clnt_in)
-{
-	int result, count = 20;
-
-	if (revarp_finished)
-		return EIO;
-
-	revarp_ifidx = ifp->if_index;
-	while (count--) {
-		revarprequest(ifp);
-		result = tsleep((caddr_t)&revarp_myip, PSOCK, "revarp", hz/2);
-		if (result != EWOULDBLOCK)
-			break;
-	}
-	revarp_ifidx = 0;
-	if (!revarp_finished)
-		return ENETUNREACH;
-
-	memcpy(serv_in, &revarp_srvip, sizeof(*serv_in));
-	memcpy(clnt_in, &revarp_myip, sizeof(*clnt_in));
-	return 0;
-}
-
-/* For compatibility: only saves interface address. */
-int
-revarpwhoami(struct in_addr *in, struct ifnet *ifp)
-{
-	struct in_addr server;
-	return (revarpwhoarewe(ifp, &server, in));
-}
-#endif /* NFSCLIENT */

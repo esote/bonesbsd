@@ -158,10 +158,6 @@ vntblinit(void)
 	 * Initialize the filesystem syncer.
 	 */
 	vn_initialize_syncerd();
-
-#ifdef NFSSERVER
-	rn_init(sizeof(struct sockaddr_in));
-#endif /* NFSSERVER */
 }
 
 /*
@@ -1396,168 +1392,16 @@ vfs_mountedon(struct vnode *vp)
 	return (error);
 }
 
-#ifdef NFSSERVER
-/*
- * Build hash lists of net addresses and hang them off the mount point.
- * Called by vfs_export() to set up the lists of export addresses.
- */
-int
-vfs_hang_addrlist(struct mount *mp, struct netexport *nep,
-    struct export_args *argp)
-{
-	struct netcred *np;
-	struct radix_node_head *rnh;
-	int nplen, i;
-	struct radix_node *rn;
-	struct sockaddr *saddr, *smask = 0;
-	int error;
-
-	if (argp->ex_addrlen == 0) {
-		if (mp->mnt_flag & MNT_DEFEXPORTED)
-			return (EPERM);
-		np = &nep->ne_defexported;
-		/* fill in the kernel's ucred from userspace's xucred */
-		if ((error = crfromxucred(&np->netc_anon, &argp->ex_anon)))
-			return (error);
-		mp->mnt_flag |= MNT_DEFEXPORTED;
-		goto finish;
-	}
-	if (argp->ex_addrlen > MLEN || argp->ex_masklen > MLEN ||
-	    argp->ex_addrlen < 0 || argp->ex_masklen < 0)
-		return (EINVAL);
-	nplen = sizeof(struct netcred) + argp->ex_addrlen + argp->ex_masklen;
-	np = (struct netcred *)malloc(nplen, M_NETADDR, M_WAITOK|M_ZERO);
-	np->netc_len = nplen;
-	saddr = (struct sockaddr *)(np + 1);
-	error = copyin(argp->ex_addr, saddr, argp->ex_addrlen);
-	if (error)
-		goto out;
-	if (saddr->sa_len > argp->ex_addrlen)
-		saddr->sa_len = argp->ex_addrlen;
-	if (argp->ex_masklen) {
-		smask = (struct sockaddr *)((caddr_t)saddr + argp->ex_addrlen);
-		error = copyin(argp->ex_mask, smask, argp->ex_masklen);
-		if (error)
-			goto out;
-		if (smask->sa_len > argp->ex_masklen)
-			smask->sa_len = argp->ex_masklen;
-	}
-	/* fill in the kernel's ucred from userspace's xucred */
-	if ((error = crfromxucred(&np->netc_anon, &argp->ex_anon)))
-		goto out;
-	i = saddr->sa_family;
-	switch (i) {
-	case AF_INET:
-		if ((rnh = nep->ne_rtable_inet) == NULL) {
-			if (!rn_inithead((void **)&nep->ne_rtable_inet,
-			    offsetof(struct sockaddr_in, sin_addr))) {
-				error = ENOBUFS;
-				goto out;
-			}
-			rnh = nep->ne_rtable_inet;
-		}
-		break;
-	default:
-		error = EINVAL;
-		goto out;
-	}
-	rn = rn_addroute(saddr, smask, rnh, np->netc_rnodes, 0);
-	if (rn == 0 || np != (struct netcred *)rn) { /* already exists */
-		error = EPERM;
-		goto out;
-	}
-finish:
-	np->netc_exflags = argp->ex_flags;
-	return (0);
-out:
-	free(np, M_NETADDR, np->netc_len);
-	return (error);
-}
-
-int
-vfs_free_netcred(struct radix_node *rn, void *w, u_int id)
-{
-	struct radix_node_head *rnh = (struct radix_node_head *)w;
-	struct netcred * np = (struct netcred *)rn;
-
-	rn_delete(rn->rn_key, rn->rn_mask, rnh, NULL);
-	free(np, M_NETADDR, np->netc_len);
-	return (0);
-}
-
-/*
- * Free the net address hash lists that are hanging off the mount points.
- */
-void
-vfs_free_addrlist(struct netexport *nep)
-{
-	struct radix_node_head *rnh;
-
-	if ((rnh = nep->ne_rtable_inet) != NULL) {
-		rn_walktree(rnh, vfs_free_netcred, rnh);
-		free(rnh, M_RTABLE, sizeof(*rnh));
-		nep->ne_rtable_inet = NULL;
-	}
-}
-#endif /* NFSSERVER */
-
 int
 vfs_export(struct mount *mp, struct netexport *nep, struct export_args *argp)
 {
-#ifdef NFSSERVER
-	int error;
-
-	if (argp->ex_flags & MNT_DELEXPORT) {
-		vfs_free_addrlist(nep);
-		mp->mnt_flag &= ~(MNT_EXPORTED | MNT_DEFEXPORTED);
-	}
-	if (argp->ex_flags & MNT_EXPORTED) {
-		if ((error = vfs_hang_addrlist(mp, nep, argp)) != 0)
-			return (error);
-		mp->mnt_flag |= MNT_EXPORTED;
-	}
-	return (0);
-#else
 	return (ENOTSUP);
-#endif /* NFSSERVER */
 }
 
 struct netcred *
 vfs_export_lookup(struct mount *mp, struct netexport *nep, struct mbuf *nam)
 {
-#ifdef NFSSERVER
-	struct netcred *np;
-	struct radix_node_head *rnh;
-	struct sockaddr *saddr;
-
-	np = NULL;
-	if (mp->mnt_flag & MNT_EXPORTED) {
-		/*
-		 * Lookup in the export list first.
-		 */
-		if (nam != NULL) {
-			saddr = mtod(nam, struct sockaddr *);
-			switch(saddr->sa_family) {
-			case AF_INET:
-				rnh = nep->ne_rtable_inet;
-				break;
-			default:
-				rnh = NULL;
-				break;
-			}
-			if (rnh != NULL)
-				np = (struct netcred *)rn_match(saddr, rnh);
-		}
-		/*
-		 * If no address match, use the default if it exists.
-		 */
-		if (np == NULL && mp->mnt_flag & MNT_DEFEXPORTED)
-			np = &nep->ne_defexported;
-	}
-	return (np);
-#else
 	return (NULL);
-#endif /* NFSSERVER */
 }
 
 /*

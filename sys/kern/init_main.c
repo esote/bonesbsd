@@ -96,10 +96,6 @@
 #include <crypto/cryptosoft.h>
 #endif
 
-#if defined(NFSSERVER) || defined(NFSCLIENT)
-extern void nfs_init(void);
-#endif
-
 #include "mpath.h"
 #include "vscsi.h"
 #include "softraid.h"
@@ -377,9 +373,6 @@ main(void *framep)
 	percpu_init();
 
 	/* Initialize the file systems. */
-#if defined(NFSSERVER) || defined(NFSCLIENT)
-	nfs_init();			/* initialize server/shared data */
-#endif
 	vfsinit();
 
 	/* Start real time and statistics clocks. */

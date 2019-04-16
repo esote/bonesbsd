@@ -42,8 +42,6 @@
 
 #include <netinet/in.h>
 
-#include <nfs/rpcv2.h>
-
 #include "stand.h"
 #include "net.h"
 #include "netif.h"
@@ -292,7 +290,7 @@ bp_getfile(int sockfd, char *key, struct in_addr *serv_addr, char *pathname)
 		return (-1);
 	}
 
-	/* server IP address (mountd/NFS) */
+	/* server IP address (mountd) */
 	if (xdr_inaddr_decode(&recv_head, serv_addr)) {
 		RPC_PRINTF(("bp_getfile: bad server addr\n"));
 		return (-1);

@@ -34,7 +34,6 @@
 #include <lib/libsa/cd9660.h>
 #ifdef notdef
 #include <lib/libsa/fat.h>
-#include <lib/libsa/nfs.h>
 #include <lib/libsa/tftp.h>
 #include <lib/libsa/netif.h>
 #endif
@@ -69,8 +68,6 @@ struct fs_ops file_system[] = {
 #ifdef notdef
 	{ tftp_open,   tftp_close,   tftp_read,   tftp_write,   tftp_seek,
 	  tftp_stat,   tftp_readdir   },
-	{ nfs_open,    nfs_close,    nfs_read,    nfs_write,    nfs_seek,
-	  nfs_stat,    nfs_readdir    },
 	{ fat_open,    fat_close,    fat_read,    fat_write,    fat_seek,
 	  fat_stat,    fat_readdir    },
 #endif

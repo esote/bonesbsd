@@ -80,10 +80,7 @@
 /* 15-18 - free */
 #define	M_IOV		19	/* large iov's */
 #define	M_MOUNT		20	/* vfs mount struct */
-/* 21 - free */
-#define	M_NFSREQ	22	/* NFS request header */
-#define	M_NFSMNT	23	/* NFS mount structure */
-/* 24 - free */
+/* 21-24 - free */
 #define	M_VNODE		25	/* Dynamically allocated vnodes */
 #define	M_CACHE		26	/* Dynamically allocated cache entries */
 #define	M_DQUOT		27	/* UFS quota entries */
@@ -105,9 +102,7 @@
 #define	M_MFSNODE	46	/* MFS vnode private part */
 /* 47-48 - free */
 #define	M_NETADDR	49	/* Export host address structure */
-#define	M_NFSSVC	50	/* Nfs server structure */
-/* 51 - free */
-#define	M_NFSD		52	/* Nfs server daemon structure */
+/* 50-52 - free */
 #define	M_IPMOPTS	53	/* internet multicast options */
 #define	M_IPMADDR	54	/* internet multicast address */
 #define	M_IFMADDR	55	/* link-level multicast address */
@@ -196,8 +191,8 @@
 	"iov",		/* 19 M_IOV */ \
 	"mount",	/* 20 M_MOUNT */ \
 	NULL, \
-	"NFS req",	/* 22 M_NFSREQ */ \
-	"NFS mount",	/* 23 M_NFSMNT */ \
+	NULL, \
+	NULL, \
 	NULL, \
 	"vnodes",	/* 25 M_VNODE */ \
 	"namecache",	/* 26 M_CACHE */ \
@@ -224,9 +219,9 @@
 	NULL, \
 	NULL, \
 	"Export Host",	/* 49 M_NETADDR */ \
-	"NFS srvsock",	/* 50 M_NFSSVC */ \
 	NULL, \
-	"NFS daemon",	/* 52 M_NFSD */ \
+	NULL, \
+	NULL, \
 	"ip_moptions",	/* 53 M_IPMOPTS */ \
 	"in_multi",	/* 54 M_IPMADDR */ \
 	"ether_multi",	/* 55 M_IFMADDR */ \

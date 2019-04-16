@@ -36,7 +36,6 @@ DGEN=	conf \
 	miscfs miscfs/deadfs miscfs/fifofs \
 	msdosfs \
 	net netinet netmpls \
-	nfs \
 	scsi \
 	sys \
 	ufs ufs/ffs ufs/mfs ufs/ufs \

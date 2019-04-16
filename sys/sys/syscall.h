@@ -420,9 +420,6 @@
 
 				/* 149 is obsolete oquota */
 				/* 150 is obsolete ogetsockname */
-/* syscall: "nfssvc" ret: "int" args: "int" "void *" */
-#define	SYS_nfssvc	155
-
 				/* 156 is obsolete ogetdirentries */
 				/* 157 is obsolete statfs25 */
 				/* 158 is obsolete fstatfs25 */

@@ -34,7 +34,7 @@ SRCS+=	alloc.c ctime.c exit.c getchar.c globals.c memcmp.c memcpy.c memset.c \
 SRCS+=	close.c closeall.c cons.c cread.c dev.c disklabel.c dkcksum.c fstat.c \
 	lseek.c read.c readdir.c stat.c
 SRCS+=	elf32.c elf64.c loadfile.c
-SRCS+=	nfs.c ufs.c tftp.c
+SRCS+=	ufs.c tftp.c
 SRCS+=	bootp.c ether.c net.c netif.c rpc.c
 SRCS+=	aes_xts.c bcrypt_pbkdf.c blowfish.c explicit_bzero.c hmac_sha1.c \
 	pkcs5_pbkdf2.c rijndael.c sha1.c sha2.c softraid.c

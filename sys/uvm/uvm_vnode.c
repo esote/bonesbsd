@@ -1267,12 +1267,6 @@ uvn_io(struct uvm_vnode *uvn, vm_page_t *pps, int npages, int flags, int rw)
  *	is off
  * ffs_realloccg: when we can't extend the current block and have
  *	to allocate a new one we call this [XXX: why?]
- * nfsrv_rename, rename_files: called when the target filename is there
- *	and we want to remove it
- * nfsrv_remove, sys_unlink: called on file we are removing
- * nfsrv_access: if VTEXT and we want WRITE access and we don't uncache
- *	then return "text busy"
- * nfs_open: seems to uncache any file opened with nfs
  * vn_writechk: if VTEXT vnode and can't uncache return "text busy"
  * fusefs_open: uncaches any file that is opened
  * fusefs_write: uncaches on every write
@@ -1345,10 +1339,8 @@ uvm_vnp_uncache(struct vnode *vp)
  * called from:
  *  => truncate fns (ext2fs_truncate, ffs_truncate, detrunc[msdos],
  *     fusefs_setattr)
- *  => "write" fns (ext2fs_write, WRITE [ufs/ufs], msdosfs_write, nfs_write
- *     fusefs_write)
+ *  => "write" fns (ext2fs_write, WRITE [ufs/ufs], msdosfs_write, fusefs_write)
  *  => ffs_balloc [XXX: why? doesn't WRITE handle?]
- *  => NFS: nfs_loadattrcache, nfs_getattrcache, nfs_setattr
  *  => union fs: union_newsize
  */
 

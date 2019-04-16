@@ -342,13 +342,8 @@ struct sysent sysent[] = {
 	    sys_nosys },			/* 153 = unimplemented */
 	{ 0, 0, 0,
 	    sys_nosys },			/* 154 = unimplemented */
-#if defined(NFSCLIENT) || defined(NFSSERVER)
-	{ 2, s(struct sys_nfssvc_args), 0,
-	    sys_nfssvc },			/* 155 = nfssvc */
-#else
 	{ 0, 0, 0,
 	    sys_nosys },			/* 155 = unimplemented */
-#endif
 	{ 0, 0, 0,
 	    sys_nosys },			/* 156 = obsolete ogetdirentries */
 	{ 0, 0, 0,

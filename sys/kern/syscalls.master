@@ -293,11 +293,7 @@
 152	UNIMPL
 153	UNIMPL
 154	UNIMPL
-#if defined(NFSCLIENT) || defined(NFSSERVER)
-155	STD		{ int sys_nfssvc(int flag, void *argp); }
-#else
 155	UNIMPL
-#endif
 156	OBSOL		ogetdirentries
 157	OBSOL		statfs25
 158	OBSOL		fstatfs25

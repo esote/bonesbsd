@@ -175,11 +175,7 @@ char *syscallnames[] = {
 	"#152 (unimplemented)",		/* 152 = unimplemented */
 	"#153 (unimplemented)",		/* 153 = unimplemented */
 	"#154 (unimplemented)",		/* 154 = unimplemented */
-#if defined(NFSCLIENT) || defined(NFSSERVER)
-	"nfssvc",			/* 155 = nfssvc */
-#else
 	"#155 (unimplemented)",		/* 155 = unimplemented */
-#endif
 	"#156 (obsolete ogetdirentries)",		/* 156 = obsolete ogetdirentries */
 	"#157 (obsolete statfs25)",		/* 157 = obsolete statfs25 */
 	"#158 (obsolete fstatfs25)",		/* 158 = obsolete fstatfs25 */

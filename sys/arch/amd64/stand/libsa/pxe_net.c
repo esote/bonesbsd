@@ -32,7 +32,7 @@
 
 /*
  * This module implements a "raw device" interface suitable for
- * use by the stand-alone I/O library NFS and TFTP code.  This interface
+ * use by the stand-alone I/O library TFTP code.  This interface
  * does not support any "block" access, and exists only for the
  * purpose of initializing the network interface and getting boot
  * parameters.

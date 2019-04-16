@@ -15,7 +15,6 @@ option		SCSITERSE
 option		FFS
 option		FFS2
 option		EXT2FS
-option		NFSCLIENT
 option		CD9660
 option		UDF
 option		MSDOSFS

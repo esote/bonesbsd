@@ -681,11 +681,6 @@ struct sys_quotactl_args {
 	syscallarg(char *) arg;
 };
 
-struct sys_nfssvc_args {
-	syscallarg(int) flag;
-	syscallarg(void *) argp;
-};
-
 struct sys_getfh_args {
 	syscallarg(const char *) fname;
 	syscallarg(fhandle_t *) fhp;
@@ -1239,10 +1234,6 @@ int	sys_adjtime(struct proc *, void *, register_t *);
 int	sys_getlogin_r(struct proc *, void *, register_t *);
 int	sys_setsid(struct proc *, void *, register_t *);
 int	sys_quotactl(struct proc *, void *, register_t *);
-#if defined(NFSCLIENT) || defined(NFSSERVER)
-int	sys_nfssvc(struct proc *, void *, register_t *);
-#else
-#endif
 int	sys_getfh(struct proc *, void *, register_t *);
 int	sys_sysarch(struct proc *, void *, register_t *);
 int	sys_pread(struct proc *, void *, register_t *);

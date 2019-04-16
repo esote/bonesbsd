@@ -457,35 +457,6 @@ db_vnode_print_cmd(db_expr_t addr, int have_addr, db_expr_t count, char *modif)
 	vfs_vnode_print((void *)addr, full, db_printf);
 }
 
-#ifdef NFSCLIENT
-/*ARGSUSED*/
-void
-db_nfsreq_print_cmd(db_expr_t addr, int have_addr, db_expr_t count,
-    char *modif)
-{
-	boolean_t full = FALSE;
-
-	if (modif[0] == 'f')
-		full = TRUE;
-
-	nfs_request_print((void *)addr, full, db_printf);
-}
-
-/*ARGSUSED*/
-void
-db_nfsnode_print_cmd(db_expr_t addr, int have_addr, db_expr_t count,
-    char *modif)
-{
-	boolean_t full = FALSE;
-
-	if (modif[0] == 'f')
-		full = TRUE;
-
-	nfs_node_print((void *)addr, full, db_printf);
-}
-#endif
-
-
 /*ARGSUSED*/
 void
 db_show_panic_cmd(db_expr_t addr, int have_addr, db_expr_t count, char *modif)
@@ -552,10 +523,6 @@ struct db_command db_show_all_cmds[] = {
 	{ "mounts",	db_show_all_mounts,	0, NULL },
 	{ "vnodes",	db_show_all_vnodes,	0, NULL },
 	{ "bufs",	db_show_all_bufs,	0, NULL },
-#ifdef NFSCLIENT
-	{ "nfsreqs",	db_show_all_nfsreqs,	0, NULL },
-	{ "nfsnodes",	db_show_all_nfsnodes,	0, NULL },
-#endif
 #ifdef WITNESS
 	{ "locks",	db_witness_list_all,	0, NULL },
 #endif
@@ -575,10 +542,6 @@ struct db_command db_show_cmds[] = {
 	{ "map",	db_map_print_cmd,	0,	NULL },
 	{ "mbuf",	db_mbuf_print_cmd,	0,	NULL },
 	{ "mount",	db_mount_print_cmd,	0,	NULL },
-#ifdef NFSCLIENT
-	{ "nfsreq",	db_nfsreq_print_cmd,	0,	NULL },
-	{ "nfsnode",	db_nfsnode_print_cmd,	0,	NULL },
-#endif
 	{ "object",	db_object_print_cmd,	0,	NULL },
 	{ "page",	db_page_print_cmd,	0,	NULL },
 	{ "panic",	db_show_panic_cmd,	0,	NULL },

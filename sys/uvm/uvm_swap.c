@@ -52,13 +52,6 @@
 #include <sys/disk.h>
 #include <sys/task.h>
 #include <sys/pledge.h>
-#if defined(NFSCLIENT)
-#include <sys/socket.h>
-#include <sys/domain.h>
-#include <netinet/in.h>
-#include <nfs/nfsproto.h>
-#include <nfs/nfsdiskless.h>
-#endif
 
 #include <uvm/uvm.h>
 #ifdef UVM_SWAP_ENCRYPT
@@ -821,9 +814,6 @@ swap_on(struct proc *p, struct swapdev *sdp)
 	int error, npages, nblocks, size;
 	long addr;
 	struct vattr va;
-#if defined(NFSCLIENT)
-	extern struct vops nfs_vops;
-#endif /* defined(NFSCLIENT) */
 	dev_t dev;
 
 	/*
@@ -881,15 +871,6 @@ swap_on(struct proc *p, struct swapdev *sdp)
 			goto bad;
 
 		sdp->swd_bsize = vp->v_mount->mnt_stat.f_iosize;
-		/*
-		 * limit the max # of outstanding I/O requests we issue
-		 * at any one time.   take it easy on NFS servers.
-		 */
-#if defined(NFSCLIENT)
-		if (vp->v_op == &nfs_vops)
-			sdp->swd_maxactive = 2; /* XXX */
-		else
-#endif /* defined(NFSCLIENT) */
 			sdp->swd_maxactive = 8; /* XXX */
 		bufq_init(&sdp->swd_bufq, BUFQ_FIFO);
 		break;
@@ -1878,16 +1859,6 @@ swapmount(void)
 	if (swap_dev == NODEV)
 		return;
 
-#if defined(NFSCLIENT)
-	if (swap_dev == NETDEV) {
-		extern struct nfs_diskless nfs_diskless;
-
-		snprintf(path, sizeof(path), "%s",
-		    nfs_diskless.nd_swap.ndm_host);
-		vp = nfs_diskless.sw_vp;
-		goto gotit;
-	} else
-#endif
 	if (bdevvp(swap_dev, &vp))
 		return;
 
@@ -1899,9 +1870,6 @@ swapmount(void)
 		snprintf(path, sizeof(path), "blkdev0x%x",
 		    swap_dev);
 
-#if defined(NFSCLIENT)
-gotit:
-#endif
 	sdp = malloc(sizeof(*sdp), M_VMSWAP, M_WAITOK|M_ZERO);
 	spp = malloc(sizeof(*spp), M_VMSWAP, M_WAITOK);
 

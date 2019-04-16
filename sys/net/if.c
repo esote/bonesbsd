@@ -1070,10 +1070,6 @@ if_detach(struct ifnet *ifp)
 	task_del(net_tq(ifp->if_index), &ifp->if_linkstatetask);
 
 	rti_delete(ifp);
-#if NETHER > 0 && defined(NFSCLIENT)
-	if (ifp->if_index == revarp_ifidx)
-		revarp_ifidx = 0;
-#endif
 #ifdef MROUTING
 	vif_delete(ifp);
 #endif

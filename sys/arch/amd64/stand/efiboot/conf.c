@@ -72,8 +72,6 @@ struct fs_ops file_system[] = {
 #ifdef notdef
 	{ fat_open,    fat_close,    fat_read,    fat_write,    fat_seek,
 	  fat_stat,    fat_readdir    },
-	{ nfs_open,    nfs_close,    nfs_read,    nfs_write,    nfs_seek,
-	  nfs_stat,    nfs_readdir    },
 #endif
 };
 int nfsys = nitems(file_system);

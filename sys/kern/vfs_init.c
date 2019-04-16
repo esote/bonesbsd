@@ -62,10 +62,6 @@ extern	const struct vfsops mfs_vfsops;
 extern	const struct vfsops msdosfs_vfsops;
 #endif
 
-#ifdef NFSCLIENT
-extern	const struct vfsops nfs_vfsops;
-#endif
-
 #ifdef CD9660
 extern	const struct vfsops cd9660_vfsops;
 #endif
@@ -111,11 +107,6 @@ static struct vfsconf vfsconflist[] = {
 #ifdef MSDOSFS
         { &msdosfs_vfsops, MOUNT_MSDOS, 4, 0, MNT_LOCAL | MNT_SWAPPABLE,
 	    sizeof(struct msdosfs_args) },
-#endif
-
-#ifdef NFSCLIENT
-        { &nfs_vfsops, MOUNT_NFS, 2, 0, MNT_SWAPPABLE,
-	    sizeof(struct nfs_args) },
 #endif
 
 #ifdef UDF

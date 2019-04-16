@@ -215,10 +215,6 @@ extern u_int8_t etheranyaddr[ETHER_ADDR_LEN];
 extern u_int8_t ether_ipmulticast_min[ETHER_ADDR_LEN];
 extern u_int8_t ether_ipmulticast_max[ETHER_ADDR_LEN];
 
-#ifdef NFSCLIENT
-extern unsigned int revarp_ifidx;
-#endif /* NFSCLIENT */
-
 void	revarpinput(struct ifnet *, struct mbuf *);
 void	revarprequest(struct ifnet *);
 int	revarpwhoarewe(struct ifnet *, struct in_addr *, struct in_addr *);

@@ -246,11 +246,6 @@ diskconf(void)
 		if (ifp) {
 			printf("PXE boot MAC address %s, interface %s\n",
 			    ether_sprintf(bios_bootmac->mac), ifp->if_xname);
-#if defined(NFSCLIENT)
-			bootdv = parsedisk(ifp->if_xname, strlen(ifp->if_xname),
-			    0, &tmpdev);
-			part = 0;
-#endif
 		} else
 			printf("PXE boot MAC address %s, interface %s\n",
 			    ether_sprintf(bios_bootmac->mac), "unknown");
