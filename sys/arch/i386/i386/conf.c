@@ -154,8 +154,6 @@ cdev_decl(cztty);
 #include "gpr.h"
 #include "nvram.h"
 cdev_decl(nvram);
-#include "drm.h"
-cdev_decl(drm);
 
 #include "wsdisplay.h"
 #include "wskbd.h"
@@ -174,7 +172,6 @@ cdev_decl(pci);
 #include "amdmsr.h"
 #include "vscsi.h"
 #include "pppx.h"
-#include "fuse.h"
 #include "pvbus.h"
 #include "ipmi.h"
 #include "switch.h"
@@ -281,12 +278,12 @@ struct cdevsw	cdevsw[] =
 	cdev_notdef(),			/* 85: ACPI (deprecated) */
 	cdev_notdef(),
 	cdev_notdef(),			/* 87 */
-	cdev_drm_init(NDRM,drm),	/* 88: drm */
+	cdev_notdef(),			/* 88: was: drm */
 	cdev_amdmsr_init(NAMDMSR,amdmsr),	/* 89: amdmsr */
 	cdev_vscsi_init(NVSCSI,vscsi),	/* 90: vscsi */
 	cdev_disk_init(1,diskmap),	/* 91: disk mapper */
 	cdev_pppx_init(NPPPX,pppx),     /* 92: pppx */
-	cdev_fuse_init(NFUSE,fuse),	/* 93: fuse */ 
+	cdev_notdef(),			/* 93: was: fuse */ 
 	cdev_tun_init(NTUN,tap),	/* 94: Ethernet network tunnel */
 	cdev_pvbus_init(NPVBUS,pvbus),	/* 95: pvbus(4) control interface */
 	cdev_ipmi_init(NIPMI,ipmi),	/* 96: ipmi */

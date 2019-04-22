@@ -829,4 +829,3 @@ attach	bnxt at pci
 file	dev/pci/if_bnxt.c		bnxt
 
 include "dev/pci/files.agp"
-include "dev/pci/drm/files.drm"

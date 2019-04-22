@@ -159,8 +159,6 @@ cdev_decl(cztty);
 #include "radio.h"
 #include "nvram.h"
 cdev_decl(nvram);
-#include "drm.h"
-cdev_decl(drm);
 #include "viocon.h"
 cdev_decl(viocon);
 
@@ -285,11 +283,12 @@ struct cdevsw	cdevsw[] =
 	cdev_notdef(),
 	cdev_nvram_init(NNVRAM,nvram),	/* 85: NVRAM interface */
 	cdev_notdef(),			/* 86 */
-	cdev_drm_init(NDRM,drm),	/* 87: drm */
+	cdev_notdef(),			/* 87: was: drm */
 	cdev_gpio_init(NGPIO,gpio),	/* 88: gpio */
 	cdev_vscsi_init(NVSCSI,vscsi),	/* 89: vscsi */
 	cdev_disk_init(1,diskmap),	/* 90: disk mapper */
 	cdev_pppx_init(NPPPX,pppx),     /* 91: pppx */
+	cdev_notdef(),			/* 92: was: fuse */
 	cdev_tun_init(NTUN,tap),	/* 93: Ethernet network tunnel */
 	cdev_tty_init(NVIOCON,viocon),  /* 94: virtio console */
 	cdev_pvbus_init(NPVBUS,pvbus),	/* 95: pvbus(4) control interface */

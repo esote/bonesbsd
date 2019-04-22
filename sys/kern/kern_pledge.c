@@ -80,10 +80,6 @@
 #endif
 #endif
 
-#if defined(__amd64__) || defined(__i386__)
-#include "drm.h"
-#endif
-
 uint64_t pledgereq_flags(const char *req);
 int	 parsepledges(struct proc *p, const char *kname,
 	    const char *promises, u_int64_t *fp);
@@ -374,7 +370,6 @@ static const struct {
 	{ "disklabel",		PLEDGE_DISKLABEL },
 	{ "dns",		PLEDGE_DNS },
 	{ "dpath",		PLEDGE_DPATH },
-	{ "drm",		PLEDGE_DRM },
 	{ "error",		PLEDGE_ERROR },
 	{ "exec",		PLEDGE_EXEC },
 	{ "fattr",		PLEDGE_FATTR | PLEDGE_CHOWN },
@@ -1098,18 +1093,6 @@ pledge_ioctl(struct proc *p, long com, struct file *fp)
 			break;
 		}
 	}
-
-#if NDRM > 0
-	if ((p->p_p->ps_pledge & PLEDGE_DRM)) {
-		if ((fp->f_type == DTYPE_VNODE) &&
-		    (vp->v_type == VCHR) &&
-		    (cdevsw[major(vp->v_rdev)].d_open == drmopen)) {
-			error = pledge_ioctl_drm(p, com, vp->v_rdev);
-			if (error == 0)
-				return 0;
-		}
-	}
-#endif /* NDRM > 0 */
 
 #if NAUDIO > 0
 	if ((p->p_p->ps_pledge & PLEDGE_AUDIO)) {
