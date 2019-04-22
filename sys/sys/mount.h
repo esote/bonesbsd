@@ -147,24 +147,6 @@ struct tmpfs_args {
 };
 
 /*
- * Arguments to mount fusefs filesystems
- */
-struct fusefs_args {
-	char *name;
-	int fd;
-	int max_read;
-
-	/*
-	 * FUSE does not allow the file system to be accessed by other users
-	 * unless this option is specified. This is to prevent unintentional
-	 * denial of service to other users if the file system is not
-	 * responding. e.g. user executes df(1) or cron job that scans mounted
-	 * file systems.
-	 */
-	int allow_other;
-};
-
-/*
  * file system statistics
  */
 
@@ -227,7 +209,6 @@ struct statfs {
 #define	MOUNT_NCPFS	"ncpfs"		/* NetWare Network File System */
 #define	MOUNT_UDF	"udf"		/* UDF */
 #define	MOUNT_TMPFS	"tmpfs"		/* tmpfs */
-#define	MOUNT_FUSEFS	"fuse"		/* FUSE */
 
 /*
  * Structure per mounted file system.  Each mounted file system has an

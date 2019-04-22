@@ -574,14 +574,6 @@ pseudo-device switch: ifnet, ether
 pseudo-device ksyms
 file	dev/ksyms.c			ksyms needs-flag
 
-pseudo-device fuse
-file	miscfs/fuse/fuse_device.c	fuse	needs-flag
-file	miscfs/fuse/fuse_file.c		fuse
-file	miscfs/fuse/fuse_lookup.c	fuse
-file	miscfs/fuse/fuse_vfsops.c	fuse
-file	miscfs/fuse/fuse_vnops.c	fuse
-file	miscfs/fuse/fusebuf.c		fuse
-
 pseudo-device pf: ifnet
 file	net/pf.c			pf	needs-flag
 file	net/pf_norm.c			pf
@@ -912,7 +904,7 @@ file ufs/mfs/mfs_vfsops.c		mfs
 file ufs/mfs/mfs_vnops.c		mfs
 file ufs/ufs/ufs_bmap.c			ffs | mfs | ext2fs
 file ufs/ufs/ufs_dirhash.c		ufs_dirhash & (ffs | mfs)
-file ufs/ufs/ufs_ihash.c		ffs | mfs | ext2fs | fuse
+file ufs/ufs/ufs_ihash.c		ffs | mfs | ext2fs
 file ufs/ufs/ufs_inode.c		ffs | mfs | ext2fs
 file ufs/ufs/ufs_lookup.c		ffs | mfs | ext2fs
 file ufs/ufs/ufs_quota.c		quota & ( ffs | mfs | ext2fs )

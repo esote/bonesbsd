@@ -1268,8 +1268,6 @@ uvn_io(struct uvm_vnode *uvn, vm_page_t *pps, int npages, int flags, int rw)
  * ffs_realloccg: when we can't extend the current block and have
  *	to allocate a new one we call this [XXX: why?]
  * vn_writechk: if VTEXT vnode and can't uncache return "text busy"
- * fusefs_open: uncaches any file that is opened
- * fusefs_write: uncaches on every write
  */
 
 int
@@ -1337,9 +1335,8 @@ uvm_vnp_uncache(struct vnode *vp)
  *	us.
  *
  * called from:
- *  => truncate fns (ext2fs_truncate, ffs_truncate, detrunc[msdos],
- *     fusefs_setattr)
- *  => "write" fns (ext2fs_write, WRITE [ufs/ufs], msdosfs_write, fusefs_write)
+ *  => truncate fns (ext2fs_truncate, ffs_truncate, detrunc[msdos])
+ *  => "write" fns (ext2fs_write, WRITE [ufs/ufs], msdosfs_write)
  *  => ffs_balloc [XXX: why? doesn't WRITE handle?]
  *  => union fs: union_newsize
  */
