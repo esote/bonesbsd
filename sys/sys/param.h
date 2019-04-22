@@ -41,8 +41,8 @@
 #define BSD4_3	1
 #define BSD4_4	1
 
-#define OpenBSD	201905		/* OpenBSD version (year & month). */
-#define OpenBSD6_5 1		/* OpenBSD 6.5 */
+#define BonesBSD 201905		/* BonesBSD version (year & month). */
+#define BonesBSD0_1 1		/* BonesBSD 0.1 */
 
 #include <sys/_null.h>
 
