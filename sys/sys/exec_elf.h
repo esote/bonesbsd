@@ -1,4 +1,4 @@
-/*	$OpenBSD: exec_elf.h,v 1.83 2019/01/22 23:23:18 jsg Exp $	*/
+/*	$OpenBSD: exec_elf.h,v 1.84 2019/04/20 23:10:00 deraadt Exp $	*/
 /*
  * Copyright (c) 1995, 1996 Erik Theisen.  All rights reserved.
  *

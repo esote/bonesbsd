@@ -1,4 +1,4 @@
-/*	$OpenBSD: if_var.h,v 1.95 2019/03/31 13:58:18 mpi Exp $	*/
+/*	$OpenBSD: if_var.h,v 1.98 2019/04/22 03:26:16 dlg Exp $	*/
 /*	$NetBSD: if.h,v 1.23 1996/05/07 02:40:27 thorpej Exp $	*/
 
 /*
@@ -176,6 +176,7 @@ struct ifnet {				/* and the entries */
 	struct	ifqueue **if_ifqs;	/* [I] pointer to an array of sndqs */
 	void	(*if_qstart)(struct ifqueue *);
 	unsigned int if_nifqs;		/* [I] number of output queues */
+	unsigned int if_txmit;		/* [c] txmitigation amount */
 
 	struct	ifiqueue if_rcv;	/* rx/input queue */
 	struct	ifiqueue **if_iqs;	/* [I] pointer to the array of iqs */
@@ -303,6 +304,9 @@ do {									\
 #define	IFQ_IS_EMPTY(ifq)		ifq_empty(ifq)
 #define	IFQ_SET_MAXLEN(ifq, len)	ifq_set_maxlen(ifq, len)
 
+#define IF_TXMIT_MIN			1
+#define IF_TXMIT_DEFAULT		16
+
 /* default interface priorities */
 #define IF_WIRED_DEFAULT_PRIORITY	0
 #define IF_WIRELESS_DEFAULT_PRIORITY	4
@@ -337,6 +341,7 @@ void	if_start(struct ifnet *);
 int	if_enqueue(struct ifnet *, struct mbuf *);
 int	if_enqueue_ifq(struct ifnet *, struct mbuf *);
 void	if_input(struct ifnet *, struct mbuf_list *);
+void	if_vinput(struct ifnet *, struct mbuf *);
 void	if_input_process(struct ifnet *, struct mbuf_list *);
 int	if_input_local(struct ifnet *, struct mbuf *, sa_family_t);
 int	if_output_local(struct ifnet *, struct mbuf *, sa_family_t);
@@ -382,6 +387,11 @@ int	if_rxr_ioctl(struct if_rxrinfo *, const char *, u_int,
 
 void	if_counters_alloc(struct ifnet *);
 void	if_counters_free(struct ifnet *);
+
+int	if_txhprio_l2_check(int);
+int	if_txhprio_l3_check(int);
+int	if_rxhprio_l2_check(int);
+int	if_rxhprio_l3_check(int);
 
 #endif /* _KERNEL */
 

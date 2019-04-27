@@ -1,4 +1,4 @@
-/*	$OpenBSD: if.c,v 1.574 2019/04/10 09:51:35 dlg Exp $	*/
+/*	$OpenBSD: if.c,v 1.580 2019/04/22 03:26:16 dlg Exp $	*/
 /*	$NetBSD: if.c,v 1.35 1996/05/07 05:26:04 thorpej Exp $	*/
 
 /*
@@ -615,6 +615,8 @@ if_attach_common(struct ifnet *ifp)
 	ifp->if_snd.ifq_ifqs[0] = &ifp->if_snd;
 	ifp->if_ifqs = ifp->if_snd.ifq_ifqs;
 	ifp->if_nifqs = 1;
+	if (ifp->if_txmit == 0)
+		ifp->if_txmit = IF_TXMIT_DEFAULT;
 
 	ifiq_init(&ifp->if_rcv, ifp, 0);
 
@@ -896,13 +898,30 @@ if_ih_remove(struct ifnet *ifp, int (*input)(struct ifnet *, struct mbuf *,
 	}
 }
 
+static void
+if_ih_input(struct ifnet *ifp, struct mbuf *m)
+{
+	struct ifih *ifih;
+	struct srp_ref sr;
+
+	/*
+	 * Pass this mbuf to all input handlers of its
+	 * interface until it is consumed.
+	 */
+	SRPL_FOREACH(ifih, &sr, &ifp->if_inputs, ifih_next) {
+		if ((*ifih->ifih_input)(ifp, m, ifih->ifih_cookie))
+			break;
+	}
+	SRPL_LEAVE(&sr);
+
+	if (ifih == NULL)
+		m_freem(m);
+}
+
 void
 if_input_process(struct ifnet *ifp, struct mbuf_list *ml)
 {
 	struct mbuf *m;
-	struct ifih *ifih;
-	struct srp_ref sr;
-	int s;
 
 	if (ml_empty(ml))
 		return;
@@ -923,23 +942,35 @@ if_input_process(struct ifnet *ifp, struct mbuf_list *ml)
 	 * lists.
 	 */
 	NET_RLOCK();
-	s = splnet();
-	while ((m = ml_dequeue(ml)) != NULL) {
-		/*
-		 * Pass this mbuf to all input handlers of its
-		 * interface until it is consumed.
-		 */
-		SRPL_FOREACH(ifih, &sr, &ifp->if_inputs, ifih_next) {
-			if ((*ifih->ifih_input)(ifp, m, ifih->ifih_cookie))
-				break;
-		}
-		SRPL_LEAVE(&sr);
-
-		if (ifih == NULL)
-			m_freem(m);
-	}
-	splx(s);
+	while ((m = ml_dequeue(ml)) != NULL)
+		if_ih_input(ifp, m);
 	NET_RUNLOCK();
+}
+
+void
+if_vinput(struct ifnet *ifp, struct mbuf *m)
+{
+#if NBPFILTER > 0
+	caddr_t if_bpf;
+#endif
+
+	m->m_pkthdr.ph_ifidx = ifp->if_index;
+	m->m_pkthdr.ph_rtableid = ifp->if_rdomain;
+
+	counters_pkt(ifp->if_counters,
+	    ifc_ipackets, ifc_ibytes, m->m_pkthdr.len);
+
+#if NBPFILTER > 0
+	if_bpf = ifp->if_bpf;
+	if (if_bpf) {
+		if (bpf_mtap_ether(if_bpf, m, BPF_DIRECTION_OUT)) {
+			m_freem(m);
+			return;
+		}
+	}
+#endif
+
+	if_ih_input(ifp, m);
 }
 
 void
@@ -2167,6 +2198,7 @@ ifioctl(struct socket *so, u_long cmd, caddr_t data, struct proc *p)
 	case SIOCSVNETID:
 	case SIOCSVNETFLOWID:
 	case SIOCSTXHPRIO:
+	case SIOCSRXHPRIO:
 	case SIOCSIFPAIR:
 	case SIOCSIFPARENT:
 	case SIOCDIFPARENT:
@@ -2329,6 +2361,70 @@ if_sffpage_check(const caddr_t data)
 	}
 
 	return (0);
+}
+
+int
+if_txhprio_l2_check(int hdrprio)
+{
+	switch (hdrprio) {
+	case IF_HDRPRIO_PACKET:
+		return (0);
+	default:
+		if (hdrprio >= IF_HDRPRIO_MIN && hdrprio <= IF_HDRPRIO_MAX)
+			return (0);
+		break;
+	}
+
+	return (EINVAL);
+}
+
+int
+if_txhprio_l3_check(int hdrprio)
+{
+	switch (hdrprio) {
+	case IF_HDRPRIO_PACKET:
+	case IF_HDRPRIO_PAYLOAD:
+		return (0);
+	default:
+		if (hdrprio >= IF_HDRPRIO_MIN && hdrprio <= IF_HDRPRIO_MAX)
+			return (0);
+		break;
+	}
+
+	return (EINVAL);
+}
+
+int
+if_rxhprio_l2_check(int hdrprio)
+{
+	switch (hdrprio) {
+	case IF_HDRPRIO_PACKET:
+	case IF_HDRPRIO_OUTER:
+		return (0);
+	default:
+		if (hdrprio >= IF_HDRPRIO_MIN && hdrprio <= IF_HDRPRIO_MAX)
+			return (0);
+		break;
+	}
+
+	return (EINVAL);
+}
+
+int
+if_rxhprio_l3_check(int hdrprio)
+{
+	switch (hdrprio) {
+	case IF_HDRPRIO_PACKET:
+	case IF_HDRPRIO_PAYLOAD:
+	case IF_HDRPRIO_OUTER:
+		return (0);
+	default:
+		if (hdrprio >= IF_HDRPRIO_MIN && hdrprio <= IF_HDRPRIO_MAX)
+			return (0);
+		break;
+	}
+
+	return (EINVAL);
 }
 
 /*

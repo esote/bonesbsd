@@ -1,4 +1,4 @@
-/*	$OpenBSD: if_bpe.c,v 1.2 2019/01/16 00:26:45 jsg Exp $ */
+/*	$OpenBSD: if_bpe.c,v 1.5 2019/04/23 10:53:45 dlg Exp $ */
 /*
  * Copyright (c) 2018 David Gwynne <dlg@openbsd.org>
  *
@@ -99,6 +99,7 @@ struct bpe_softc {
 	struct arpcom		sc_ac;
 	struct ifmedia		sc_media;
 	int			sc_txhprio;
+	int			sc_rxhprio;
 	uint8_t			sc_group[ETHER_ADDR_LEN];
 
 	void *			sc_lh_cookie;
@@ -175,6 +176,7 @@ bpe_clone_create(struct if_clone *ifc, int unit)
 	bpe_set_group(sc, 0);
 
 	sc->sc_txhprio = IF_HDRPRIO_PACKET;
+	sc->sc_txhprio = IF_HDRPRIO_OUTER;
 
 	rw_init(&sc->sc_bridge_lock, "bpebr");
 	RBT_INIT(bpe_map, &sc->sc_bridge_map);
@@ -192,6 +194,7 @@ bpe_clone_create(struct if_clone *ifc, int unit)
 	IFQ_SET_MAXLEN(&ifp->if_snd, IFQ_MAXLEN);
 	ether_fakeaddr(ifp);
 
+	if_counters_alloc(ifp);
 	if_attach(ifp);
 	ether_ifattach(ifp);
 
@@ -480,18 +483,25 @@ bpe_ioctl(struct ifnet *ifp, u_long cmd, caddr_t data)
 		break;
 
 	case SIOCSTXHPRIO:
-		if (ifr->ifr_hdrprio == IF_HDRPRIO_PACKET) /* use mbuf prio */
-			;
-		else if (ifr->ifr_hdrprio < IF_HDRPRIO_MIN ||
-		    ifr->ifr_hdrprio > IF_HDRPRIO_MAX) {
-			error = EINVAL;
+		error = if_txhprio_l2_check(ifr->ifr_hdrprio);
+		if (error != 0)
 			break;
-		}
 
 		sc->sc_txhprio = ifr->ifr_hdrprio;
 		break;
 	case SIOCGTXHPRIO:
 		ifr->ifr_hdrprio = sc->sc_txhprio;
+		break;
+
+	case SIOCSRXHPRIO:
+		error = if_rxhprio_l2_check(ifr->ifr_hdrprio);
+		if (error != 0)
+			break;
+
+		sc->sc_rxhprio = ifr->ifr_hdrprio;
+		break;
+	case SIOCGRXHPRIO:
+		ifr->ifr_hdrprio = sc->sc_rxhprio;
 		break;
 
 	case SIOCGIFMEDIA:
@@ -882,7 +892,6 @@ bpe_input_map(struct bpe_softc *sc, const uint8_t *ba, const uint8_t *ca)
 void
 bpe_input(struct ifnet *ifp0, struct mbuf *m)
 {
-	struct mbuf_list ml = MBUF_LIST_INITIALIZER();
 	struct bpe_softc *sc;
 	struct ifnet *ifp;
 	struct ether_header *beh, *ceh;
@@ -890,6 +899,7 @@ bpe_input(struct ifnet *ifp0, struct mbuf *m)
 	unsigned int hlen = sizeof(*beh) + sizeof(*itagp) + sizeof(*ceh);
 	struct mbuf *n;
 	int off;
+	int prio;
 
 	if (m->m_len < hlen) {
 		m = m_pullup(m, hlen);
@@ -938,6 +948,19 @@ bpe_input(struct ifnet *ifp0, struct mbuf *m)
 
 	ifp = &sc->sc_ac.ac_if;
 
+	prio = sc->sc_rxhprio;
+	switch (prio) {
+	case IF_HDRPRIO_PACKET:
+		break;
+	case IF_HDRPRIO_OUTER:
+		m->m_pkthdr.pf.prio = (itag & PBB_ITAG_PCP_MASK) >>
+		    PBB_ITAG_PCP_SHIFT;
+		break;
+	default:
+		m->m_pkthdr.pf.prio = prio;
+		break;
+	}
+
 	m->m_flags &= ~(M_BCAST|M_MCAST);
 	m->m_pkthdr.ph_ifidx = ifp->if_index;
 	m->m_pkthdr.ph_rtableid = ifp->if_rdomain;
@@ -946,8 +969,7 @@ bpe_input(struct ifnet *ifp0, struct mbuf *m)
 	pf_pkt_addr_changed(m);
 #endif
 
-	ml_enqueue(&ml, m);
-	if_input(ifp, &ml);
+	if_vinput(ifp, m);
 	return;
 
 drop:
