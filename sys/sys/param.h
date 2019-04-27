@@ -41,8 +41,8 @@
 #define BSD4_3	1
 #define BSD4_4	1
 
-#define BonesBSD 201905		/* BonesBSD version (year & month). */
-#define BonesBSD0_1 1		/* BonesBSD 0.1 */
+#define BonesBSD 201904		/* BonesBSD version (year & month). */
+#define BonesBSD0_2 1		/* BonesBSD 0.2 */
 
 #include <sys/_null.h>
 

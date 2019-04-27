@@ -66,7 +66,7 @@ id=`basename "${d}"`
 #	and disable POOL_DEBUG in sys/conf/GENERIC
 
 ost="BonesBSD"
-osr="0.1"
+osr="0.2"
 
 cat >vers.c <<eof
 #define STATUS ""			/* always release */
