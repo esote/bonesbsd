@@ -135,7 +135,6 @@ struct wscons_event {
 #define		WSKBD_TYPE_ADB		10	/* Apple ADB keyboard */
 #define		WSKBD_TYPE_SUN		11	/* Sun Type3/4 */
 #define		WSKBD_TYPE_SUN5		12	/* Sun Type5 */
-#define		WSKBD_TYPE_HIL		13	/* HP HIL */
 #define		WSKBD_TYPE_GSC		14	/* HP PS/2 */
 #define		WSKBD_TYPE_LUNA		15	/* OMRON Luna */
 #define		WSKBD_TYPE_ZAURUS	16	/* Sharp Zaurus */
@@ -234,7 +233,6 @@ struct wskbd_encoding_data {
 #define		WSMOUSE_TYPE_NEXT	7	/* NeXT mouse */
 #define		WSMOUSE_TYPE_ARCHIMEDES	8	/* Archimedes mouse */
 #define		WSMOUSE_TYPE_ADB	9	/* ADB */
-#define		WSMOUSE_TYPE_HIL	10	/* HP HIL */
 #define		WSMOUSE_TYPE_LUNA	11	/* OMRON Luna */
 #define		WSMOUSE_TYPE_DOMAIN	12	/* Apollo Domain */
 #define		WSMOUSE_TYPE_BLUETOOTH	13	/* Bluetooth mouse */
