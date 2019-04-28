@@ -65,8 +65,8 @@ id=`basename "${d}"`
 #	A month or so before release, select STATUS "-beta"
 #	and disable POOL_DEBUG in sys/conf/GENERIC
 
-ost="BonesBSD"
-osr="0.2"
+ost="OpenBSD"
+osr="6.5"
 
 cat >vers.c <<eof
 #define STATUS ""			/* always release */
