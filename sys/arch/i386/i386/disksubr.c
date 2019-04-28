@@ -105,11 +105,6 @@ readdisklabel(dev_t dev, void (*strat)(struct buf *),
 	if (error == 0)
 		goto done;
 #endif
-#if defined(UDF)
-	error = udf_disklabelspoof(dev, strat, lp);
-	if (error == 0)
-		goto done;
-#endif
 
 done:
 	if (bp) {

@@ -155,10 +155,6 @@
 	/*		138	   free */
 #define	M_SYNCACHE	139	/* syn cache hash array */
 
-#define M_UDFMOUNT	140	/* UDF mount */
-#define M_UDFFENTRY	141	/* UDF file entry */
-#define M_UDFFID	142	/* UDF file id */
-
 	/*		143	   free */
 
 #define M_AGP		144	/* AGP Memory */
@@ -283,9 +279,9 @@
 	"kqueue",	/* 137 M_KEVENT */ \
 	NULL,	/* 138 free */ \
 	"SYN cache",	/* 139 M_SYNCACHE */ \
-	"UDF mount",	/* 140 M_UDFMOUNT */ \
-	"UDF file entry",	/* 141 M_UDFFENTRY */ \
-	"UDF file id",	/* 142 M_UDFFID */ \
+	NULL, \
+	NULL, \
+	NULL, \
 	NULL,	/* 143 free */ \
 	"AGP Memory",	/* 144 M_AGP */ \
 	"DRM",	/* 145 M_DRM */ \

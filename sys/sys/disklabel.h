@@ -258,7 +258,6 @@ static char *dktypenames[] = {
 #define FS_EXT2FS	17		/* ext2fs */
 #define FS_CCD		18		/* ccd component */
 #define FS_RAID		19		/* RAIDframe or softraid */
-#define FS_UDF		21		/* UDF (DVD) filesystem */
 
 #ifdef DKTYPENAMES
 static char *fstypenames[] = {
@@ -282,7 +281,6 @@ static char *fstypenames[] = {
 	"ext2fs",
 	"ccd",
 	"RAID",
-	"UDF",
 	NULL
 };
 
@@ -308,7 +306,6 @@ static char *fstypesnames[] = {
 	"ext2fs",	/* 17 */
 	"",		/* 18 */
 	"",		/* 19 */
-	"udf",		/* 21 */
 	NULL
 };
 
@@ -509,10 +506,6 @@ int	 readdoslabel(struct buf *, void (*)(struct buf *),
 	    struct disklabel *, daddr_t *, int);
 #ifdef CD9660
 int iso_disklabelspoof(dev_t dev, void (*strat)(struct buf *),
-	struct disklabel *lp);
-#endif
-#ifdef UDF
-int udf_disklabelspoof(dev_t dev, void (*strat)(struct buf *),
 	struct disklabel *lp);
 #endif
 #endif
