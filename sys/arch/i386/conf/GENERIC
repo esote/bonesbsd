@@ -323,11 +323,9 @@ uthum*	at uhidev?		# TEMPerHUM sensor
 ugold*	at uhidev?		# gold TEMPer sensor
 utrh*	at uhidev?		# USBRH sensor
 utwitch* at uhidev?		# YUREX BBU sensor
-uow*	at uhub?		# Maxim/Dallas DS2490 1-Wire adapter
 uoakrh*	at uhidev?		# Toradex OAK temp and rel humidity
 uoaklux* at uhidev?		# Toradex OAK LUX
 uoakv*	at uhidev?		# Toradex OAK 10V sensor
-onewire* at uow?
 uvideo* at uhub?		# USB video
 video*  at uvideo?
 utvfu*	at uhub?		# Fushicai Audio-Video Grabber
@@ -734,16 +732,6 @@ glxsb*	at pci?			# AMD Geode LX series processor security block
 #gpioiic* at gpio? offset 0 mask 0x3	# I2C bus bit-banging
 gpioiic* at gpio?
 iic*	at gpioiic?
-#gpioow* at gpio? offset 0 mask 0x1	# 1-Wire bus bit-banging
-gpioow*	at gpio?
-onewire* at gpioow?
-
-# 1-Wire devices
-option ONEWIREVERBOSE
-owid*	at onewire?		# ID
-owsbm*	at onewire?		# Smart Battery Monitor
-owtemp* at onewire?		# Temperature
-owctr*	at onewire?		# Counter device
 
 pseudo-device	pctr		1
 pseudo-device	nvram		1

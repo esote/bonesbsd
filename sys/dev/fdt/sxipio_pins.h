@@ -7658,12 +7658,6 @@ struct sxipio_pin sun9i_a80_r_pins[] = {
 		{ "s_cir_rx", 3 },
 		{ "irq", 6 },
 	} },
-	{ SXIPIO_PIN(L, 7), {
-		{ "gpio_in", 0 },
-		{ "gpio_out", 1 },
-		{ "1wire", 3 },
-		{ "irq", 6 },
-	} },
 	{ SXIPIO_PIN(L, 8), {
 		{ "gpio_in", 0 },
 		{ "gpio_out", 1 },

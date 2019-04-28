@@ -436,11 +436,6 @@ file	dev/usb/if_uath.c		uath
 attach	athn at uhub with athn_usb: firmload
 file	dev/usb/if_athn_usb.c		athn_usb		needs-flag
 
-# Maxim/Dallas DS2490 1-Wire adapter
-device	uow: onewirebus
-attach	uow at uhub
-file	dev/usb/uow.c			uow
-
 # Research In Motion BlackBerry
 device	uberry {}
 attach	uberry at uhub

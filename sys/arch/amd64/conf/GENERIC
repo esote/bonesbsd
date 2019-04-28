@@ -313,11 +313,9 @@ uthum*	at uhidev?		# TEMPerHUM sensor
 ugold*	at uhidev?		# gold TEMPer sensor
 utrh*	at uhidev?		# USBRH sensor
 utwitch* at uhidev?		# YUREX BBU sensor
-uow*	at uhub?		# Maxim/Dallas DS2490 1-Wire adapter
 uoakrh*	at uhidev?		# Toradex OAK temp and rel humidity
 uoaklux* at uhidev?		# Toradex OAK LUX
 uoakv*	at uhidev?		# Toradex OAK 10V sensor
-onewire* at uow?
 uvideo*	at uhub?		# USB Video
 video*	at uvideo?
 utvfu*	at uhub?		# Fushicai Audio-Video Grabber
@@ -640,13 +638,6 @@ ubsec*	at pci?			# Bluesteel Networks 5xxx crypto card
 safe*	at pci?			# SafeNet SafeXcel 1141/1741
 
 xspd0	at pci?			# XenSource Platform Device
-
-# 1-Wire devices
-option ONEWIREVERBOSE
-owid*	at onewire?		# ID
-owsbm*	at onewire?		# Smart Battery Monitor
-owtemp* at onewire?		# Temperature
-owctr*	at onewire?		# Counter device
 
 pseudo-device	pctr		1
 pseudo-device	nvram		1

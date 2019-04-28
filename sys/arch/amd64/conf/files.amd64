@@ -254,11 +254,6 @@ file	arch/amd64/amd64/vmm_support.S		vmm
 include "dev/sdmmc/files.sdmmc"
 
 #
-# Machine-independent 1-Wire drivers
-#
-include "dev/onewire/files.onewire"
-
-#
 # IPMI
 #
 attach	ipmi at mainbus

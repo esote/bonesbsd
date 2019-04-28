@@ -1904,7 +1904,6 @@ product FTDI HBG		0xe88c	Expert mouseCLOCK USB II HBG
 product FTDI GUDE_9		0xe88d  Serial
 product FTDI GUDE_A		0xe88e  Serial
 product FTDI GUDE_B		0xe88f  Serial
-product FTDI ECLO_1WIRE		0xea90	1-Wire
 product FTDI TNCX		0xebe0	TNC-X packet-radio
 product FTDI TERATRONIK_VCP	0xec88	VCP
 product FTDI TERATRONIK_D2XX	0xec89	D2XX

@@ -3706,10 +3706,6 @@ const struct usb_known_product usb_known_products[] = {
 	    "Serial",
 	},
 	{
-	    USB_VENDOR_FTDI, USB_PRODUCT_FTDI_ECLO_1WIRE,
-	    "1-Wire",
-	},
-	{
 	    USB_VENDOR_FTDI, USB_PRODUCT_FTDI_TNCX,
 	    "TNC-X packet-radio",
 	},

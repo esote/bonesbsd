@@ -1911,7 +1911,6 @@
 #define	USB_PRODUCT_FTDI_GUDE_9	0xe88d		/* Serial */
 #define	USB_PRODUCT_FTDI_GUDE_A	0xe88e		/* Serial */
 #define	USB_PRODUCT_FTDI_GUDE_B	0xe88f		/* Serial */
-#define	USB_PRODUCT_FTDI_ECLO_1WIRE	0xea90		/* 1-Wire */
 #define	USB_PRODUCT_FTDI_TNCX	0xebe0		/* TNC-X packet-radio */
 #define	USB_PRODUCT_FTDI_TERATRONIK_VCP	0xec88		/* VCP */
 #define	USB_PRODUCT_FTDI_TERATRONIK_D2XX	0xec89		/* D2XX */
