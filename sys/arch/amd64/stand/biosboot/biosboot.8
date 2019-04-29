@@ -56,14 +56,6 @@ required to convert filesystem blocks to disk sectors.
 Usually,
 .Xr boot 8
 is loaded from the root filesystem of the boot disk.
-If the boot disk is a
-.Xr softraid 4
-volume,
-.Xr installboot 8
-arranges for a copy of
-.Xr boot 8
-to be loaded from a dedicated single-inode filesystem located within
-the volume's meta data area.
 .Pp
 You must re-run
 .Xr installboot 8
@@ -262,7 +254,6 @@ kernel for multiprocessor machines
 kernel for installation/recovery
 .El
 .Sh SEE ALSO
-.Xr softraid 4 ,
 .Xr boot 8 ,
 .Xr boot_amd64 8 ,
 .Xr disklabel 8 ,

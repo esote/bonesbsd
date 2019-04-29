@@ -21,7 +21,6 @@ SRCS+=	debug_i386.S gidt.S random_i386.S
 SRCS+=	cmd_i386.c dev_i386.c exec_i386.c gateA20.c machdep.c
 SRCS+=	apmprobe.c bioscons.c biosdev.c debug.c diskprobe.c memprobe.c \
 	pciprobe.c ps2probe.c time.c
-SRCS+=	softraid_i386.c
 
 .PATH:	${S}/stand/boot
 SRCS+=	bootarg.c cmd.c vars.c
@@ -34,8 +33,6 @@ SRCS+=	close.c closeall.c cons.c cread.c dev.c disklabel.c dkcksum.c fstat.c \
 	lseek.c open.c read.c readdir.c stat.c
 SRCS+=	elf32.c elf64.c loadfile.c
 SRCS+=	cd9660.c ufs.c
-SRCS+=	aes_xts.c bcrypt_pbkdf.c blowfish.c explicit_bzero.c hmac_sha1.c \
-	pkcs5_pbkdf2.c rijndael.c sha1.c sha2.c softraid.c
 
 .PATH:	${S}/lib/libkern/arch/i386
 SRCS+=	moddi3.c divdi3.c qdivrem.c
@@ -64,7 +61,6 @@ NOPROG=
 
 .include <bsd.prog.mk>
 
-CPPFLAGS+=-DSOFTRAID
 CPPFLAGS+=-DBOOTMAGIC=$(BOOTMAGIC) ${DEBUGFLAGS}
 CPPFLAGS+=-DLINKADDR=${LINKADDR}
 CPPFLAGS+=-DSLOW -DSMALL -DNOBYFOUR -DNO_GZIP -DDYNAMIC_CRC_TABLE

@@ -162,7 +162,6 @@ pcscp*		at pci?			# AMD 53c974 PCscsi-PCI SCSI
 uha0		at isa? port 0x330	# UltraStor [13]4f SCSI controllers
 uha*		at eisa?		# UltraStor 24f SCSI controllers
 vmwpvs*		at pci?			# VMware ParaVirtual SCSI
-softraid0	at root
 
 scsibus*	at scsi?
 sd*		at scsibus?		# SCSI disk drives

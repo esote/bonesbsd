@@ -170,7 +170,6 @@ adw*		at pci?			# AdvanSys ULTRA WIDE SCSI
 pcscp*		at pci?			# AMD 53c974 PCscsi-PCI SCSI
 vmwpvs*		at pci?			# VMware ParaVirtual SCSI
 nvme*		at pci?			# NVMe controllers
-softraid0	at root
 
 scsibus*	at scsi?
 sd*		at scsibus?		# SCSI disk drives

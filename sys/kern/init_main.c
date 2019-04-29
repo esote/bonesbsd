@@ -98,7 +98,6 @@
 
 #include "mpath.h"
 #include "vscsi.h"
-#include "softraid.h"
 
 const char	copyright[] =
 "Copyright (c) 1982, 1986, 1989, 1991, 1993\n"
@@ -467,9 +466,6 @@ main(void *framep)
 
 #if NVSCSI > 0
 	config_rootfound("vscsi", NULL);
-#endif
-#if NSOFTRAID > 0
-	config_rootfound("softraid", NULL);
 #endif
 
 	/* Configure root/swap devices */

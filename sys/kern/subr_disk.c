@@ -68,8 +68,6 @@
 
 #include <lib/libz/zlib.h>
 
-#include "softraid.h"
-
 #ifdef DEBUG
 #define DPRINTF(x...)	printf(x)
 #else
@@ -91,9 +89,6 @@ int	disk_change;		/* set if a disk has been attached/detached
 
 u_char	bootduid[DUID_SIZE];	/* DUID of boot disk. */
 u_char	rootduid[DUID_SIZE];	/* DUID of root disk. */
-
-/* softraid callback, do not use! */
-void (*softraid_disk_attach)(struct disk *, int);
 
 void sr_map_root(void);
 
@@ -1104,9 +1099,6 @@ disk_attach(struct device *dv, struct disk *diskp)
 			task_add(systq, &dat->task);
 		}
 	}
-
-	if (softraid_disk_attach)
-		softraid_disk_attach(diskp, 1);
 }
 
 void
@@ -1140,9 +1132,6 @@ done:
 void
 disk_detach(struct disk *diskp)
 {
-
-	if (softraid_disk_attach)
-		softraid_disk_attach(diskp, -1);
 
 	/*
 	 * Free the space used by the disklabel structures.
@@ -1439,10 +1428,6 @@ setroot(struct device *bootdv, int part, int exitflags)
 			bootdv = dk->dk_device;
 	}
 	bcopy(bootduid, rootduid, sizeof(rootduid));
-
-#if NSOFTRAID > 0
-	sr_map_root();
-#endif
 
 	/*
 	 * If `swap generic' and we couldn't determine boot device,

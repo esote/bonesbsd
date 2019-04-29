@@ -63,7 +63,6 @@
 
 #include "wd.h"
 #include "wsdisplay.h"
-#include "softraid.h"
 
 #ifdef ACPI_DEBUG
 int	acpi_debug = 16;
@@ -2490,9 +2489,6 @@ acpi_sleep_state(struct acpi_softc *sc, int sleepmode)
 	size_t rndbuflen = 0;
 	char *rndbuf = NULL;
 	int state, s;
-#if NSOFTRAID > 0
-	extern void sr_quiesce(void);
-#endif
 
 	switch (sleepmode) {
 	case ACPI_SLEEP_SUSPEND:
@@ -2550,9 +2546,6 @@ acpi_sleep_state(struct acpi_softc *sc, int sleepmode)
 		goto fail_quiesce;
 
 	vfs_stall(curproc, 1);
-#if NSOFTRAID > 0
-	sr_quiesce();
-#endif
 	bufq_quiesce();
 
 #ifdef MULTIPROCESSOR

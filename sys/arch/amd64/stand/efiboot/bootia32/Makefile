@@ -5,7 +5,6 @@
 PROG=		BOOTIA32.EFI
 NOMAN=		#
 OBJFMT=		efi-app-ia32
-SOFTRAID=	yes
 SRCS+=		start_i386.S random_i386.S
 LDSCRIPT=	ldscript.i386
 

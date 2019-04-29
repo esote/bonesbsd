@@ -15,9 +15,6 @@ COPTS+=		-DEFIBOOT -DNEEDS_HEAP_H -I${.CURDIR}/..
 COPTS+=		-I${EFIDIR}/include -I${S}/stand/boot
 COPTS+=		-ffreestanding -std=gnu99
 COPTS+=		-fshort-wchar -fPIC -mno-red-zone
-.if ${SOFTRAID:L} == "yes"
-COPTS+=		-DSOFTRAID
-.endif
 COPTS+=		-D_STANDALONE -nostdinc -fno-builtin
 
 AFLAGS+=	-pipe -fPIC
@@ -37,10 +34,6 @@ SRCS+=	alloc.c ctime.c exit.c getchar.c memcmp.c memcpy.c memmove.c memset.c pri
 SRCS+=	close.c closeall.c cons.c cread.c dev.c disklabel.c dkcksum.c fstat.c \
 	lseek.c open.c read.c readdir.c stat.c
 SRCS+=	ufs.c cd9660.c
-.if ${SOFTRAID:L} == "yes"
-SRCS+=	aes_xts.c bcrypt_pbkdf.c blowfish.c explicit_bzero.c hmac_sha1.c \
-	pkcs5_pbkdf2.c rijndael.c sha1.c sha2.c softraid.c
-.endif
 
 .PATH:	${S}/lib/libz
 SRCS+=	adler32.c crc32.c inflate.c inftrees.c
@@ -52,10 +45,6 @@ SRCS+=	strlcpy.c
 .PATH:	${SADIR}/libsa
 SRCS+=	loadfile.c elf64.c elf32.c memprobe.c cmd_i386.c dev_i386.c exec_i386.c
 SRCS+=	machdep.c diskprobe.c
-
-.if ${SOFTRAID:L} == "yes"
-SRCS+=	softraid_amd64.c
-.endif
 
 PROG.so=	${PROG:S/.EFI/.so/}
 CLEANFILES+=	${PROG.so} ${PROG.so}.tmp

@@ -257,7 +257,7 @@ static char *dktypenames[] = {
 #define	FS_ADFS		16		/* Acorn Disk Filing System */
 #define FS_EXT2FS	17		/* ext2fs */
 #define FS_CCD		18		/* ccd component */
-#define FS_RAID		19		/* RAIDframe or softraid */
+#define FS_RAID		19		/* RAIDframe */
 
 #ifdef DKTYPENAMES
 static char *fstypenames[] = {

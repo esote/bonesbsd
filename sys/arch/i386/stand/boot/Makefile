@@ -3,12 +3,6 @@
 COPTS?=
 MAN?=	boot.8
 
-.if !empty(COPTS:M-DFDBOOT)
-SOFTRAID?=no
-.else
-SOFTRAID?=yes
-.endif
-
 .if ${MACHINE} == "i386"
 S=	${.CURDIR}/../../../..
 SADIR=	${.CURDIR}/..
@@ -31,9 +25,6 @@ SRCS+=	gidt.S random_i386.S
 SRCS+=	apmprobe.c debug.c pciprobe.c ps2probe.c
 SRCS+=	cmd_i386.c dev_i386.c exec_i386.c gateA20.c machdep.c
 SRCS+=	bioscons.c biosdev.c diskprobe.c memprobe.c time.c
-.if ${SOFTRAID:L} == "yes"
-SRCS+=	softraid_i386.c
-.endif
 
 .PATH:	${S}/lib/libsa
 SRCS+=	alloc.c ctime.c exit.c getchar.c memcmp.c memcpy.c memmove.c memset.c printf.c \
@@ -43,10 +34,6 @@ SRCS+=	close.c closeall.c cons.c cread.c dev.c disklabel.c dkcksum.c fstat.c \
 	lseek.c open.c read.c readdir.c stat.c
 SRCS+=	elf32.c elf64.c loadfile.c
 SRCS+=	ufs.c
-.if ${SOFTRAID:L} == "yes"
-SRCS+=	aes_xts.c bcrypt_pbkdf.c blowfish.c explicit_bzero.c hmac_sha1.c \
-	pkcs5_pbkdf2.c rijndael.c sha1.c sha2.c softraid.c
-.endif
 
 .PATH:	${S}/lib/libkern
 SRCS+=	divdi3.c moddi3.c qdivrem.c
@@ -74,9 +61,6 @@ NOPROG=
 
 .include <bsd.prog.mk>
 
-.if ${SOFTRAID:L} == "yes"
-CPPFLAGS+=-DSOFTRAID
-.endif
 CPPFLAGS+=-DBOOTMAGIC=$(BOOTMAGIC) ${DEBUGFLAGS} -DLINKADDR=${LINKADDR}
 CPPFLAGS+=-DSLOW -DSMALL -DNOBYFOUR -DNO_GZIP -DDYNAMIC_CRC_TABLE
 CPPFLAGS+=-DHIBERNATE

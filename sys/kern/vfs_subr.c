@@ -72,8 +72,6 @@
 #include <uvm/uvm_extern.h>
 #include <uvm/uvm_vnode.h>
 
-#include "softraid.h"
-
 void sr_quiesce(void);
 
 enum vtype iftovt_tab[16] = {
@@ -1572,10 +1570,6 @@ vfs_shutdown(struct proc *p)
 		sys_sync(p, NULL, NULL);
 		vfs_unmountall();
 	}
-
-#if NSOFTRAID > 0
-	sr_quiesce();
-#endif
 
 	if (vfs_syncwait(p, 1))
 		printf(" giving up\n");

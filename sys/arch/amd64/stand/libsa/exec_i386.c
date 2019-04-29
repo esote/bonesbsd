@@ -40,12 +40,6 @@
 #include "disk.h"
 #include "libsa.h"
 
-#ifdef SOFTRAID
-#include <dev/softraidvar.h>
-#include <lib/libsa/softraid.h>
-#include "softraid_amd64.h"
-#endif
-
 #ifdef EFIBOOT
 #include "efiboot.h"
 #endif
@@ -74,10 +68,6 @@ run_loadfile(uint64_t *marks, int howto)
 	bios_ddb_t ddb;
 	extern int db_console;
 	bios_bootduid_t bootduid;
-#ifdef SOFTRAID
-	bios_bootsr_t bootsr;
-	struct sr_boot_volume *bv;
-#endif
 #ifdef EFIBOOT
 	int i;
 	u_long delta;
@@ -109,21 +99,6 @@ run_loadfile(uint64_t *marks, int howto)
 	addbootarg(BOOTARG_BOOTDUID, sizeof(bootduid), &bootduid);
 
 	ucode_load();
-
-#ifdef SOFTRAID
-	if (bootdev_dip->sr_vol != NULL) {
-		bv = bootdev_dip->sr_vol;
-		bzero(&bootsr, sizeof(bootsr));
-		bcopy(&bv->sbv_uuid, &bootsr.uuid, sizeof(bootsr.uuid));
-		if (bv->sbv_maskkey != NULL)
-			bcopy(bv->sbv_maskkey, &bootsr.maskkey,
-			    sizeof(bootsr.maskkey));
-		addbootarg(BOOTARG_BOOTSR, sizeof(bios_bootsr_t), &bootsr);
-		explicit_bzero(&bootsr, sizeof(bootsr));
-	}
-
-	sr_clear_keys();
-#endif
 
 	entry = marks[MARK_ENTRY] & 0x0fffffff;
 #ifdef EFIBOOT

@@ -126,11 +126,6 @@ extern int db_console;
 #include <dev/ic/comreg.h>
 #endif
 
-#include "softraid.h"
-#if NSOFTRAID > 0
-#include <dev/softraidvar.h>
-#endif
-
 #ifdef HIBERNATE
 #include <machine/hibernate_var.h>
 #endif /* HIBERNATE */
@@ -1998,12 +1993,6 @@ getbootinfo(char *bootinfo, int bootinfo_size)
 
 		case BOOTARG_BOOTSR:
 			bios_bootsr = (bios_bootsr_t *)q->ba_arg;
-#if NSOFTRAID > 0
-			memcpy(&sr_bootuuid, &bios_bootsr->uuid,
-			    sizeof(sr_bootuuid));
-			memcpy(&sr_bootkey, &bios_bootsr->maskkey,
-			    sizeof(sr_bootkey));
-#endif
 			explicit_bzero(bios_bootsr, sizeof(bios_bootsr_t));
 			break;
 

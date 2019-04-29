@@ -124,9 +124,6 @@
 	.globl	_C_LABEL(_rtt)
 
 ENTRY(_rtt)
-#ifdef SOFTRAID
-	call	_C_LABEL(sr_clear_keys)
-#endif
 #ifdef GIDT_DEBUG
 	movl	$0xb8000, %ebx
 	movl	$0x4f514f51, (%ebx)

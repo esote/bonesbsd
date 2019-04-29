@@ -60,9 +60,6 @@ option		MPLS		# Multi-Protocol Label Switching
 #rdac*		at scsibus?
 #sym*		at scsibus?
 
-softraid0	at root		# Software RAID
-scsibus*	at softraid?
-
 vscsi0		at root		# Userland backed Virtual SCSI
 scsibus*	at vscsi?
 

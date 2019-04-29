@@ -46,7 +46,6 @@
 #include "acpi.h"
 #include "wd.h"
 #include "ahci.h"
-#include "softraid.h"
 #include "sd.h"
 #include "nvme.h"
 #include "sdmmc.h"
@@ -106,9 +105,6 @@ get_hibernate_io_function(dev_t dev)
 #endif
 #if NNVME > 0
 			{ "nvme", nvme_hibernate_io },
-#endif
-#if NSOFTRAID > 0
-			{ "softraid", sr_hibernate_io },
 #endif
 #if NSDMMC > 0
 			{ "sdmmc", sdmmc_scsi_hibernate_io },

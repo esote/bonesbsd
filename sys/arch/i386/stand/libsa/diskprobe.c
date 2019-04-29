@@ -44,9 +44,6 @@
 #include "biosdev.h"
 #include "libsa.h"
 
-#ifdef SOFTRAID
-#include "softraid_i386.h"
-#endif
 #ifdef EFIBOOT
 #include "efidev.h"
 #endif
@@ -263,10 +260,6 @@ diskprobe(void)
 	hardprobe();
 #else
 	efi_hardprobe();
-#endif
-
-#ifdef SOFTRAID
-	srprobe();
 #endif
 
 	/* Checksumming of hard disks */

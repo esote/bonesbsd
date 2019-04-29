@@ -19,7 +19,6 @@ BINMODE=644
 SRCS+=	machdep.c dev_i386.c exec_i386.c cmd_i386.c
 SRCS+=	gidt.S random_i386.S biosdev.c bioscons.c gateA20.c \
 	memprobe.c diskprobe.c time.c
-SRCS+=	softraid_amd64.c
 
 .PATH:	${S}/stand/boot
 SRCS+=	cmd.c vars.c bootarg.c
@@ -32,8 +31,6 @@ SRCS+=	close.c closeall.c dev.c disklabel.c dkcksum.c fstat.c lseek.c \
 	open.c read.c stat.c cread.c readdir.c cons.c loadfile.c \
 	elf32.c elf64.c
 SRCS+=	ufs.c cd9660.c
-SRCS+=	aes_xts.c bcrypt_pbkdf.c blowfish.c explicit_bzero.c hmac_sha1.c \
-	pkcs5_pbkdf2.c rijndael.c sha1.c sha2.c softraid.c
 
 .PATH:	${S}/lib/libkern/arch/i386 ${S}/lib/libkern
 SRCS+=	divdi3.c moddi3.c qdivrem.c
@@ -58,7 +55,6 @@ NOPROG=
 
 .include <bsd.prog.mk>
 
-CPPFLAGS+=-DSOFTRAID
 CPPFLAGS+=-DBOOTMAGIC=$(BOOTMAGIC) ${DEBUGFLAGS}
 CPPFLAGS+=-DLINKADDR=${LINKADDR}
 CPPFLAGS+=-DSLOW -DSMALL -DNOBYFOUR -DNO_GZIP -DDYNAMIC_CRC_TABLE

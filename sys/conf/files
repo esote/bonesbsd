@@ -508,17 +508,6 @@ device	mpath: scsi
 attach	mpath at root
 file	scsi/mpath.c			mpath	needs-flag
 
-# Software RAID
-device	softraid: scsi
-attach	softraid at root
-file	dev/softraid.c			softraid	needs-flag
-file	dev/softraid_concat.c		softraid
-file	dev/softraid_crypto.c		softraid & crypto
-file	dev/softraid_raid0.c		softraid
-file	dev/softraid_raid1.c		softraid
-file	dev/softraid_raid5.c		softraid
-file	dev/softraid_raid6.c		softraid
-
 # SPD Memory EEPROM
 device	spdmem
 file	dev/spdmem.c			spdmem
@@ -871,7 +860,7 @@ file crypto/xform_ipcomp.c		ipsec | crypto
 file crypto/arc4.c
 file crypto/michael.c			wlan
 file crypto/cmac.c			wlan
-file crypto/hmac.c			wlan | (softraid & crypto)
+file crypto/hmac.c			wlan
 file crypto/gmac.c			ipsec | crypto
 file crypto/key_wrap.c			wlan
 file crypto/idgen.c			inet6

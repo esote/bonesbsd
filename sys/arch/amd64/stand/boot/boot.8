@@ -142,11 +142,6 @@ attempts to load the kernel executable
 .Pa /bsd .
 If it fails to find the kernel and no alternative kernel image has
 been specified, the system will be unable to boot.
-.Pp
-.Nm
-supports booting from
-.Xr softraid 4
-RAID 1 and CRYPTO volumes.
 .Sh COMMANDS
 The following commands are accepted at the
 .Nm
@@ -419,7 +414,6 @@ option.
 .Xr gzip 1 ,
 .Xr autoconf 4 ,
 .Xr ddb 4 ,
-.Xr softraid 4 ,
 .Xr biosboot 8 ,
 .Xr boot_amd64 8 ,
 .Xr boot_config 8 ,

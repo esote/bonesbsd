@@ -35,13 +35,6 @@
 #include "biosdev.h"
 #include "disk.h"
 
-#ifdef SOFTRAID
-#include <dev/biovar.h>
-#include <dev/softraidvar.h>
-#include <lib/libsa/softraid.h>
-#include "softraid_amd64.h"
-#endif
-
 extern int debug;
 
 /* XXX use slot for 'rd' for 'hd' pseudo-device */
@@ -110,11 +103,6 @@ devopen(struct open_file *f, const char *fname, char **file)
 void
 devboot(dev_t bootdev, char *p)
 {
-#ifdef SOFTRAID
-	struct sr_boot_volume *bv;
-	struct sr_boot_chunk *bc;
-	struct diskinfo *dip = NULL;
-#endif
 	int sr_boot_vol = -1;
 	int part_type = FS_UNUSED;
 
@@ -126,30 +114,6 @@ devboot(dev_t bootdev, char *p)
 		*p++ = 'p';
 		*p = '\0';
 		return;
-	}
-#endif
-
-#ifdef SOFTRAID
-	/*
-	 * Determine the partition type for the 'a' partition of the
-	 * boot device.
-	 */
-	TAILQ_FOREACH(dip, &disklist, list)
-		if (dip->bios_info.bios_number == bootdev &&
-		    (dip->bios_info.flags & BDI_BADLABEL) == 0)
-			part_type = dip->disklabel.d_partitions[0].p_fstype;
-
-	/*
-	 * See if we booted from a disk that is a member of a bootable
-	 * softraid volume.
-	 */
-	SLIST_FOREACH(bv, &sr_volumes, sbv_link) {
-		if (bv->sbv_flags & BIOC_SCBOOTABLE)
-			SLIST_FOREACH(bc, &bv->sbv_chunks, sbc_link)
-				if (bc->sbc_disk == bootdev)
-					sr_boot_vol = bv->sbv_unit;
-		if (sr_boot_vol != -1)
-			break;
 	}
 #endif
 

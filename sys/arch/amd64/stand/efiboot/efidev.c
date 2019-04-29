@@ -37,12 +37,6 @@
 #include "libsa.h"
 #include "disk.h"
 
-#ifdef SOFTRAID
-#include <dev/softraidvar.h>
-#include <lib/libsa/softraid.h>
-#include "softraid_amd64.h"
-#endif
-
 #include <efi.h>
 #include "eficall.h"
 
@@ -529,9 +523,6 @@ efi_getdisklabel_cd9660(efi_diskinfo_t ed, struct disklabel *label)
 int
 efiopen(struct open_file *f, ...)
 {
-#ifdef SOFTRAID
-	struct sr_boot_volume *bv;
-#endif
 	register char *cp, **file;
 	dev_t maj, unit, part;
 	struct diskinfo *dip;
@@ -586,52 +577,6 @@ efiopen(struct open_file *f, ...)
 	else
 		f->f_flags |= F_RAW;
 
-#ifdef SOFTRAID
-	/* Intercept softraid disks. */
-	if (strncmp("sr", dev, 2) == 0) {
-
-		/* Create a fake diskinfo for this softraid volume. */
-		SLIST_FOREACH(bv, &sr_volumes, sbv_link)
-			if (bv->sbv_unit == unit)
-				break;
-		if (bv == NULL) {
-			printf("Unknown device: sr%d\n", unit);
-			return EADAPT;
-		}
-
-		if (bv->sbv_level == 'C' && bv->sbv_keys == NULL)
-			if (sr_crypto_unlock_volume(bv) != 0)
-				return EPERM;
-
-		if (bv->sbv_diskinfo == NULL) {
-			dip = alloc(sizeof(struct diskinfo));
-			bzero(dip, sizeof(*dip));
-			dip->diskio = efid_diskio;
-			dip->strategy = efistrategy;
-			bv->sbv_diskinfo = dip;
-			dip->sr_vol = bv;
-			dip->bios_info.flags |= BDI_BADLABEL;
-		}
-
-		dip = bv->sbv_diskinfo;
-
-		if (dip->bios_info.flags & BDI_BADLABEL) {
-			/* Attempt to read disklabel. */
-			bv->sbv_part = 'c';
-			if (sr_getdisklabel(bv, &dip->disklabel))
-				return ERDLAB;
-			dip->bios_info.flags &= ~BDI_BADLABEL;
-			check_hibernate(dip);
-		}
-
-		bv->sbv_part = part + 'a';
-
-		bootdev_dip = dip;
-		f->f_devdata = dip;
-
-		return 0;
-	}
-#endif
 	for (maj = 0; maj < nbdevs &&
 	    strncmp(dev, bdevs[maj], devlen); maj++);
 	if (maj >= nbdevs) {
@@ -717,11 +662,6 @@ efistrategy(void *devdata, int rw, daddr32_t blk, size_t size, void *buf,
 	u_int8_t error = 0;
 	size_t nsect;
 
-#ifdef SOFTRAID
-	/* Intercept strategy for softraid volumes. */
-	if (dip->sr_vol)
-		return sr_strategy(dip->sr_vol, rw, blk, size, buf, rsize);
-#endif
 	nsect = (size + DEV_BSIZE - 1) / DEV_BSIZE;
 	blk += DL_SECTOBLK(&dip->disklabel,
 	    dip->disklabel.d_partitions[B_PARTITION(dip->bsddev)].p_offset);
