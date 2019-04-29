@@ -438,7 +438,6 @@ file	dev/ic/bwi.c			bwi
 define	isabus {}			# ISA attachment
 define	eisabus {}			# EISA attachment
 define	pcibus {[bus = -1]}		# PCI attachment
-define	tcbus {}			# TurboChannel attachment
 define	usbus {}			# USB attachment
 define	usbdev {}			# USB function attachment
 define	pcmciabus {[controller = -1], [socket = -1]}	# PCMCIA attachment

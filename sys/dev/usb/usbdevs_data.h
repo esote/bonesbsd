@@ -7678,10 +7678,6 @@ const struct usb_known_product usb_known_products[] = {
 	    "Multi-format Flash Controller",
 	},
 	{
-	    USB_VENDOR_NETCHIP, USB_PRODUCT_NETCHIP_TURBOCONNECT,
-	    "Turbo-Connect",
-	},
-	{
 	    USB_VENDOR_NETCHIP, USB_PRODUCT_NETCHIP_CLIK40,
 	    "Clik! 40",
 	},

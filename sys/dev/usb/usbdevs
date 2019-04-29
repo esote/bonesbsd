@@ -3158,7 +3158,6 @@ product NEODIO ND3260		0x3260	8-in-1 Flash Device Controller
 product NEODIO ND5010		0x5010	Multi-format Flash Controller
 
 /* NetChip Technology Products */
-product NETCHIP TURBOCONNECT	0x1080	Turbo-Connect
 product NETCHIP CLIK40		0xa140	Clik! 40
 product NETCHIP ETHERNETGADGET	0xa4a2	EthernetGadget
 

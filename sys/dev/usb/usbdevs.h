@@ -3165,7 +3165,6 @@
 #define	USB_PRODUCT_NEODIO_ND5010	0x5010		/* Multi-format Flash Controller */
 
 /* NetChip Technology Products */
-#define	USB_PRODUCT_NETCHIP_TURBOCONNECT	0x1080		/* Turbo-Connect */
 #define	USB_PRODUCT_NETCHIP_CLIK40	0xa140		/* Clik! 40 */
 #define	USB_PRODUCT_NETCHIP_ETHERNETGADGET	0xa4a2		/* EthernetGadget */
 
