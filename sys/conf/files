@@ -738,12 +738,6 @@ file kern/vfs_getcwd.c
 file kern/spec_vnops.c
 file miscfs/deadfs/dead_vnops.c
 file miscfs/fifofs/fifo_vnops.c		fifo
-file msdosfs/msdosfs_conv.c		msdosfs
-file msdosfs/msdosfs_denode.c		msdosfs
-file msdosfs/msdosfs_fat.c		msdosfs
-file msdosfs/msdosfs_lookup.c		msdosfs
-file msdosfs/msdosfs_vfsops.c		msdosfs
-file msdosfs/msdosfs_vnops.c		msdosfs
 file tmpfs/tmpfs_mem.c			tmpfs
 file tmpfs/tmpfs_subr.c			tmpfs
 file tmpfs/tmpfs_vfsops.c		tmpfs

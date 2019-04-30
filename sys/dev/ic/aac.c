@@ -2707,17 +2707,9 @@ aac_print_aif(struct aac_softc *sc, struct aac_aif_command *aif)
 			/* File System Extend operation */
 			printf("\t(FsExtend)\n");
 			break;
-		case AifJobApiFormatFAT:
-			/* Format a drive to FAT */
-			printf("\t(FormatFAT)\n");
-			break;
 		case AifJobApiUpdateSnapshot:
 			/* update the read/write half of a snapshot */
 			printf("\t(UpdateSnapshot)\n");
-			break;
-		case AifJobApiFormatFAT32:
-			/* Format a drive to FAT32 */
-			printf("\t(FormatFAT32)\n");
 			break;
 		case AifJobCtlContinuousCtrVerify:
 			/* Adapter operation */

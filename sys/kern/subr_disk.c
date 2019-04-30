@@ -461,15 +461,6 @@ donot:
 				fstype = FS_EXT2FS;
 				break;
 
-			case DOSPTYP_EFISYS:
-			case DOSPTYP_FAT12:
-			case DOSPTYP_FAT16S:
-			case DOSPTYP_FAT16B:
-			case DOSPTYP_FAT16L:
-			case DOSPTYP_FAT32:
-			case DOSPTYP_FAT32L:
-				fstype = FS_MSDOS;
-				break;
 			case DOSPTYP_EXTEND:
 			case DOSPTYP_EXTENDL:
 				sector = letoh32(dp2->dp_start) + extoff;

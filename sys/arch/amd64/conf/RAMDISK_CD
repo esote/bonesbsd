@@ -16,7 +16,6 @@ option		FFS
 option		FFS2
 option		EXT2FS
 option		CD9660
-option		MSDOSFS
 option		INET6
 option		CRYPTO
 

@@ -104,26 +104,6 @@ struct iso_args {
 #define	ISOFSMNT_SESS		0x00000010	/* use iso_args.sess */
 
 /*
- *  Arguments to mount MSDOS filesystems.
- */
-struct msdosfs_args {
-	char	*fspec;		/* blocks special holding the fs to mount */
-	struct	export_args export_info;
-				/* network export information */
-	uid_t	uid;		/* uid that owns msdosfs files */
-	gid_t	gid;		/* gid that owns msdosfs files */
-	mode_t  mask;		/* mask to be applied for msdosfs perms */
-	int	flags;		/* see below */
-};
-
-/*
- * Msdosfs mount options:
- */
-#define	MSDOSFSMNT_SHORTNAME	0x01	/* Force old DOS short names only */
-#define	MSDOSFSMNT_LONGNAME	0x02	/* Force Win'95 long names */
-#define	MSDOSFSMNT_NOWIN95	0x04	/* Completely ignore Win95 entries */
-
-/*
  * Arguments to mount tmpfs file systems
  */
 #define TMPFS_ARGS_VERSION	1
@@ -152,7 +132,6 @@ union mount_info {
 	struct ufs_args ufs_args;
 	struct mfs_args mfs_args;
 	struct iso_args iso_args;
-	struct msdosfs_args msdosfs_args;
 	struct tmpfs_args tmpfs_args;
 	char __align[160];	/* 64-bit alignment and room to grow */
 };
@@ -196,7 +175,6 @@ struct statfs {
 #define	MOUNT_FFS	"ffs"		/* UNIX "Fast" Filesystem */
 #define	MOUNT_UFS	MOUNT_FFS	/* for compatibility */
 #define	MOUNT_MFS	"mfs"		/* Memory Filesystem */
-#define	MOUNT_MSDOS	"msdos"		/* MSDOS Filesystem */
 #define	MOUNT_AFS	"afs"		/* Andrew Filesystem */
 #define	MOUNT_CD9660	"cd9660"	/* ISO9660 (aka CDROM) Filesystem */
 #define	MOUNT_EXT2FS	"ext2fs"	/* Second Extended Filesystem */

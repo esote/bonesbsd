@@ -1259,10 +1259,8 @@ uvn_io(struct uvm_vnode *uvn, vm_page_t *pps, int npages, int flags, int rw)
  *	cache.
  *
  * research shows that this is called in the following places:
- * ext2fs_truncate, ffs_truncate, detrunc[msdosfs]: called when vnode
- *	changes sizes
- * ext2fs_write, WRITE [ufs_readwrite], msdosfs_write: called when we
- *	are written to
+ * ext2fs_truncate, ffs_truncate: called when vnode changes sizes
+ * ext2fs_write, WRITE [ufs_readwrite]: called when we are written to
  * ex2fs_chmod, ufs_chmod: called if VTEXT vnode and the sticky bit
  *	is off
  * ffs_realloccg: when we can't extend the current block and have
@@ -1335,8 +1333,8 @@ uvm_vnp_uncache(struct vnode *vp)
  *	us.
  *
  * called from:
- *  => truncate fns (ext2fs_truncate, ffs_truncate, detrunc[msdos])
- *  => "write" fns (ext2fs_write, WRITE [ufs/ufs], msdosfs_write)
+ *  => truncate fns (ext2fs_truncate, ffs_truncate)
+ *  => "write" fns (ext2fs_write, WRITE [ufs/ufs])
  *  => ffs_balloc [XXX: why? doesn't WRITE handle?]
  *  => union fs: union_newsize
  */

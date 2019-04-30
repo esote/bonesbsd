@@ -109,9 +109,7 @@
 #define	M_MRTABLE	56	/* multicast routing tables */
 #define	M_ISOFSMNT	57	/* ISOFS mount structure */
 #define	M_ISOFSNODE	58	/* ISOFS vnode private part */
-#define	M_MSDOSFSMNT	59	/* MSDOS FS mount structure */
-#define	M_MSDOSFSFAT	60	/* MSDOS FS fat table */
-#define	M_MSDOSFSNODE	61	/* MSDOS FS vnode private part */
+/* 59-61 - free */
 #define	M_TTYS		62	/* allocated tty structures */
 #define	M_EXEC		63	/* argument lists & other mem used by exec */
 #define	M_MISCFSMNT	64	/* miscfs mount structures */
@@ -223,9 +221,9 @@
 	"mrt",		/* 56 M_MRTABLE */ \
 	"ISOFS mount",	/* 57 M_ISOFSMNT */ \
 	"ISOFS node",	/* 58 M_ISOFSNODE */ \
-	"MSDOSFS mount", /* 59 M_MSDOSFSMNT */ \
-	"MSDOSFS fat",	/* 60 M_MSDOSFSFAT */ \
-	"MSDOSFS node",	/* 61 M_MSDOSFSNODE */ \
+	NULL, \
+	NULL, \
+	NULL, \
 	"ttys",		/* 62 M_TTYS */ \
 	"exec",		/* 63 M_EXEC */ \
 	"miscfs mount",	/* 64 M_MISCFSMNT */ \

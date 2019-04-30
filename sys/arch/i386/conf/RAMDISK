@@ -16,7 +16,6 @@ option		PCIVERBOSE
 option		SCSITERSE
 
 option		FFS
-option		MSDOSFS
 
 config		bsd root on rd0a swap on rd0b and wd0b and sd0b
 

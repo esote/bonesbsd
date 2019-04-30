@@ -64,13 +64,13 @@ enum vtype	{ VNON, VREG, VDIR, VBLK, VCHR, VLNK, VSOCK, VFIFO, VBAD };
  * the rest, so don't believe the above comment!
  */
 enum vtagtype	{
-	VT_NON, VT_UFS, VT_MFS, VT_MSDOSFS,
+	VT_NON, VT_UFS, VT_MFS,
 	VT_PORTAL, VT_PROCFS, VT_AFS, VT_ISOFS, VT_ADOSFS,
 	VT_EXT2FS, VT_VFS, VT_TMPFS,
 };
 
 #define	VTAG_NAMES \
-    "NON", "UFS", "MFS", "MSDOSFS",			\
+    "NON", "UFS", "MFS",				\
     "unused", "unused", "unused", "ISOFS", "unused",	\
     "EXT2FS", "VFS", "TMPFS"
 

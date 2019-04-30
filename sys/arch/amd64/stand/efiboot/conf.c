@@ -69,10 +69,6 @@ struct fs_ops file_system[] = {
 	  ufs_stat,    ufs_readdir    },
 	{ cd9660_open, cd9660_close, cd9660_read, cd9660_write, cd9660_seek,
 	  cd9660_stat, cd9660_readdir },
-#ifdef notdef
-	{ fat_open,    fat_close,    fat_read,    fat_write,    fat_seek,
-	  fat_stat,    fat_readdir    },
-#endif
 };
 int nfsys = nitems(file_system);
 

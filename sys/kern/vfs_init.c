@@ -58,10 +58,6 @@ extern	const struct vfsops ffs_vfsops;
 extern	const struct vfsops mfs_vfsops;
 #endif
 
-#ifdef MSDOSFS
-extern	const struct vfsops msdosfs_vfsops;
-#endif
-
 #ifdef CD9660
 extern	const struct vfsops cd9660_vfsops;
 #endif
@@ -94,11 +90,6 @@ static struct vfsconf vfsconflist[] = {
 #ifdef CD9660
         { &cd9660_vfsops, MOUNT_CD9660, 14, 0, MNT_LOCAL,
 	    sizeof(struct iso_args) },
-#endif
-
-#ifdef MSDOSFS
-        { &msdosfs_vfsops, MOUNT_MSDOS, 4, 0, MNT_LOCAL | MNT_SWAPPABLE,
-	    sizeof(struct msdosfs_args) },
 #endif
 
 #ifdef TMPFS
