@@ -47,7 +47,6 @@
 #endif
 
 #include <arch/sparc64/dev/uperfvar.h>
-#include <dev/sun/uperfio.h>
 #include <dev/sbus/sbusvar.h>
 #include <dev/sbus/uperf_sbusreg.h>
 
