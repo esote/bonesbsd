@@ -1,5 +1,0 @@
-Changes made to the BonesBSD kernel sometimes require changes be made to the
-OpenBSD userspace. Use these patch files if you encounter userspace errors.
-
-0001-Remove-rc-NFS-reference.patch
-	Notes: Apply to /etc/rc.
