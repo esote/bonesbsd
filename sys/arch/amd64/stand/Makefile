@@ -3,6 +3,6 @@
 .if ${MACHINE} == "amd64"
 SUBDIR=	mbr cdbr
 .endif
-SUBDIR+=biosboot boot cdboot fdboot pxeboot efiboot
+SUBDIR+=biosboot boot cdboot pxeboot efiboot
 
 .include <bsd.subdir.mk>

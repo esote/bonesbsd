@@ -3,6 +3,6 @@
 .if ${MACHINE} == "i386"
 SUBDIR=	mbr cdbr
 .endif
-SUBDIR+=biosboot boot cdboot fdboot pxeboot
+SUBDIR+=biosboot boot cdboot pxeboot
 
 .include <bsd.subdir.mk>
