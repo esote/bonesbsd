@@ -529,16 +529,6 @@ attach  lpt at puc with lpt_puc
 file    dev/puc/lpt_puc.c               lpt_puc
 attach	puc at pci with puc_pci
 
-# WaveLAN/PrismII card behind a PLX 805x dumb bridge
-# device declaration in sys/conf/files
-attach	wi at pci with wi_pci
-file	dev/pci/if_wi_pci.c		wi_pci
-
-# Aironet 4500/4800 802.11 DS WLAN
-# device declaration in sys/conf/files
-attach	an at pci with an_pci
-file	dev/pci/if_an_pci.c		an_pci
-
 # Intel PRO/Wireless 2100
 device	ipw: ifnet, wlan, firmload
 attach	ipw at pci
@@ -656,36 +646,6 @@ file	dev/pci/amdpm.c			amdpm
 device	bce: ether, ifnet, mii, ifmedia, mii_phy
 attach	bce at pci
 file	dev/pci/if_bce.c		bce
-
-# Atheros AR5k (802.11a/b/g) PCI/Mini-PCI
-attach	ath at pci with ath_pci
-file	dev/pci/if_ath_pci.c		ath_pci
-
-# Atheros AR9k (802.11a/g/n)
-attach	athn at pci with athn_pci
-file	dev/pci/if_athn_pci.c		athn_pci
-
-# ADMtek ADM8211 PCI/Mini-PCI
-attach	atw at pci with atw_pci
-file	dev/pci/if_atw_pci.c		atw_pci
-
-# Realtek RTL8180 PCI/Mini-PCI
-attach	rtw at pci with rtw_pci
-file	dev/pci/if_rtw_pci.c		rtw_pci
-
-# Realtek RTL8188CE Mini-PCI
-attach	rtwn at pci with rtwn_pci
-file	dev/pci/if_rtwn.c		rtwn_pci
-
-# Ralink RT2500 PCI/Mini-PCI
-attach	ral at pci with ral_pci
-file	dev/pci/if_ral_pci.c		ral_pci
-
-#
-# Texas Instruments ACX
-#
-attach	acx at pci with acx_pci
-file	dev/pci/if_acx_pci.c		acx_pci
 
 #
 # Conexant PrismGT
@@ -815,9 +775,6 @@ file	dev/pci/virtio_pci.c		virtio_pci
 # Synopsys DesignWare I2C Controller
 attach	dwiic at pci with dwiic_pci
 file	dev/pci/dwiic_pci.c		dwiic_pci
-
-attach	bwfm at pci with bwfm_pci: firmload
-file	dev/pci/if_bwfm_pci.c		bwfm_pci
 
 # AMD Cryptographic Co-processor 
 attach	ccp at pci with ccp_pci

@@ -1036,7 +1036,6 @@ nd6_ifptomac(struct ifnet *ifp)
 	case IFT_IEEE1394:
 	case IFT_PROPVIRTUAL:
 	case IFT_CARP:
-	case IFT_IEEE80211:
 		return ((caddr_t)(ifp + 1));
 	default:
 		return NULL;

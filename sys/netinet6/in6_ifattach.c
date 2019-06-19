@@ -131,24 +131,12 @@ in6_get_hw_ifid(struct ifnet *ifp, struct in6_addr *in6)
 	addr = LLADDR(sdl);
 	addrlen = sdl->sdl_alen;
 
-	switch (ifp->if_type) {
-	case IFT_IEEE1394:
-	case IFT_IEEE80211:
-		/* IEEE1394 uses 16byte length address starting with EUI64 */
-		if (addrlen > 8)
-			addrlen = 8;
-		break;
-	default:
-		break;
-	}
-
 	/* get EUI64 */
 	switch (ifp->if_type) {
 	/* IEEE802/EUI64 cases - what others? */
 	case IFT_ETHER:
 	case IFT_CARP:
 	case IFT_IEEE1394:
-	case IFT_IEEE80211:
 		/* look at IEEE802/EUI64 only */
 		if (addrlen != 8 && addrlen != 6)
 			return -1;

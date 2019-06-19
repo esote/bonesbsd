@@ -368,73 +368,10 @@ device	uticom: ucombus
 attach	uticom at uhub
 file	dev/usb/uticom.c		uticom
 
-# Prism3 WI @ USB
-attach	wi at uhub with wi_usb
-file	dev/usb/if_wi_usb.c		wi_usb
-
-# Atmel AT76c503 / AT76c503a / AT76c505 / AT76c505a @ USB
-device	atu: ether, ifnet, ifmedia, wlan, firmload
-attach	atu at uhub
-file	dev/usb/if_atu.c		atu
-
-# Ralink Technology RT2500USB
-device	ural: ether, ifnet, ifmedia, wlan
-attach	ural at uhub
-file	dev/usb/if_ral.c		ural
-
-# Ralink Technology RT2501USB
-device	rum: ether, ifnet, ifmedia, wlan, firmload
-attach	rum at uhub
-file	dev/usb/if_rum.c		rum
-
-# Ralink Technology RT2700U/RT2800U/RT3000U
-device	run: ether, ifnet, ifmedia, wlan, firmload
-attach	run at uhub
-file	dev/usb/if_run.c		run
-
-# Zydas ZD1211
-device	zyd: ether, ifnet, ifmedia, wlan, firmload
-attach	zyd at uhub
-file	dev/usb/if_zyd.c		zyd
-
-# PrismGT
-device	upgt: ether, ifnet, ifmedia, wlan, firmload
-attach	upgt at uhub
-file	dev/usb/if_upgt.c		upgt
-
-# Realtek 8187
-device	urtw: ether, ifnet, ifmedia, wlan
-attach	urtw at uhub
-file	dev/usb/if_urtw.c		urtw
-
-# Realtek RTL8188CU/RTL8192CU
-device	urtwn: ether, ifnet, ifmedia, wlan, firmload
-attach	urtwn at uhub
-file	dev/usb/if_urtwn.c		urtwn
-
-# Realtek RTL8188SU/RTL8191SU/RTL8192SU
-device	rsu: ether, ifnet, ifmedia, wlan, firmload
-attach	rsu at uhub
-file	dev/usb/if_rsu.c		rsu
-
-# Atheros AR9170
-device	otus: ether, ifnet, ifmedia, wlan, firmload
-attach	otus at uhub
-file	dev/usb/if_otus.c		otus
-
 # Mobile Broadband Interface Model
 device	umb: ifnet, ifmedia
 attach	umb at uhub
 file	dev/usb/if_umb.c		umb
-
-# Atheros AR5005UG/AR5005UX
-device	uath: ether, ifnet, ifmedia, wlan, firmload
-attach	uath at uhub
-file	dev/usb/if_uath.c		uath
-
-# Atheros AR9002U
-attach	athn at uhub with athn_usb: firmload
-file	dev/usb/if_athn_usb.c		athn_usb		needs-flag
 
 # Research In Motion BlackBerry
 device	uberry {}
@@ -450,6 +387,3 @@ file   dev/usb/upd.c			upd
 device	uwacom: hid, hidms, wsmousedev
 attach	uwacom at uhidbus
 file	dev/usb/uwacom.c		uwacom
-
-attach	bwfm at uhub with bwfm_usb: firmload
-file	dev/usb/if_bwfm_usb.c		bwfm_usb

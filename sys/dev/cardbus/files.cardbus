@@ -54,41 +54,6 @@ attach	re at cardbus with re_cardbus
 file	dev/cardbus/if_re_cardbus.c		re_cardbus
 
 #
-# Atheros AR5k
-#
-attach	ath at cardbus with ath_cardbus
-file	dev/cardbus/if_ath_cardbus.c		ath_cardbus
-
-#
-# Atheros AR9k
-#
-attach	athn at cardbus with athn_cardbus
-file	dev/cardbus/if_athn_cardbus.c		athn_cardbus
-
-#
-# ADMtek ADM8211
-#
-attach	atw at cardbus with atw_cardbus
-file	dev/cardbus/if_atw_cardbus.c		atw_cardbus
-
-# Realtek RTL8180
-#
-attach	rtw at cardbus with rtw_cardbus
-file	dev/cardbus/if_rtw_cardbus.c		rtw_cardbus
-
-#
-# Ralink RT2500
-#
-attach	ral at cardbus with ral_cardbus
-file	dev/cardbus/if_ral_cardbus.c		ral_cardbus
-
-#
-# Texas Instruments ACX
-#
-attach	acx at cardbus with acx_cardbus
-file	dev/cardbus/if_acx_cardbus.c		acx_cardbus
-
-#
 # Conexant PrismGT
 #
 attach	pgt at cardbus with pgt_cardbus

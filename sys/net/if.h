@@ -163,8 +163,6 @@ struct if_status_description {
 #define LINK_STATE_DESCRIPTIONS {					\
 	{ IFT_ETHER, LINK_STATE_DOWN, "no carrier" },			\
 									\
-	{ IFT_IEEE80211, LINK_STATE_DOWN, "no network" },		\
-									\
 	{ IFT_PPP, LINK_STATE_DOWN, "no carrier" },			\
 									\
 	{ IFT_CARP, LINK_STATE_DOWN, "backup" },			\
@@ -321,27 +319,6 @@ struct if_announcemsghdr {
 
 #define IFAN_ARRIVAL	0	/* interface arrival */
 #define IFAN_DEPARTURE	1	/* interface departure */
-
-/* message format used to pass 80211 interface info */
-struct if_ieee80211_data {
-	uint8_t		ifie_channel;	/* IEEE80211_CHAN_MAX  == 255 */
-	uint8_t		ifie_nwid_len;
-	uint32_t	ifie_flags;	/* ieee80211com.ic_flags */
-	uint32_t	ifie_xflags;	/* ieee80211com.ic xflags */
-	uint8_t		ifie_nwid[32];	/* IEEE80211_NWID_LEN */
-	uint8_t		ifie_addr[6];	/* IEEE80211_ADDR_LEN */
-};
-
-struct if_ieee80211_msghdr {
-	uint16_t	ifim_msglen;
-	uint8_t		ifim_version;
-	uint8_t		ifim_type;
-	uint16_t	ifim_hdrlen;
-	uint16_t	ifim_index;
-	uint16_t	ifim_tableid;
-
-	struct if_ieee80211_data	ifim_ifie;
-};
 
 /* message format used to pass interface name to index mappings */
 struct if_nameindex_msg {

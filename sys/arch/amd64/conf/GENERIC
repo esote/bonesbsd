@@ -275,7 +275,6 @@ ucom*	at uslhcom?
 uhid*	at uhidev?		# USB generic HID support
 upd*	at uhidev?		# USB Power Devices sensors
 aue*	at uhub?		# ADMtek AN986 Pegasus Ethernet
-atu*	at uhub?		# Atmel AT76c50x based 802.11b
 axe*	at uhub?		# ASIX Electronics AX88172 USB Ethernet
 axen*	at uhub?		# ASIX Electronics AX88179 USB Ethernet
 cue*	at uhub?		# CATC USB-EL1201A based Ethernet
@@ -290,22 +289,10 @@ mos*	at uhub?		# MOSCHIP MCS7730/7830 10/100 Ethernet
 mue*	at uhub?		# Microchip LAN75xx/LAN78xx Ethernet
 url*	at uhub?		# Realtek RTL8150L based adapters
 ure*	at uhub?		# Realtek RTL8152 based adapters
-wi*	at uhub?		# WaveLAN IEEE 802.11DS
 udsbr*	at uhub?		# D-Link DSB-R100 radio
 radio*	at udsbr?		# USB radio
 uberry*	at uhub?		# Research In Motion BlackBerry
 ugen*	at uhub?		# USB Generic driver
-uath*	at uhub?		# Atheros AR5005UG/AR5005UX
-ural*	at uhub?		# Ralink RT2500USB
-rum*	at uhub?		# Ralink RT2501USB/RT2601USB
-run*	at uhub?		# Ralink RT2700U/RT2800U/RT3000U
-otus*	at uhub?		# Atheros AR9001U
-athn*	at uhub?		# Atheros AR9002U
-zyd*	at uhub?		# Zydas ZD1211
-upgt*	at uhub?		# Conexant/Intersil PrismGT SoftMAC USB
-urtw*	at uhub?		# Realtek 8187
-rsu*	at uhub?		# Realtek RTL8188SU/RTL8191SU/RTL8192SU
-urtwn*	at uhub?		# Realtek RTL8188CU/RTL8192CU
 udcf*	at uhub?		# Gude Expert mouseCLOCK
 umbg*	at uhub?		# Meinberg Funkuhren USB5131/DCF600USB
 umb*	at uhub?		# Mobile Broadband Interface Model
@@ -323,7 +310,6 @@ video*	at utvfu?
 audio*	at utvfu?
 udl*	at uhub?		# DisplayLink USB displays
 wsdisplay* at udl?
-bwfm*	at uhub?		# Broadcom FullMAC
 
 puc*	at pci?			# PCI "universal" communication device
 com*	at cardbus?
@@ -332,7 +318,6 @@ sdhc*	at pci?			# SD Host Controller
 sdmmc*	at sdhc?		# SD/MMC bus
 rtsx*	at pci?			# Realtek SD Card Reader
 sdmmc*	at rtsx?		# SD/MMC bus
-bwfm*	at sdmmc?		# Broadcom FullMAC
 
 isadma0	at isa?
 
@@ -506,37 +491,6 @@ lii*	at pci?				# Attansic L2 Ethernet
 jme*	at pci?				# JMicron JMC250/JMC260 Ethernet
 bnxt*	at pci?				# Broadcom BCM573xx, BCM574xx
 ixl*	at pci?				# Intel Ethernet 700 Series
-
-# Wireless network cards
-acx*	at pci?				# TI ACX100/ACX111 (802.11b/g)
-acx*	at cardbus?			# TI ACX100/ACX111 (802.11b/g)
-ath*	at pci?				# Atheros AR5k (802.11a/b/g)
-ath*	at cardbus?			# Atheros AR5k (802.11a/b/g)
-athn*	at pci?				# Atheros AR9k (802.11a/g/n)
-athn*	at cardbus?			# Atheros AR9k (802.11a/g/n)
-atw*	at pci?				# ADMtek ADM8211 (802.11)
-atw*	at cardbus?			# ADMtek ADM8211 (802.11)
-bwi*	at pci?				# Broadcom AirForce (802.11b/g)
-bwi*	at cardbus?			# Broadcom AirForce (802.11b/g)
-wi*	at pci?				# WaveLAN IEEE 802.11DS
-wi*	at pcmcia?			# WaveLAN IEEE 802.11DS
-an*	at pci?				# Aironet IEEE 802.11DS
-an*	at pcmcia?			# Aironet IEEE 802.11DS
-iwi*	at pci?				# Intel PRO/Wireless 2200BG/2915ABG
-wpi*	at pci?				# Intel PRO/Wireless 3945ABG
-iwn*	at pci?				# Intel WiFi Link 4965/5000/1000/6000
-iwm*	at pci?				# Intel WiFi Link 7xxx
-ral*	at pci?				# Ralink RT2500/RT2501/RT2600
-ral*	at cardbus?			# Ralink RT2500/RT2501/RT2600
-rtw*	at pci?				# Realtek 8180
-rtw*	at cardbus?			# Realtek 8180
-rtwn*	at pci?				# Realtek 8188CE/8192CE
-pgt*	at pci?				# Prism54 (only full-mac varients)
-pgt*	at cardbus?			# Prism54 (only full-mac varients)
-malo*	at pci?				# Marvell Libertas
-malo*	at cardbus?			# Marvell Libertas
-malo*	at pcmcia?			# Marvell 88W8385
-bwfm*	at pci?				# Broadcom FullMAC
 
 # Media Independent Interface (mii) drivers
 exphy*	at mii?				# 3Com internal PHYs

@@ -241,7 +241,6 @@ struct rt_msghdr {
 #define RTM_BFD		0x12	/* bidirectional forwarding detection */
 #define RTM_PROPOSAL	0x13	/* proposal for netconfigd */
 #define RTM_CHGADDRATTR	0x14	/* address attribute change */
-#define RTM_80211INFO	0x15	/* 80211 iface change */
 
 #define RTV_MTU		0x1	/* init or lock _mtu */
 #define RTV_HOPCOUNT	0x2	/* init or lock _hopcount */
@@ -418,14 +417,12 @@ struct mbuf;
 struct socket;
 struct ifnet;
 struct sockaddr_in6;
-struct if_ieee80211_data;
 struct bfd_config;
 
 void	 route_init(void);
 void	 rtm_ifchg(struct ifnet *);
 void	 rtm_ifannounce(struct ifnet *, int);
 void	 rtm_bfd(struct bfd_config *);
-void	 rtm_80211info(struct ifnet *, struct if_ieee80211_data *);
 void	 rt_maskedcopy(struct sockaddr *,
 	    struct sockaddr *, struct sockaddr *);
 struct sockaddr *rt_plen2mask(struct rtentry *, struct sockaddr_in6 *);

@@ -79,7 +79,6 @@
 #define PCI_PRODUCT_VIRTIO_RPMSG	7
 #define PCI_PRODUCT_VIRTIO_SCSI		8
 #define PCI_PRODUCT_VIRTIO_9P		9
-#define PCI_PRODUCT_VIRTIO_MAC80211	10
 #define PCI_PRODUCT_VIRTIO_VMMCI	65535	/* private id */
 
 /* device-independent feature bits */

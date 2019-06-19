@@ -46,18 +46,6 @@ device	xe: ether, ifnet, mii, ifmedia
 attach	xe at pcmcia with xe_pcmcia
 file	dev/pcmcia/if_xe.c			xe_pcmcia
 
-# Lucent WaveLAN
-attach	wi at pcmcia with wi_pcmcia
-file	dev/pcmcia/if_wi_pcmcia.c		wi_pcmcia
-
-# Marvell 88W8385
-attach	malo at pcmcia with malo_pcmcia
-file	dev/pcmcia/if_malo.c			malo_pcmcia
-
-# Aironet 4500/4800 802.11 DS WLAN
-attach	an at pcmcia with an_pcmcia
-file	dev/pcmcia/if_an_pcmcia.c		an_pcmcia
-
 # Gemplus GPR400 SmartCard reader
 device	gpr
 attach	gpr at pcmcia with gpr

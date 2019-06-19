@@ -1441,7 +1441,6 @@ nd6_need_cache(struct ifnet *ifp)
 	 */
 	switch (ifp->if_type) {
 	case IFT_ETHER:
-	case IFT_IEEE80211:
 	case IFT_CARP:
 		return (1);
 	default:

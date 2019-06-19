@@ -64,7 +64,6 @@ static const char * const virtio_device_name[] = {
 	"Rpmsg",		/* 7 */
 	"SCSI host",		/* 8 */
 	"9P Transport",		/* 9 */
-	"mac80211 wlan"		/* 10 */
 };
 #define NDEVNAMES	(sizeof(virtio_device_name)/sizeof(char*))
 

@@ -240,15 +240,6 @@ file	dev/ic/elink3.c			ep
 device	lc: ether, ifnet, ifmedia
 file	dev/ic/lemac.c			lc
 
-# WaveLan
-device	wi: ether, ifnet, ifmedia
-file	dev/ic/if_wi.c			wi
-file	dev/ic/if_wi_hostap.c		wi
-
-# Aironet 802.11 DS Ethernet controller
-device	an: ether, ifnet, ifmedia, wlan
-file	dev/ic/an.c			an
-
 # LANCE and PCnet Ethernet controllers
 device	le: ether, ifnet, ifmedia
 define	le24
@@ -364,56 +355,6 @@ file	dev/ic/trm.c			trm
 # National Semiconductor LM78/79/81 and compatible hardware monitors
 device	lm
 file	dev/ic/lm78.c			lm
-
-# Atheros AR5k (802.11/a/b/g) Hardware Abstraction Layer
-define	ar5xxx
-file	dev/ic/ar5xxx.c			ar5xxx
-file	dev/ic/ar5210.c			ar5xxx
-file	dev/ic/ar5211.c			ar5xxx
-file	dev/ic/ar5212.c			ar5xxx
-
-# Atheros AR5k (802.11/a/b/g) driver
-device	ath: ether, ifnet, ifmedia, ar5xxx, wlan, gpiobus
-file	dev/ic/ath.c			ath
-
-# Atheros AR9k (802.11a/g/n) driver
-device	athn: ether, ifnet, ifmedia, wlan
-file	dev/ic/athn.c			athn
-file	dev/ic/ar5008.c			athn
-file	dev/ic/ar5416.c			athn
-file	dev/ic/ar9280.c			athn
-file	dev/ic/ar9285.c			athn
-file	dev/ic/ar9287.c			athn
-file	dev/ic/ar9003.c			athn
-file	dev/ic/ar9380.c			athn
-
-# Broadcom FullMAC 802.11 driver
-device	bwfm: ether, ifnet, ifmedia, wlan
-file	dev/ic/bwfm.c			bwfm
-
-# ADMtek ADM8211 802.11
-device	atw: ether, ifnet, ifmedia, smc93cx6, wlan
-file	dev/ic/atw.c			atw
-
-# Realtek RTL8180 802.11
-device	rtw: ether, ifnet, ifmedia, smc93cx6, wlan
-file	dev/ic/rtw.c			rtw
-
-# Realtek RTL8188CE 802.11
-device	rtwn: ifnet, wlan, firmload
-file	dev/ic/rtwn.c			rtwn | urtwn
-
-# Ralink RT2500/RT2600 802.11
-device	ral: ether, ifnet, ifmedia, firmload, wlan
-file	dev/ic/rt2560.c			ral
-file	dev/ic/rt2661.c			ral
-file	dev/ic/rt2860.c			ral
-
-# Texas Instruments ACX 802.11
-device	acx: ether, ifnet, ifmedia, firmload, wlan
-file	dev/ic/acx.c			acx
-file	dev/ic/acx111.c			acx
-file	dev/ic/acx100.c			acx
 
 # Conexant PrismGT
 device	pgt: ether, ifnet, ifmedia, firmload, wlan
@@ -786,23 +727,6 @@ file net/if_pair.c			pair			needs-count
 file net/if_pppx.c			pppx			needs-count
 file net/if_vxlan.c			vxlan			needs-count
 file net/bfd.c				bfd
-file net80211/ieee80211.c		wlan
-file net80211/ieee80211_amrr.c		wlan
-file net80211/ieee80211_crypto.c	wlan
-file net80211/ieee80211_crypto_bip.c	wlan
-file net80211/ieee80211_crypto_ccmp.c	wlan
-file net80211/ieee80211_crypto_tkip.c	wlan
-file net80211/ieee80211_crypto_wep.c	wlan
-file net80211/ieee80211_input.c		wlan
-file net80211/ieee80211_ioctl.c		wlan
-file net80211/ieee80211_mira.c		wlan
-file net80211/ieee80211_node.c		wlan
-file net80211/ieee80211_output.c	wlan
-file net80211/ieee80211_pae_input.c	wlan
-file net80211/ieee80211_pae_output.c	wlan
-file net80211/ieee80211_proto.c		wlan
-file net80211/ieee80211_rssadapt.c	wlan
-file net80211/ieee80211_regdomain.c	wlan
 file netinet/if_ether.c			ether
 file netinet/igmp.c
 file netinet/in.c

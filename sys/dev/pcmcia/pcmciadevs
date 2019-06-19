@@ -118,8 +118,6 @@ vendor ELSA			0xd601	Elsa
  * List of known products.  Grouped by vendor.
  */
 /* 3COM */
-product 3COM 3CRWE737A		0x0001 3Com AirConnect Wireless LAN
-product 3COM 3CRWE777A		0x0777 3Com AirConnect Wireless LAN
 product 3COM 3CXM056BNW		0x002f 3Com/NoteWorthy 3CXM056-BNW
 product 3COM 3CXEM556		0x0035 3Com 3CXEM556
 product 3COM 3CXEM556B		0x003d 3Com 3CXEM556B-INT
@@ -129,7 +127,6 @@ product 3COM 3C589		0x0589 3Com 3c589
 product 3COM 3C574		0x0574 3Com 3c574
 product 3COM 3CRWE62092B	0x0620 3Com 3CRWE62092B
 product 3COM 3C1		0x0cf1 3Com 3C1
-product 3COM 3CRWE62092A	0x2092 3Com Wireless LAN
 
 /* ACTIONTEC */
 product ACTIONTEC HWC01170	0x101  ACTIONTEC Wireless LAN PC CARD
@@ -156,12 +153,6 @@ product AMBICOM WL54CF		0x8103 WL54CF
 /* Archos */
 product	ARCHOS ARC_ATAPI	0x0043 MiniCD
 
-/* ARten */
-product	ARTEM ONAIR		0x0001 ARtem Onair WLAN
-
-/* ASUS */
-product	ASUS WL_100		0x0002 SpaceLink WL-100
-
 /* Audiovox Communications */
 product AUDIOVOX RTM8000	0x950b RTM-8000 GSM/GPRS CF
 
@@ -182,8 +173,6 @@ product BREEZECOM BREEZENET	0x0102 BreezeCOM BreezeNET
 product BUFFALO LPC_CF_CLT	0x0307 BUFFALO LPC-CF-CLT
 product BUFFALO LPC4_CLX	0x0309 BUFFALO LPC4-CLX
 product BUFFALO LPC3_CLT	0x030a BUFFALO LPC3-CLT
-product BUFFALO WLI_PCM_S11	0x0305 BUFFALO AirStation 11Mbps WLAN
-product BUFFALO WLI_CF_S11G	0x030b BUFFALO AirStation 11Mbps CF WLAN
 
 /* Contec C-NET(PC) */
 product CONTEC CNETPC		0x0000 Contec C-NET(PC)C
@@ -216,9 +205,6 @@ product ELSA XI800_IEEE		0x0004 XI800 CF Wireless LAN
 product ELSA XI325_IEEE		0x0005 XI325 Wireless LAN
 product ELSA CONNECTPLUS	0x0101 SanDisk ConnectPlus
 
-/* EMTAC */
-product EMTAC WLAN		0x0002 EMTAC A2424i 11Mbps WLAN Card
-
 /* Farallon Communications */
 product FARALLON SKYLINE	0x0a01 SkyLINE Wireless
 
@@ -233,9 +219,6 @@ product GEMPLUS GPR400		0x3004 GPR400 Smartcard Reader
  
 /* Greycell */
 product GREYCELL GCS2000	0x0201 Grey Cell GCS2000 Gold II Ethernet
-
-/* Home Wireless Networks */
-product HWN AIRWAY80211		0x0002 HWN Airway Wireless
 
 /* IBM */
 product IBM MICRODRIVE		0x0000 IBM Microdrive
@@ -256,7 +239,6 @@ product IODATA2 WCF12		0x0673 Wireless CF Card
 product ELSA WNB11CFZ		0x0010 I-O DATA WN-B11/CFZ
 
 /* Intel */
-product INTEL PRO_WLAN_2011	0x0001 Intel PRO/Wireless 2011
 product INTEL EEPRO100		0x010a Intel EtherExpress PRO/100
 
 /* Kingston */
@@ -317,27 +299,10 @@ product NETGEAR FA410TXC	0x4530 Netgear FA410TXC
 product NETGEAR FA411		0x0411 Netgear FA411
 product NETGEAR2 MA401RA	0x7300 Netgear MA401RA
 
-/* Nokia */
-product NOKIA C110_WLAN		0x1110 Nokia C110/C111
-product NOKIA C020_WLAN		0x20c0 Nokia C020
-
-/* No Wires Needed */
-product NWN WLAN_550		0x0002 NWN 550 WLAN
-product NWN WLAN_1148		0x0003 NWN 1148 WLAN
-
 /* Panasonic */
 product PANASONIC KXLC002	0x0304 Panasonic 4X CD-ROM Interface
 product PANASONIC KXLC003	0x0504 Panasonic 8X CD-ROM Interface
 product PANASONIC KME		0x2604 Panasonic CD-R/RW Interface
-
-/* Proxim */
-product PROXIM ROAMABOUT_2400FH	0x1058 Digital RoamAbout 2400FH
-product PROXIM RANGELAN2_7401	0x1158 Proxim RangeLAN2 7401
-product PROXIM RANGELANDS_8430	0x8000 Proxim RangeLAN-DS 8430 
-product PROXIM HARMONY_80211B	0x0002 Proxim Harmony 802.11B
-
-/* Ericsson */
-product	ERICSSON WIRELESSLAN	0x0001 DSSS Wireless LAN PC Card
 
 /* Psion */
 product PSION GOLDCARD		0x0020 Psion Goldcard
@@ -346,14 +311,8 @@ product PSION GOLDCARD		0x0020 Psion Goldcard
 product QUATECH DSP_225		0x0008 Quatech Dual RS232
 product QUATECH SSP_100		0x004b Quatech RS232
 
-/* Raylink/WebGear */
-product RAYTHEON WLAN		0x0000 WLAN Adapter
-
 /* RATOC System Inc. */
 product RATOC REX_R280		0x0001 RATOC REX-R280
-
-/* Samsung */
-product	SAMSUNG SWL_2000N	0x0002 Samsung MagicLAN SWL-2000N
 
 /* Sandisk */
 product SANDISK SDCFB		0x0401 Sandisk CompactFlash
@@ -376,7 +335,6 @@ product SIERRA	A710		0xa710 A710/A750
 
 /* Socket Communications */
 product SOCKET EA_ETHER		0x0000 Socket Communications EA
-product SOCKET LP_WLAN_CF	0x0001 Socket Communications Low Power WLAN
 product SOCKET PAGECARD		0x0003 Socket Communications PageCard
 product SOCKET DUAL_RS232	0x0006 Socket Communications Dual RS232
 product SOCKET LP_ETHER		0x000d Socket Communications LP-E
@@ -387,10 +345,6 @@ product SOCKET ETHER_CF_10_100	0x0145 Socket Communications CF 10/100
 product SMC 8020		0x0001 SMC EtherEZ 8020
 product SMC 8016		0x0105 SMC 8016
 product SMC EZCARD		0x8022 SMC EZCard
-
-/* Symbol */
-product SYMBOL  SPECTRUM24	0x0801 Spectrum24 WLAN IEEE 802.11 FHSS
-product SYMBOL	LA4100		0x0001 Spectrum24 LA4100 Series WLAN
 
 /* Telecom Device */
 product TELECOMDEVICE TCD_HPC100	0x0202 Telecom Device TCD-HPC100

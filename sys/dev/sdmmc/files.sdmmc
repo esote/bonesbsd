@@ -11,6 +11,3 @@ file	dev/sdmmc/sdmmc_cis.c		sdmmc
 file	dev/sdmmc/sdmmc_io.c		sdmmc
 file	dev/sdmmc/sdmmc_mem.c		sdmmc
 file	dev/sdmmc/sdmmc_scsi.c		sdmmc
-
-attach	bwfm at sdmmc with bwfm_sdio
-file	dev/sdmmc/if_bwfm_sdio.c	bwfm_sdio

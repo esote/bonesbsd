@@ -113,7 +113,6 @@
 #define	IFT_QLLC		   0x44 /* SNA QLLC			*/
 #define	IFT_FASTETHERFX		   0x45 /* Fast Ethernet (100BaseFX)	*/
 #define	IFT_CHANNEL		   0x46 /* channel			*/
-#define	IFT_IEEE80211		   0x47 /* radio spread spectrum	*/
 #define	IFT_IBM370PARCHAN	   0x48 /* IBM System 360/370 OEMI Channel */
 #define	IFT_ESCON		   0x49 /* IBM Enterprise Systems Connection */
 #define	IFT_DLSW		   0x4a /* Data Link Switching */

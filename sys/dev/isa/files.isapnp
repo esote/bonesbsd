@@ -38,9 +38,6 @@ attach	gus at isapnp with gus_isapnp
 file	dev/isa/gus_isapnp.c		gus_isapnp
 
 
-attach	an at isapnp with an_isapnp
-file	dev/isa/if_an_isapnp.c		an_isapnp
-
 attach	le at isapnp with le_isapnp: le24
 file	dev/isa/if_le_isapnp.c		le_isapnp
 
