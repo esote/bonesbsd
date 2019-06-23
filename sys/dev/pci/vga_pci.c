@@ -243,11 +243,6 @@ vga_pci_attach(struct device *parent, struct device *self, void *aux)
 		}
 #endif
 
-#ifdef RAMDISK_HOOKS
-	if (vga_aperture_needed(pa))
-		printf("%s: aperture needed\n", sc->sc_dev.dv_xname);
-#endif
-
 	sc->sc_vc = vga_common_attach(self, pa->pa_iot, pa->pa_memt,
 	    sc->sc_type);
 }

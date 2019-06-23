@@ -84,6 +84,5 @@ struct vga_pci_softc {
 
 int	vga_pci_cnattach(bus_space_tag_t, bus_space_tag_t,
 	    pci_chipset_tag_t, int, int, int);
-int	vga_aperture_needed(struct pci_attach_args *);
 
 #endif /* _PCI_VGA_PCIVAR_H_ */

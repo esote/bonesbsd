@@ -36,11 +36,6 @@
 #include <dev/pci/pcivar.h>
 #include <dev/pci/pcidevs.h>
 
-#ifdef APERTURE
-static int amdmsr_open_cnt;
-extern int allowaperture;
-#endif
-
 #define GLX_CPU_GLD_MSR_CAP	0x00002000
 #define GLX_CPU_DID		0x0864		/* CPU device ID */
 #define GLX_GP_GLD_MSR_CAP	0xa0002000
@@ -64,25 +59,6 @@ struct cfattach amdmsr_ca = {
 int
 amdmsr_probe(void)
 {
-#ifdef APERTURE
-	u_int64_t gld_msr_cap;
-	int family, model;
-
-	family = (cpu_id >> 8) & 0xf;
-	model  = (cpu_id >> 4) & 0xf;
-
-	/* Check for AMD Geode LX CPU */
-	if (strcmp(cpu_vendor, "AuthenticAMD") == 0 && family == 0x5 &&
-	    model == 0x0a) {
-		/* Check for graphics processor presence */
-		gld_msr_cap = rdmsr(GLX_CPU_GLD_MSR_CAP);
-		if (((gld_msr_cap >> 8) & 0x0fff) == GLX_CPU_DID) {
-			gld_msr_cap = rdmsr(GLX_GP_GLD_MSR_CAP);
-			if (((gld_msr_cap >> 8) & 0x0fff) == GLX_GP_DID)
-				return 1;
-		}
-	}
-#endif
 	return 0;
 }
 
@@ -103,28 +79,12 @@ amdmsr_attach(struct device *parent, struct device *self, void *aux)
 int
 amdmsropen(dev_t dev, int flags, int devtype, struct proc *p)
 {
-#ifdef APERTURE
-	if (amdmsr_cd.cd_ndevs == 0 || minor(dev) != 0)
-		return ENXIO;
-
-	if (suser(p) != 0 || !allowaperture)
-		return EPERM;
-	/* allow only one simultaneous open() */
-	if (amdmsr_open_cnt > 0)
-		return EPERM;
-	amdmsr_open_cnt++;
-	return 0;
-#else
 	return ENXIO;
-#endif
 }
 
 int
 amdmsrclose(dev_t dev, int flags, int devtype, struct proc *p)
 {
-#ifdef APERTURE
-	amdmsr_open_cnt--;
-#endif
 	return 0;
 }
 

@@ -65,14 +65,11 @@
 #include <dev/pci/pcireg.h>
 #include <dev/pci/pcidevs.h>
 
-#include <dev/pci/agpvar.h>
 #include <dev/pci/ppbreg.h>
 
 #include <dev/rndvar.h>
 
 #include <dev/ic/i82802reg.h>
-
-#include "agp.h"
 
 /* XXX should be in dev/ic/i82424{reg.var}.h */
 #define I82424_CPU_BCTL_REG		0x53

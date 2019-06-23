@@ -257,10 +257,6 @@ void	init_x86_64(paddr_t);
 void	(*cpuresetfn)(void);
 void	enter_shared_special_pages(void);
 
-#ifdef APERTURE
-int allowaperture = 0;
-#endif
-
 /*
  * Machine-dependent startup code
  */
@@ -507,19 +503,6 @@ cpu_sysctl(int *name, u_int namelen, void *oldp, size_t *oldlenp, void *newp,
 		else
 			return (sysctl_int(oldp, oldlenp, newp, newlen,
 			    &kbd_reset));
-	case CPU_ALLOWAPERTURE:
-		if (namelen != 1)
-			return (ENOTDIR);		/* overloaded */
-#ifdef APERTURE
-		if (securelevel > 0)
-			return (sysctl_int_lower(oldp, oldlenp, newp, newlen,
-			    &allowaperture));
-		else
-			return (sysctl_int(oldp, oldlenp, newp, newlen,
-			    &allowaperture));
-#else
-		return (sysctl_rdint(oldp, oldlenp, newp, 0));
-#endif
 	case CPU_XCRYPT:
 		return (sysctl_rdint(oldp, oldlenp, newp, amd64_has_xcrypt));
 	case CPU_LIDACTION:

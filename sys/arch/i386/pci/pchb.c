@@ -67,14 +67,11 @@
 #include <dev/pci/pcireg.h>
 #include <dev/pci/pcidevs.h>
 
-#include <dev/pci/agpvar.h>
 #include <dev/pci/ppbreg.h>
 
 #include <dev/rndvar.h>
 
 #include <dev/ic/i82802reg.h>
-
-#include "agp.h"
 
 #define PCISET_INTEL_BRIDGETYPE_MASK	0x3
 #define PCISET_INTEL_TYPE_COMPAT	0x1

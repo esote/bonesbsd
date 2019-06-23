@@ -16,7 +16,6 @@ maxusers	80			# estimated number of users
 option		USER_PCICONF	# user-space PCI configuration
 
 option		KVM86		# Kernel Virtual 8086 emulation
-option		APERTURE	# in-kernel aperture driver for XFree86
 option		MTRR		# CPU memory range attributes control
 
 option		HIBERNATE	# Hibernate support
@@ -348,20 +347,6 @@ wsdisplay0	at vga? console 1
 wsdisplay0	at pcdisplay? console 1
 wskbd*		at pckbd? mux 1
 wsmouse*	at pms? mux 0
-
-aliagp*		at pchb?
-amdagp*		at pchb?
-intelagp*	at pchb?
-sisagp*		at pchb?
-viaagp*		at pchb?
-#mmuagp*	at pchb?
-
-agp*		at aliagp?	# AGP bridges
-agp*		at amdagp?	# AGP bridges
-agp*		at intelagp?	# AGP bridges
-agp*		at sisagp?	# AGP bridges
-agp*		at viaagp?	# AGP bridges
-#agp*		at mmuagp?	
 
 pcppi0		at isa?
 

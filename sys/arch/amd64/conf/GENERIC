@@ -16,7 +16,6 @@ maxusers	80			# estimated number of users
 option		USER_PCICONF	# user-space PCI configuration
 
 #option		VM86		# Virtual 8086 emulation
-option		APERTURE	# in-kernel aperture driver for XFree86
 option		MTRR		# CPU memory range attributes control
 
 option		HIBERNATE	# Hibernate support

@@ -72,10 +72,6 @@ struct pci_dev {
 	int pd_vga_decode;
 };
 
-#ifdef APERTURE
-extern int allowaperture;
-#endif
-
 struct cfattach pci_ca = {
 	sizeof(struct pci_softc), pcimatch, pciattach, pcidetach, pciactivate
 };
@@ -1126,15 +1122,10 @@ pciopen(dev_t dev, int oflags, int devtype, struct proc *p)
 		return ENXIO;
 	}
 
-#ifndef APERTURE
 	if ((oflags & FWRITE) && securelevel > 0) {
 		return EPERM;
 	}
-#else
-	if ((oflags & FWRITE) && securelevel > 0 && allowaperture == 0) {
-		return EPERM;
-	}
-#endif
+
 	return (0);
 }
 

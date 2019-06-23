@@ -483,7 +483,6 @@ int	cpu_paenable(void *);
 #define	CPU_BIOS		2	/* BIOS variables */
 #define	CPU_BLK2CHR		3	/* convert blk maj into chr one */
 #define	CPU_CHR2BLK		4	/* convert chr maj into blk one */
-#define CPU_ALLOWAPERTURE	5	/* allow mmap of /dev/xf86 */
 #define CPU_CPUVENDOR		6	/* cpuid vendor string */
 #define CPU_CPUID		7	/* cpuid */
 #define CPU_CPUFEATURE		8	/* cpuid features */
@@ -502,7 +501,7 @@ int	cpu_paenable(void *);
 	{ "bios", CTLTYPE_INT }, \
 	{ "blk2chr", CTLTYPE_STRUCT }, \
 	{ "chr2blk", CTLTYPE_STRUCT }, \
-	{ "allowaperture", CTLTYPE_INT }, \
+	{ 0, 0 }, \
 	{ "cpuvendor", CTLTYPE_STRING }, \
 	{ "cpuid", CTLTYPE_INT }, \
 	{ "cpufeature", CTLTYPE_INT }, \

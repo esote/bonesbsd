@@ -66,10 +66,6 @@ extern struct vm_map *kernel_map;
 
 int i386_iopl(struct proc *, void *, register_t *);
 
-#ifdef APERTURE
-extern int allowaperture;
-#endif
-
 int
 i386_iopl(struct proc *p, void *args, register_t *retval)
 {
@@ -79,13 +75,9 @@ i386_iopl(struct proc *p, void *args, register_t *retval)
 
 	if ((error = suser(p)) != 0)
 		return error;
-#ifdef APERTURE
-	if (!allowaperture && securelevel > 0)
-		return EPERM;
-#else
+
 	if (securelevel > 0)
 		return EPERM;
-#endif
 
 	if ((error = copyin(args, &ua, sizeof(ua))) != 0)
 		return error;

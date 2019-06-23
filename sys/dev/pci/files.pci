@@ -15,7 +15,6 @@ file	dev/pci/pci_subr.c		pci
 # Generic VGA
 attach	vga at pci with vga_pci
 file	dev/pci/vga_pci.c		vga_pci
-file	dev/pci/vga_pci_common.c	vga_pci | vgafb
 
 device	tga: wsemuldisplaydev, rasops8, rasops32
 attach	tga at pci
@@ -784,5 +783,3 @@ file	dev/pci/ccp_pci.c		ccp_pci
 device	bnxt: ether, ifnet, ifmedia
 attach	bnxt at pci
 file	dev/pci/if_bnxt.c		bnxt
-
-include "dev/pci/files.agp"

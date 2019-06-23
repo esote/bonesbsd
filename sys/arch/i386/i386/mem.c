@@ -59,15 +59,6 @@
 extern char *vmmap;            /* poor name! */
 caddr_t zeropage;
 
-/* open counter for aperture */
-#ifdef APERTURE
-static int ap_open_count = 0;
-extern int allowaperture;
-
-#define VGA_START 0xA0000
-#define BIOS_END  0xFFFFF
-#endif
-
 #ifdef MTRR
 struct mem_range_softc mem_range_softc;
 static int mem_ioctl(dev_t, u_long, caddr_t, int, struct proc *);
@@ -88,18 +79,6 @@ mmopen(dev_t dev, int flag, int mode, struct proc *p)
 	case 2:
 	case 12:
 		break;
-#ifdef APERTURE
-	case 4:
-	        if (suser(p) != 0 || !allowaperture)
-			return (EPERM);
-
-		/* authorize only one simultaneous open() unless
-		 * allowaperture=3 */
-		if (ap_open_count > 0 && allowaperture < 3)
-			return(EPERM);
-		ap_open_count++;
-		break;
-#endif
 	default:
 		return (ENXIO);
 	}
@@ -110,10 +89,6 @@ mmopen(dev_t dev, int flag, int mode, struct proc *p)
 int
 mmclose(dev_t dev, int flag, int mode, struct proc *p)
 {
-#ifdef APERTURE
-	if (minor(dev) == 4)
-		ap_open_count = 0;
-#endif
 	return (0);
 }
 
@@ -214,35 +189,6 @@ mmmmap(dev_t dev, off_t off, int prot)
 			return -1;
 		return off;
 
-#ifdef APERTURE
-	/* minor device 4 is aperture driver */
-	case 4:
-		/* Check if a write combining mapping is requested. */
-		if (off >= MEMRANGE_WC_RANGE)
-			off = (off - MEMRANGE_WC_RANGE) | PMAP_WC;
-
-		switch (allowaperture) {
-		case 1:
-			/* Allow mapping of the VGA framebuffer & BIOS only */
-			if ((off >= VGA_START && off <= BIOS_END) ||
-			    (unsigned)off > (unsigned)ptoa(physmem))
-				return off;
-			else
-				return -1;
-		case 2:
-		case 3:
-			/* Allow mapping of the whole 1st megabyte
-			   for x86emu */
-			if (off <= BIOS_END ||
-			    (unsigned)off > (unsigned)ptoa(physmem))
-				return off;
-			else
-				return -1;
-		default:
-			return -1;
-		}
-			
-#endif
 	default:
 		return -1;
 	}
